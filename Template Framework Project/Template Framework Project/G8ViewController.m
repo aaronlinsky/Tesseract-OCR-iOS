@@ -9,7 +9,7 @@
 
 #import "G8ViewController.h"
 
-@interface G8ViewController ()
+@interface G8ViewController () 
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
@@ -21,6 +21,11 @@
  *  https://github.com/gali8/Tesseract-OCR-iOS
  */
 @implementation G8ViewController
+
+@synthesize captureSession = _captureSession;
+@synthesize dataOutput = _dataOutput;
+
+@synthesize customPreviewLayer = _customPreviewLayer;
 
 - (void)viewDidLoad
 {
@@ -85,19 +90,21 @@
     operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
         // Fetch the recognized text
         NSString *recognizedText = tesseract.recognizedText;
-
-        NSLog(@"%@", recognizedText);
-
-        // Remove the animated progress activity indicator
-        [self.activityIndicator stopAnimating];
-
-        // Spawn an alert with the recognized text
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OCR Result"
-                                                        message:recognizedText
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        
+        if (![recognizedText isEqualToString:@""]){
+            NSLog(@"%@", recognizedText);
+            
+            // Remove the animated progress activity indicator
+            [self.activityIndicator stopAnimating];
+            
+            // Spawn an alert with the recognized text
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OCR Result"
+                                                            message:recognizedText
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
     };
 
     // Finally, add the recognition operation to the queue
@@ -139,8 +146,16 @@
     }
 }
 
+- (IBAction)openVideo:(id)sender
+{
+    [self setupCameraSession];
+    [_captureSession startRunning];
+    
+    
+}
+
 - (IBAction)recognizeSampleImage:(id)sender {
-    [self recognizeImageWithTesseract:[UIImage imageNamed:@"image_sample.jpg"]];
+    [self recognizeImageWithTesseract:[UIImage imageNamed:@"2010.png"]];
 }
 
 - (IBAction)clearCache:(id)sender
@@ -157,4 +172,91 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [picker dismissViewControllerAnimated:YES completion:nil];
     [self recognizeImageWithTesseract:image];
 }
+
+
+- (void)setupCameraSession
+{
+    //ICLog;
+    
+    // Session
+    _captureSession = [AVCaptureSession new];
+    [_captureSession setSessionPreset:AVCaptureSessionPresetLow];
+    
+    // Capture device
+    AVCaptureDevice *inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    NSError *error;
+    
+    // Device input
+    AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:inputDevice error:&error];
+    if ( [_captureSession canAddInput:deviceInput] )
+        [_captureSession addInput:deviceInput];
+    
+    // Preview
+    _customPreviewLayer = [CALayer layer];
+    _customPreviewLayer.bounds = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    _customPreviewLayer.position = CGPointMake(self.view.frame.size.width/2., self.view.frame.size.height/2.);
+    _customPreviewLayer.affineTransform = CGAffineTransformMakeRotation(M_PI/2);
+
+    //[self.view.layer insertSublayer:_customPreviewLayer atIndex:0];
+    
+    UIViewController *vc = [[UIViewController alloc] init];
+    [vc.view.layer addSublayer:_customPreviewLayer ];
+    
+    [self presentViewController:vc animated:true completion:nil];
+    
+    _dataOutput = [AVCaptureVideoDataOutput new];
+    _dataOutput.videoSettings = [NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
+                                                            forKey:(NSString *)kCVPixelBufferPixelFormatTypeKey];
+    
+    [_dataOutput setAlwaysDiscardsLateVideoFrames:YES];
+    
+    if ( [_captureSession canAddOutput:_dataOutput] )
+        [_captureSession addOutput:_dataOutput];
+    
+    [_captureSession commitConfiguration];
+    
+    dispatch_queue_t queue = dispatch_queue_create("VideoQueue", DISPATCH_QUEUE_SERIAL);
+    [_dataOutput setSampleBufferDelegate:self queue:queue];
+}
+
+- (void)maxFromImage:(const vImage_Buffer)src toImage:(const vImage_Buffer)dst
+{
+    int kernelSize = 7;
+    vImageMin_Planar8(&src, &dst, NULL, 0, 0, kernelSize, kernelSize, kvImageDoNotTile);
+}
+
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput
+didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+       fromConnection:(AVCaptureConnection *)connection
+{
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    CVPixelBufferLockBaseAddress(imageBuffer, 0);
+    
+    // For the iOS the luma is contained in full plane (8-bit)
+    size_t width = CVPixelBufferGetWidthOfPlane(imageBuffer, 0);
+    size_t height = CVPixelBufferGetHeightOfPlane(imageBuffer, 0);
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRowOfPlane(imageBuffer, 0);
+    
+    Pixel_8 *lumaBuffer = CVPixelBufferGetBaseAddressOfPlane(imageBuffer, 0);
+    
+    const vImage_Buffer inImage = { lumaBuffer, height, width, bytesPerRow };
+    
+    CGColorSpaceRef grayColorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate(inImage.data, width, height, 8, bytesPerRow, grayColorSpace, kCGImageAlphaNone);
+    CGImageRef dstImageFilter = CGBitmapContextCreateImage(context);
+    
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        _customPreviewLayer.contents = (__bridge id)dstImageFilter;
+    });
+    
+    UIImage *image = [UIImage imageWithCGImage:dstImageFilter scale:1.0 orientation:UIImageOrientationRight];
+    [self recognizeImageWithTesseract:image];
+    
+    CGImageRelease(dstImageFilter);
+    CGContextRelease(context);
+    CGColorSpaceRelease(grayColorSpace);
+}
+
+
 @end

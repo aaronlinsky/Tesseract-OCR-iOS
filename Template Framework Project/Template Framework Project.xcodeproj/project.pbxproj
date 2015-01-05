@@ -22,6 +22,13 @@
 		64DDA75B188FD9140025590D /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 64DDA75A188FD9140025590D /* tessdata */; };
 		64E40AB1180C6D4D00C36DDE /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E40AB0180C6D4D00C36DDE /* libstdc++.6.0.9.dylib */; };
 		736EFF261A5877200031B432 /* tessdata-rus in Resources */ = {isa = PBXBuildFile; fileRef = 736EFF251A5877200031B432 /* tessdata-rus */; };
+		DC52B05F1A59E7E70004E31B /* 2009.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DC52B05E1A59E7E70004E31B /* 2009.jpg */; };
+		DC52B0611A59E7FE0004E31B /* 2010.png in Resources */ = {isa = PBXBuildFile; fileRef = DC52B0601A59E7FE0004E31B /* 2010.png */; };
+		DC52B0631A59EF8D0004E31B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC52B0621A59EF8D0004E31B /* CoreVideo.framework */; };
+		DC52B0651A59EFA00004E31B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC52B0641A59EFA00004E31B /* AVFoundation.framework */; };
+		DC52B0671A59F0CE0004E31B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC52B0661A59F0CE0004E31B /* QuartzCore.framework */; };
+		DC52B0691A59F0DE0004E31B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC52B0681A59F0DE0004E31B /* CoreMedia.framework */; };
+		DC52B06B1A5A3CDA0004E31B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC52B06A1A5A3CDA0004E31B /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +52,13 @@
 		64DDA75A188FD9140025590D /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		64E40AB0180C6D4D00C36DDE /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		736EFF251A5877200031B432 /* tessdata-rus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tessdata-rus"; path = "../TestsProject/TestsProjectTests/tessdata-rus"; sourceTree = "<group>"; };
+		DC52B05E1A59E7E70004E31B /* 2009.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009.jpg; sourceTree = "<group>"; };
+		DC52B0601A59E7FE0004E31B /* 2010.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2010.png; sourceTree = "<group>"; };
+		DC52B0621A59EF8D0004E31B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		DC52B0641A59EFA00004E31B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DC52B0661A59F0CE0004E31B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DC52B0681A59F0DE0004E31B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		DC52B06A1A5A3CDA0004E31B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +66,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC52B06B1A5A3CDA0004E31B /* Accelerate.framework in Frameworks */,
+				DC52B0691A59F0DE0004E31B /* CoreMedia.framework in Frameworks */,
+				DC52B0671A59F0CE0004E31B /* QuartzCore.framework in Frameworks */,
+				DC52B0651A59EFA00004E31B /* AVFoundation.framework in Frameworks */,
+				DC52B0631A59EF8D0004E31B /* CoreVideo.framework in Frameworks */,
 				64907490198A5CD500D728CC /* CoreImage.framework in Frameworks */,
 				6420626F1846105200EE2AD4 /* TesseractOCR.framework in Frameworks */,
 				64E40AB1180C6D4D00C36DDE /* libstdc++.6.0.9.dylib in Frameworks */,
@@ -85,6 +104,11 @@
 		6400DDD7180C5DE000443362 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC52B06A1A5A3CDA0004E31B /* Accelerate.framework */,
+				DC52B0681A59F0DE0004E31B /* CoreMedia.framework */,
+				DC52B0661A59F0CE0004E31B /* QuartzCore.framework */,
+				DC52B0641A59EFA00004E31B /* AVFoundation.framework */,
+				DC52B0621A59EF8D0004E31B /* CoreVideo.framework */,
 				6490748F198A5CD500D728CC /* CoreImage.framework */,
 				64E40AB0180C6D4D00C36DDE /* libstdc++.6.0.9.dylib */,
 				6420626E1846105200EE2AD4 /* TesseractOCR.framework */,
@@ -114,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				428615B61845F340005D5A2E /* image_sample.jpg */,
+				DC52B05E1A59E7E70004E31B /* 2009.jpg */,
+				DC52B0601A59E7FE0004E31B /* 2010.png */,
 				6400DDE0180C5DE000443362 /* Template Framework Project-Info.plist */,
 				6400DDE1180C5DE000443362 /* InfoPlist.strings */,
 				6400DDE4180C5DE000443362 /* main.m */,
@@ -151,6 +177,11 @@
 				CLASSPREFIX = G8;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Daniele Galiotto - www.g8production.com";
+				TargetAttributes = {
+					6400DDD4180C5DE000443362 = {
+						DevelopmentTeam = QTTM6F7H9C;
+					};
+				};
 			};
 			buildConfigurationList = 6400DDD0180C5DE000443362 /* Build configuration list for PBXProject "Template Framework Project" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -177,6 +208,8 @@
 			files = (
 				6400DDF1180C5DE000443362 /* Images.xcassets in Resources */,
 				428615B71845F340005D5A2E /* image_sample.jpg in Resources */,
+				DC52B05F1A59E7E70004E31B /* 2009.jpg in Resources */,
+				DC52B0611A59E7FE0004E31B /* 2010.png in Resources */,
 				64DDA75B188FD9140025590D /* tessdata in Resources */,
 				736EFF261A5877200031B432 /* tessdata-rus in Resources */,
 				6400DDE3180C5DE000443362 /* InfoPlist.strings in Resources */,
@@ -300,6 +333,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aaron Linsky (GH2N2967SK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../Products",
@@ -310,6 +345,7 @@
 				INFOPLIST_FILE = "Template Framework Project/Template Framework Project-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "cbeaa9e0-c8f4-41bb-bbec-29fe6156bf25";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -319,6 +355,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aaron Linsky (GH2N2967SK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../Products",
@@ -329,6 +367,7 @@
 				INFOPLIST_FILE = "Template Framework Project/Template Framework Project-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "cbeaa9e0-c8f4-41bb-bbec-29fe6156bf25";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

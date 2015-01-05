@@ -9,15 +9,25 @@
 
 #import <UIKit/UIKit.h>
 #import <TesseractOCR/TesseractOCR.h>
+#import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
+#import <CoreMedia/CoreMedia.h>
+#import <Accelerate/Accelerate.h>
 
 @interface G8ViewController : UIViewController <G8TesseractDelegate,
                                                 UIImagePickerControllerDelegate,
-                                                UINavigationControllerDelegate>
+                                                UINavigationControllerDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageToRecognize;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+
+@property (nonatomic, strong) AVCaptureVideoDataOutput *dataOutput;
+@property (nonatomic, strong) CALayer *customPreviewLayer;
 
 - (IBAction)openCamera:(id)sender;
+- (IBAction)openVideo:(id)sender;
 - (IBAction)recognizeSampleImage:(id)sender;
+- (void)setupCameraSession;
 
 @end
