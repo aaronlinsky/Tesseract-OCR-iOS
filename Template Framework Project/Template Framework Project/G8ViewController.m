@@ -37,15 +37,23 @@
 
 -(void)recognizeImageWithTesseract:(UIImage *)image
 {
+    static NSInteger recCompleated = 1;
     // Preprocess the image so Tesseract's recognition will be more accurate
-    UIImage *bwImage = [image g8_blackAndWhite];
+    UIImage *bwImage = [[self fixOrientationOfImage:image] g8_blackAndWhite];
 
     // Animate a progress activity indicator
-    [self.activityIndicator startAnimating];
+    //[self.activityIndicator startAnimating];
 
     // Display the preprocessed image to be recognized in the view
-    self.imageToRecognize.image = bwImage;
-
+    [self.imageToRecognize setImage:bwImage];
+    if (recCompleated == 0) {
+        return;
+    } else if (recCompleated >1) {
+        recCompleated --;
+        return;
+    } else {
+        recCompleated = 0;
+    }
     // Create a new `G8RecognitionOperation` to perform the OCR asynchronously
     G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
     
@@ -75,7 +83,7 @@
 
     // Optionally limit Tesseract's recognition to the following whitelist
     // and blacklist of characters
-    //operation.tesseract.charWhitelist = @"01234";
+    //operation.tesseract.charWhitelist = @"0123456789";
     //operation.tesseract.charBlacklist = @"56789";
     
     // Set the image on which Tesseract should perform recognition
@@ -87,24 +95,16 @@
 
     // Specify the function block that should be executed when Tesseract
     // finishes performing recognition on the image
+
+    recCompleated = NO;
+    
     operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
         // Fetch the recognized text
         NSString *recognizedText = tesseract.recognizedText;
-        
         if (![recognizedText isEqualToString:@""]){
-            NSLog(@"%@", recognizedText);
-            
-            // Remove the animated progress activity indicator
-            [self.activityIndicator stopAnimating];
-            
-            // Spawn an alert with the recognized text
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OCR Result"
-                                                            message:recognizedText
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+            NSLog(@"----------------\n%@", recognizedText);
         }
+        recCompleated = 20;
     };
 
     // Finally, add the recognition operation to the queue
@@ -258,5 +258,56 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CGColorSpaceRelease(grayColorSpace);
 }
 
+- (UIImage *)fixOrientationOfImage:(UIImage *)image {
+    // No-op if the orientation is already correct
+    if (image.imageOrientation == UIImageOrientationUp) return image;
+    
+    // We need to calculate the proper transformation to make the image upright.
+    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationPortraitUpsideDown:
+            transform = CGAffineTransformTranslate(transform, image.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            transform = CGAffineTransformTranslate(transform, 0, 0);
+            transform = CGAffineTransformRotate(transform, 0);
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            transform = CGAffineTransformTranslate(transform, image.size.width, image.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+        case UIDeviceOrientationPortrait:
+            transform = CGAffineTransformTranslate(transform,  0, image.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+    }
+    
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, image.size.width, image.size.height,
+                                             CGImageGetBitsPerComponent(image.CGImage), 0,
+                                             CGImageGetColorSpace(image.CGImage),
+                                             CGImageGetBitmapInfo(image.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationPortraitUpsideDown:
+        case UIDeviceOrientationPortrait:
+            CGContextDrawImage(ctx, CGRectMake(0,0,MIN( image.size.height,image.size.width),MAX( image.size.height,image.size.width)), image.CGImage);
+            break;
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,MAX( image.size.height,image.size.width),MIN( image.size.height,image.size.width)), image.CGImage);
+            break;
+    }
+    //CGContextDrawImage(ctx, CGRectMake(0,0,MIN( image.size.height,image.size.width),MAX( image.size.height,image.size.width)), image.CGImage);
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
+}
 
 @end
