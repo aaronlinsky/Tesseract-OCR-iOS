@@ -20,7 +20,9 @@
  *  For more information about using `G8Tesseract`, visit the GitHub page at:
  *  https://github.com/gali8/Tesseract-OCR-iOS
  */
-@implementation G8ViewController
+@implementation G8ViewController{
+    double numberOfFrame;
+}
 
 @synthesize captureSession = _captureSession;
 @synthesize dataOutput = _dataOutput;
@@ -98,12 +100,12 @@
             [self.activityIndicator stopAnimating];
             
             // Spawn an alert with the recognized text
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OCR Result"
-                                                            message:recognizedText
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+            //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OCR Result"
+//                                                            message:recognizedText
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+            //[alert show];
         }
     };
 
@@ -148,6 +150,7 @@
 
 - (IBAction)openVideo:(id)sender
 {
+    numberOfFrame = 0;
     [self setupCameraSession];
     [_captureSession startRunning];
     
@@ -230,6 +233,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
+    numberOfFrame++;
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
     
@@ -251,7 +255,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     });
     
     UIImage *image = [UIImage imageWithCGImage:dstImageFilter scale:1.0 orientation:UIImageOrientationRight];
-    [self recognizeImageWithTesseract:image];
+    double frameSampleRate = 20.0;
+    //NSLog(@"%f", numberOfFrame);
+    
+    if(fmodf(numberOfFrame,frameSampleRate)==0){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              [self recognizeImageWithTesseract:image];
+        });
+    }
     
     CGImageRelease(dstImageFilter);
     CGContextRelease(context);
