@@ -256,7 +256,7 @@
       configDictionary:(NSDictionary *)configDictionary
        configFileNames:(NSArray *)configFileNames
  cachesRelatedDataPath:(NSString *)cachesRelatedDataPath
-            engineMode:(G8OCREngineMode)engineMode NS_DESIGNATED_INITIALIZER;
+            engineMode:(G8OCREngineMode)engineMode;
 
 /**
  *  Set a Tesseract variable. See G8TesseractParameters.h for the available

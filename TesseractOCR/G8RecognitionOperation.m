@@ -11,6 +11,8 @@
 
 #import "TesseractOCR.h"
 
+static G8Tesseract *tess;
+
 @interface G8RecognitionOperation() <G8TesseractDelegate>
 
 @property (nonatomic, strong, readwrite) G8Tesseract *tesseract;
@@ -20,11 +22,27 @@
 
 @implementation G8RecognitionOperation
 
++(void)reinitTess
+{
+    tess = [[G8Tesseract alloc] init];
+    tess.language = @"eng";
+    tess.charWhitelist = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    tess.engineMode = G8OCREngineModeTesseractOnly;
+    tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;
+    [tess setVariableValue:@"0" forKey:kG8ParamChopEnable];
+    //kG8ParamTospImproveThresh
+}
+
 - (id)init
 {
     self = [super init];
     if (self != nil) {
-        _tesseract = [[G8Tesseract alloc] init];
+        if(tess == nil)
+        {
+            [G8RecognitionOperation reinitTess];
+        }
+        
+        _tesseract = tess;
         _tesseract.delegate = self;
 
         __weak __typeof(self) weakSelf = self;
@@ -48,7 +66,7 @@
 
 - (void)main
 {
-    @autoreleasepool {
+    @autoreleasepool{
         [self.tesseract recognize];
     }
 }
@@ -68,7 +86,7 @@
 
 - (BOOL)shouldCancelImageRecognitionForTesseract:(G8Tesseract *)tesseract
 {
-    BOOL canceled = self.cancelled;
+    BOOL canceled = self.isCancelled;
     if (canceled == NO && [self.delegate respondsToSelector:@selector(shouldCancelImageRecognitionForTesseract:)]) {
         canceled = [self.delegate shouldCancelImageRecognitionForTesseract:tesseract];
     }

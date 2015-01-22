@@ -25,7 +25,6 @@
 @property (nonatomic, strong) AVCaptureVideoDataOutput *dataOutput;
 @property (nonatomic, strong) CALayer *customPreviewLayer;
 
-- (IBAction)openCamera:(id)sender;
 - (IBAction)openVideo:(id)sender;
 - (IBAction)recognizeSampleImage:(id)sender;
 - (void)setupCameraSession;

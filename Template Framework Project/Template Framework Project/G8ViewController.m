@@ -9,10 +9,15 @@
 
 #import "G8ViewController.h"
 
+#define TICK        NSDate *startTime = [NSDate date]
+#define ELAPSED     -[startTime timeIntervalSinceNow]
+#define TOCK        NSLog(@"Time: %f", ELAPSED)
+
+
 @interface G8ViewController () 
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
-
+@property BOOL readyToOCR;
 @end
 
 
@@ -21,7 +26,7 @@
  *  https://github.com/gali8/Tesseract-OCR-iOS
  */
 @implementation G8ViewController{
-    double numberOfFrame;
+    UILabel *ocrResultsLabel;
 }
 
 @synthesize captureSession = _captureSession;
@@ -35,129 +40,57 @@
 
     // Create a queue to perform recognition operations
     self.operationQueue = [[NSOperationQueue alloc] init];
+    self.readyToOCR = YES;
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self openVideo:nil];
 }
 
 -(void)recognizeImageWithTesseract:(UIImage *)image
 {
-    // Preprocess the image so Tesseract's recognition will be more accurate
-    UIImage *bwImage = [image g8_blackAndWhite];
+    TICK;
+    UIImage *bwImage = image;//[image g8_blackAndWhite];
 
-    // Animate a progress activity indicator
-    [self.activityIndicator startAnimating];
-
-    // Display the preprocessed image to be recognized in the view
-    self.imageToRecognize.image = bwImage;
-
-    // Create a new `G8RecognitionOperation` to perform the OCR asynchronously
     G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
     
-    // It is assumed that there is a .traineddata file for the language pack
-    // you want Tesseract to use in the "tessdata" folder in the root of the
-    // project AND that the "tessdata" folder is a referenced folder and NOT
-    // a symbolic group in your project
-    operation.tesseract.language = @"eng";
-    
-    // Use the original Tesseract engine mode in performing the recognition
-    // (see G8Constants.h) for other engine mode options
-    operation.tesseract.engineMode = G8OCREngineModeTesseractOnly;
-    
-    // Let Tesseract automatically segment the page into blocks of text
-    // based on its analysis (see G8Constants.h) for other page segmentation
-    // mode options
-    operation.tesseract.pageSegmentationMode = G8PageSegmentationModeAutoOnly;
-    
-    // Optionally limit the time Tesseract should spend performing the
-    // recognition
-    //operation.tesseract.maximumRecognitionTime = 1.0;
-    
-    // Set the delegate for the recognition to be this class
-    // (see `progressImageRecognitionForTesseract` and
-    // `shouldCancelImageRecognitionForTesseract` methods below)
     operation.delegate = self;
-
-    // Optionally limit Tesseract's recognition to the following whitelist
-    // and blacklist of characters
-    //operation.tesseract.charWhitelist = @"01234";
-    //operation.tesseract.charBlacklist = @"56789";
-    
-    // Set the image on which Tesseract should perform recognition
     operation.tesseract.image = bwImage;
-
-    // Optionally limit the region in the image on which Tesseract should
-    // perform recognition to a rectangle
-    //operation.tesseract.rect = CGRectMake(20, 20, 100, 100);
-
-    // Specify the function block that should be executed when Tesseract
-    // finishes performing recognition on the image
     operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
-        // Fetch the recognized text
+        TOCK;
         NSString *recognizedText = tesseract.recognizedText;
-        
-        if (![recognizedText isEqualToString:@""]){
-            NSLog(@"%@", recognizedText);
-            
-            // Remove the animated progress activity indicator
-            [self.activityIndicator stopAnimating];
-            
-            // Spawn an alert with the recognized text
-            //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OCR Result"
-//                                                            message:recognizedText
-//                                                           delegate:nil
-//                                                  cancelButtonTitle:@"OK"
-//                                                  otherButtonTitles:nil];
-            //[alert show];
+        NSString* recognizedTextNoWhitespaces = [[recognizedText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@"" ];
+        ocrResultsLabel.text = [recognizedTextNoWhitespaces stringByAppendingFormat:@"\n%f",ELAPSED];
+
+        if(ELAPSED > 0.7)//should not use constant value here but derive from average ELAPSED time
+        {//degradation detected. Force tesserect reinit
+            NSLog(@"Reinitializing...");
+            ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];//reinitialization signalling
+            [G8RecognitionOperation reinitTess];
         }
+//        NSLog(@"%@",recognizedText);
+//        NSLog(@"2");
+        self.readyToOCR = YES;
     };
 
-    // Finally, add the recognition operation to the queue
     [self.operationQueue addOperation:operation];
 }
 
-/**
- *  This function is part of Tesseract's delegate. It will be called
- *  periodically as the recognition happens so you can observe the progress.
- *
- *  @param tesseract The `G8Tesseract` object performing the recognition.
- */
-- (void)progressImageRecognitionForTesseract:(G8Tesseract *)tesseract {
-    NSLog(@"progress: %lu", (unsigned long)tesseract.progress);
-}
-
-/**
- *  This function is part of Tesseract's delegate. It will be called
- *  periodically as the recognition happens so you can cancel the recogntion
- *  prematurely if necessary.
- *
- *  @param tesseract The `G8Tesseract` object performing the recognition.
- *
- *  @return Whether or not to cancel the recognition.
- */
 - (BOOL)shouldCancelImageRecognitionForTesseract:(G8Tesseract *)tesseract {
-    return NO;  // return YES, if you need to cancel recognition prematurely
+    return NO;
 }
 
-- (IBAction)openCamera:(id)sender
-{
-    UIImagePickerController *imgPicker = [UIImagePickerController new];
-    imgPicker.delegate = self;
-
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-    {
-        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:imgPicker animated:YES completion:nil];
-    }
-}
 
 - (IBAction)openVideo:(id)sender
 {
-    numberOfFrame = 0;
     [self setupCameraSession];
     [_captureSession startRunning];
-    
-    
 }
 
 - (IBAction)recognizeSampleImage:(id)sender {
+
     [self recognizeImageWithTesseract:[UIImage imageNamed:@"2010.png"]];
 }
 
@@ -166,24 +99,16 @@
     [G8Tesseract clearCache];
 }
 
-#pragma mark - UIImagePickerController Delegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    [self recognizeImageWithTesseract:image];
-}
-
-
 - (void)setupCameraSession
 {
     //ICLog;
     
     // Session
     _captureSession = [AVCaptureSession new];
-    [_captureSession setSessionPreset:AVCaptureSessionPresetLow];
+    [_captureSession setSessionPreset:  //AVCaptureSessionPreset352x288
+                                        AVCaptureSessionPreset640x480
+                                        //AVCaptureSessionPreset1280x720
+     ];
     
     // Capture device
     AVCaptureDevice *inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -196,20 +121,38 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     // Preview
     _customPreviewLayer = [CALayer layer];
-    _customPreviewLayer.bounds = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    _customPreviewLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _customPreviewLayer.position = CGPointMake(self.view.frame.size.width/2., self.view.frame.size.height/2.);
-    _customPreviewLayer.affineTransform = CGAffineTransformMakeRotation(M_PI/2);
-
-    //[self.view.layer insertSublayer:_customPreviewLayer atIndex:0];
     
     UIViewController *vc = [[UIViewController alloc] init];
     [vc.view.layer addSublayer:_customPreviewLayer ];
     
-    [self presentViewController:vc animated:true completion:nil];
+    ocrResultsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,
+                                                               0,
+                                                               CGRectGetWidth(self.view.frame),
+                                                               CGRectGetHeight(self.view.frame))];
+    ocrResultsLabel.layer.position = CGPointMake(CGRectGetWidth(ocrResultsLabel.frame)/2,50);
+    ocrResultsLabel.textAlignment = NSTextAlignmentCenter;
+    [vc.view addSubview:ocrResultsLabel];
+    ocrResultsLabel.numberOfLines = 0;
+    ocrResultsLabel.textColor = [UIColor whiteColor];
+    
+    UIButton *quitButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
+                                                                     CGRectGetHeight([UIScreen mainScreen].bounds)-40,
+                                                                     40,
+                                                                     40)];
+    [quitButton setTitle:@"Quit" forState:UIControlStateNormal];
+    [quitButton addTarget:self action:@selector(quitPreview:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.view addSubview:quitButton];
+    [quitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal]  ;
+    quitButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    quitButton.layer.borderWidth = 2;
+    quitButton.layer.cornerRadius = 10;
+    
+    [self presentViewController:vc animated:NO completion:nil];
     
     _dataOutput = [AVCaptureVideoDataOutput new];
-    _dataOutput.videoSettings = [NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]
-                                                            forKey:(NSString *)kCVPixelBufferPixelFormatTypeKey];
+    _dataOutput.videoSettings = [NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]forKey:(NSString *)kCVPixelBufferPixelFormatTypeKey];
     
     [_dataOutput setAlwaysDiscardsLateVideoFrames:YES];
     
@@ -222,18 +165,20 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [_dataOutput setSampleBufferDelegate:self queue:queue];
 }
 
-- (void)maxFromImage:(const vImage_Buffer)src toImage:(const vImage_Buffer)dst
-{
-    int kernelSize = 7;
-    vImageMin_Planar8(&src, &dst, NULL, 0, 0, kernelSize, kernelSize, kvImageDoNotTile);
-}
+//- (void)maxFromImage:(const vImage_Buffer)src toImage:(const vImage_Buffer)dst
+//{
+//    int kernelSize = 7;
+//    vImageMin_Planar8(&src, &dst, NULL, 0, 0, kernelSize, kernelSize, kvImageDoNotTile);
+//}
 
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-    numberOfFrame++;
+    if([connection isVideoOrientationSupported])
+        connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+    
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
     
@@ -253,14 +198,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     dispatch_sync(dispatch_get_main_queue(), ^{
         _customPreviewLayer.contents = (__bridge id)dstImageFilter;
     });
-    
-    UIImage *image = [UIImage imageWithCGImage:dstImageFilter scale:1.0 orientation:UIImageOrientationRight];
-    double frameSampleRate = 20.0;
-    //NSLog(@"%f", numberOfFrame);
-    
-    if(fmodf(numberOfFrame,frameSampleRate)==0){
+
+    if(self.readyToOCR){
+//        NSLog(@"1");
+        UIImage *image = [UIImage imageWithCGImage:dstImageFilter];//[UIImage imageWithCGImage:dstImageFilter scale:1.0 orientation:UIImageOrientationUp];
+        self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              [self recognizeImageWithTesseract:image];
+            [self recognizeImageWithTesseract:image];
+//            [self recognizeImageWithTesseract:[[UIImage imageNamed:@"2009.jpg"] g8_blackAndWhite] ];
         });
     }
     
@@ -269,5 +214,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CGColorSpaceRelease(grayColorSpace);
 }
 
+-(void)quitPreview:(id)sender
+{
+    [_captureSession removeOutput:_dataOutput];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
