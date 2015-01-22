@@ -1,5 +1,5 @@
 //
-//  OcrParser.h
+//  NSString+Levenstein.h
 //  Template Framework Project
 //
 //  Created by Sergey Yuzepovich on 22.01.15.
@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OcrParser : NSObject
-
-+(BOOL)parseWine:(NSString*)wineFamily  ocrString:(NSString*)text toYear:(NSString**)year andVariety:(NSString**)variety;
-
+@interface NSString (levenshteinDistance)
+- (NSUInteger)levenshteinDistanceToString:(NSString *)string;
 @end

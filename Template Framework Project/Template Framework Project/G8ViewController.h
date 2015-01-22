@@ -18,7 +18,6 @@
                                                 UIImagePickerControllerDelegate,
                                                 UINavigationControllerDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageToRecognize;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 
@@ -26,7 +25,6 @@
 @property (nonatomic, strong) CALayer *customPreviewLayer;
 
 - (IBAction)openVideo:(id)sender;
-- (IBAction)recognizeSampleImage:(id)sender;
 - (void)setupCameraSession;
 
 @end

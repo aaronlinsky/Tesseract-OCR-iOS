@@ -75,10 +75,17 @@
 //        NSLog(@"%@",recognizedText);
 //        NSLog(@"2");
         
-        NSString *year;
-        NSString *variety;
-        [OcrParser parseString:recognizedText toYear:&year andVariety:&variety];
-        parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
+        if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
+            
+            NSString *year;
+            NSString *variety;
+            [OcrParser parseWine:@"mira" ocrString:recognizedText toYear:&year andVariety:&variety];
+            parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
+        }
+        
+//        TICK;
+//        NSLog(@"%lu",(unsigned long)[OcrParser parse:@"1234567890" to:@"12345607890"]);
+//        TOCK;
         
         self.readyToOCR = YES;
     };
@@ -105,8 +112,8 @@
     // Session
     _captureSession = [AVCaptureSession new];
     [_captureSession setSessionPreset:  //AVCaptureSessionPreset352x288
-                                        AVCaptureSessionPreset640x480
-                                        //AVCaptureSessionPreset1280x720
+                                        //AVCaptureSessionPreset640x480
+                                        AVCaptureSessionPreset1280x720
      ];
     
     // Capture device
