@@ -27,6 +27,7 @@
  */
 @implementation G8ViewController{
     UILabel *ocrResultsLabel;
+    UILabel *parsingResultsLabel;
 }
 
 @synthesize captureSession = _captureSession;
@@ -137,6 +138,17 @@
     ocrResultsLabel.numberOfLines = 0;
     ocrResultsLabel.textColor = [UIColor whiteColor];
     
+    parsingResultsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,
+                                                                   0,
+                                                                   CGRectGetWidth(self.view.frame),
+                                                                   CGRectGetHeight(self.view.frame))];
+    parsingResultsLabel.layer.position = CGPointMake(CGRectGetWidth(parsingResultsLabel.frame)/2,CGRectGetHeight(self.view.frame)-50);
+    parsingResultsLabel.textAlignment = NSTextAlignmentCenter;
+    [vc.view addSubview:parsingResultsLabel];
+    parsingResultsLabel.numberOfLines = 0;
+    parsingResultsLabel.textColor = [UIColor whiteColor];
+    parsingResultsLabel.text = @"Year/Variety";
+    
     UIButton *quitButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
                                                                      CGRectGetHeight([UIScreen mainScreen].bounds)-40,
                                                                      40,
@@ -164,13 +176,6 @@
     dispatch_queue_t queue = dispatch_queue_create("VideoQueue", DISPATCH_QUEUE_SERIAL);
     [_dataOutput setSampleBufferDelegate:self queue:queue];
 }
-
-//- (void)maxFromImage:(const vImage_Buffer)src toImage:(const vImage_Buffer)dst
-//{
-//    int kernelSize = 7;
-//    vImageMin_Planar8(&src, &dst, NULL, 0, 0, kernelSize, kernelSize, kvImageDoNotTile);
-//}
-
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
@@ -220,4 +225,40 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint touchPoint = [touch locationInView:touch.view];
+    [self focus:touchPoint];
+}
+
+- (void) focus:(CGPoint) aPoint;
+{
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    
+    if (captureDeviceClass != nil) {
+        NSLog(@"Focusing...");
+        AVCaptureDevice *device = [captureDeviceClass defaultDeviceWithMediaType:AVMediaTypeVideo];
+        
+        if([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+            
+            CGRect screenRect = [[UIScreen mainScreen] bounds];
+            double screenWidth = screenRect.size.width;
+            double screenHeight = screenRect.size.height;
+            double focus_x = aPoint.x/screenWidth;
+            double focus_y = aPoint.y/screenHeight;
+            
+            if([device lockForConfiguration:nil]) {
+                
+                [device setFocusPointOfInterest:CGPointMake(focus_x,focus_y)];
+                [device setFocusMode:AVCaptureFocusModeAutoFocus];
+                
+                if ([device isExposureModeSupported:AVCaptureExposureModeAutoExpose]){
+                    [device setExposureMode:AVCaptureExposureModeAutoExpose];
+                }
+                [device unlockForConfiguration];
+            }
+        }
+    }
+}
 @end
