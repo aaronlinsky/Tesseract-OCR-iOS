@@ -8,6 +8,7 @@
 //
 
 #import "G8ViewController.h"
+#import "OcrParser.h"
 
 #define TICK        NSDate *startTime = [NSDate date]
 #define ELAPSED     -[startTime timeIntervalSinceNow]
@@ -73,6 +74,12 @@
         }
 //        NSLog(@"%@",recognizedText);
 //        NSLog(@"2");
+        
+        NSString *year;
+        NSString *variety;
+        [OcrParser parseString:recognizedText toYear:&year andVariety:&variety];
+        parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
+        
         self.readyToOCR = YES;
     };
 
@@ -90,15 +97,6 @@
     [_captureSession startRunning];
 }
 
-- (IBAction)recognizeSampleImage:(id)sender {
-
-    [self recognizeImageWithTesseract:[UIImage imageNamed:@"2010.png"]];
-}
-
-- (IBAction)clearCache:(id)sender
-{
-    [G8Tesseract clearCache];
-}
 
 - (void)setupCameraSession
 {
