@@ -26,7 +26,6 @@
 		64DDA74E188FD7D10025590D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6400DDEA180C5DE000443362 /* Main.storyboard */; };
 		64DDA75B188FD9140025590D /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 64DDA75A188FD9140025590D /* tessdata */; };
 		64E40AB1180C6D4D00C36DDE /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 64E40AB0180C6D4D00C36DDE /* libstdc++.6.0.9.dylib */; };
-		736EFF261A5877200031B432 /* tessdata-rus in Resources */ = {isa = PBXBuildFile; fileRef = 736EFF251A5877200031B432 /* tessdata-rus */; };
 		DC52B05F1A59E7E70004E31B /* 2009.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DC52B05E1A59E7E70004E31B /* 2009.jpg */; };
 		DC52B0611A59E7FE0004E31B /* 2010.png in Resources */ = {isa = PBXBuildFile; fileRef = DC52B0601A59E7FE0004E31B /* 2010.png */; };
 		DC52B0631A59EF8D0004E31B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC52B0621A59EF8D0004E31B /* CoreVideo.framework */; };
@@ -65,7 +64,6 @@
 		6490748F198A5CD500D728CC /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		64DDA75A188FD9140025590D /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		64E40AB0180C6D4D00C36DDE /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
-		736EFF251A5877200031B432 /* tessdata-rus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "tessdata-rus"; path = "../TestsProject/TestsProjectTests/tessdata-rus"; sourceTree = "<group>"; };
 		DC52B05E1A59E7E70004E31B /* 2009.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009.jpg; sourceTree = "<group>"; };
 		DC52B0601A59E7FE0004E31B /* 2010.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2010.png; sourceTree = "<group>"; };
 		DC52B0621A59EF8D0004E31B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -100,7 +98,6 @@
 		6400DDCC180C5DE000443362 = {
 			isa = PBXGroup;
 			children = (
-				736EFF251A5877200031B432 /* tessdata-rus */,
 				6400DDDE180C5DE000443362 /* Template Framework Project */,
 				6400DDD7180C5DE000443362 /* Frameworks */,
 				6400DDD6180C5DE000443362 /* Products */,
@@ -235,7 +232,6 @@
 				DC52B05F1A59E7E70004E31B /* 2009.jpg in Resources */,
 				DC52B0611A59E7FE0004E31B /* 2010.png in Resources */,
 				64DDA75B188FD9140025590D /* tessdata in Resources */,
-				736EFF261A5877200031B432 /* tessdata-rus in Resources */,
 				6400DDE3180C5DE000443362 /* InfoPlist.strings in Resources */,
 				64DDA74E188FD7D10025590D /* Main.storyboard in Resources */,
 			);

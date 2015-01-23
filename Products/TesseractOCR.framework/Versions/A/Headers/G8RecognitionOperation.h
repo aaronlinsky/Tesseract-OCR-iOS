@@ -25,6 +25,8 @@ typedef void(^G8RecognitionOperationCallback)(G8Tesseract *tesseract);
  */
 @interface G8RecognitionOperation : NSOperation
 
++(void)reinitTess;
+
 /**
  *  The `G8Tesseract` object performing the recognition.
  */
