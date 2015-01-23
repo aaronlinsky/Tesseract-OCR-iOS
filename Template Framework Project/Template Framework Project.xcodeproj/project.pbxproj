@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		428615B71845F340005D5A2E /* image_sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 428615B61845F340005D5A2E /* image_sample.jpg */; };
+		5853B1C41A72A1C900990FC3 /* WineDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 5853B1C31A72A1C900990FC3 /* WineDictionary.m */; };
+		585610341A725C2D00FBC7E7 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 585610331A725C2D00FBC7E7 /* Wine.m */; };
 		586D15151A713A0C0052BC0B /* OcrParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D15141A713A0C0052BC0B /* OcrParser.m */; };
 		586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D15181A71534A0052BC0B /* NSString+Levenshtein.m */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
@@ -36,6 +38,10 @@
 
 /* Begin PBXFileReference section */
 		428615B61845F340005D5A2E /* image_sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_sample.jpg; sourceTree = "<group>"; };
+		5853B1C21A72A1C900990FC3 /* WineDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineDictionary.h; sourceTree = "<group>"; };
+		5853B1C31A72A1C900990FC3 /* WineDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineDictionary.m; sourceTree = "<group>"; };
+		585610321A725C2D00FBC7E7 /* Wine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wine.h; sourceTree = "<group>"; };
+		585610331A725C2D00FBC7E7 /* Wine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wine.m; sourceTree = "<group>"; };
 		586D15131A713A0C0052BC0B /* OcrParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OcrParser.h; sourceTree = "<group>"; };
 		586D15141A713A0C0052BC0B /* OcrParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OcrParser.m; sourceTree = "<group>"; };
 		586D15171A71534A0052BC0B /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
@@ -142,6 +148,10 @@
 				6400DDDF180C5DE000443362 /* Supporting Files */,
 				586D15171A71534A0052BC0B /* NSString+Levenshtein.h */,
 				586D15181A71534A0052BC0B /* NSString+Levenshtein.m */,
+				585610321A725C2D00FBC7E7 /* Wine.h */,
+				585610331A725C2D00FBC7E7 /* Wine.m */,
+				5853B1C21A72A1C900990FC3 /* WineDictionary.h */,
+				5853B1C31A72A1C900990FC3 /* WineDictionary.m */,
 			);
 			path = "Template Framework Project";
 			sourceTree = "<group>";
@@ -238,10 +248,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				585610341A725C2D00FBC7E7 /* Wine.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
 				6400DDEF180C5DE000443362 /* G8ViewController.m in Sources */,
 				586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */,
+				5853B1C41A72A1C900990FC3 /* WineDictionary.m in Sources */,
 				586D15151A713A0C0052BC0B /* OcrParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

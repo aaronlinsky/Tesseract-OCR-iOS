@@ -8,9 +8,11 @@
 
 #import "OcrParser.h"
 #import "NSString+Levenshtein.h"
+#import "Wine.h"
+#import "WineDictionary.h"
 
-//static NSUInteger const MAX_VARIETY_DISTANCE = 4;
-//static NSUInteger const MAX_YEAR_DISTANCE = 1;
+static NSUInteger const MAX_VARIETY_DISTANCE = 2;
+static NSUInteger const MAX_YEAR_DISTANCE = 1;
 
 @interface OcrParser()
 @property(nonatomic,strong) NSDictionary* wines;
@@ -34,13 +36,29 @@
     self = [super init];
     if(self)
     {
-        self.wines =
-                    @{@"mira"       :   @{@"PINOT" : @[ @"2010", @"2011" ],
-                                          @"CABERNET" : @[ @"2009", @"2010", @"2011" ],
-                                          @"CHARDONNAY" : @[ @"2010", @"2011", @"2012" ],
-                                          @"SYRAH" : @[ @"2009", @"2010" ]},
-                      
-                      @"not-mira"   :   @{@"test" : @[ @"1234" ] }};
+        WineDictionary *mira_wd = [[WineDictionary alloc]init];
+        [mira_wd insert:[[Wine alloc]
+                         initWithDisplayName:@"Pinot Noir"
+                         recognizedNames:@[@"PINOT",@"NOIR"]
+                         years:@[@"2010",@"2011"]]];
+        
+        [mira_wd insert:[[Wine alloc]
+                         initWithDisplayName:@"Cabernet Sauvignon"
+                         recognizedNames:@[@"CABERNET",@"SAUVIGNON",@"CABER",@"ERNET",@"SAUVI",@"IGNON",@"BERN",@"UVIGN"]
+                         years:@[@"2009", @"2010", @"2011"]]];
+        
+        [mira_wd insert:[[Wine alloc]
+                         initWithDisplayName:@"Chardonnay"
+                         recognizedNames:@[@"CHARDONNAY",@"CHARD",@"ONNAY",@"ARDON"]
+                         years:@[@"2010", @"2011", @"2012"]]];
+        
+        [mira_wd insert:[[Wine alloc]
+                         initWithDisplayName:@"Syrah"
+                         recognizedNames:@[@"SYRAH"]
+                         years:@[@"2009", @"2010"]]];
+        
+        self.wines = @{@"mira": mira_wd};
+
     }
     return self;
 }
@@ -52,23 +70,38 @@
     if ([text length] < 10)
         return NO;
     
-    NSDictionary* wineVarietiesAndYears = [OcrParser instance].wines[wineFamily];
+    WineDictionary *wineVarietiesAndYears = [OcrParser instance].wines[wineFamily];
     if(wineVarietiesAndYears == nil)
         return NO;
 
-//    NSArray *rows = [text componentsSeparatedByString:@"\n"];
     NSArray *rows = [text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *oneLine = [rows componentsJoinedByString:@""];
     
+    //first pass: trying to match substring exactly
+    NSString *exactMatch;
+    BOOL exact = [[OcrParser instance] exactMatchInString:oneLine inArray:wineVarietiesAndYears.allKeys match:&exactMatch];
+    if(exact){
+        NSLog(@"Exact match: %@",exactMatch);
+        *variety = [(Wine*)wineVarietiesAndYears[exactMatch] displayName];
+        NSArray *years = [(Wine*)wineVarietiesAndYears[exactMatch] years];
+        [[OcrParser instance] bestMatchFromArray:years inArray:rows match:year];
+        return YES;
+    }
+    
+    //second pass: best Levenshtein distance
     NSString *bestVariety;
     NSUInteger bestDistance = [[OcrParser instance] bestMatchFromArray:wineVarietiesAndYears.allKeys inArray:rows match:&bestVariety];
 
-    if(bestDistance < [bestVariety length]/2+1){
+    if(bestDistance < MAX_VARIETY_DISTANCE){
+        NSLog(@"Levenshtein: %@",bestVariety);
+
+        NSArray *years = [(Wine*)wineVarietiesAndYears[bestVariety] years];
 
         NSString *bestYear;
-        bestDistance = [[OcrParser instance] bestMatchFromArray:wineVarietiesAndYears[bestVariety] inArray:rows match:&bestYear];
+        bestDistance = [[OcrParser instance] bestMatchFromArray:years inArray:rows match:&bestYear];
 
-        if(bestDistance < [bestYear length]/2+1){
-            *variety = bestVariety;
+        if(bestDistance < MAX_YEAR_DISTANCE){
+            *variety = [(Wine*)wineVarietiesAndYears[bestVariety] displayName];
             *year = bestYear;
         }
     }
@@ -76,21 +109,30 @@
     return YES;
 }
 
+-(BOOL) exactMatchInString:(NSString*)text inArray:(NSArray*)candidates match:(NSString**)match
+{
+    for (NSString* c in candidates) {
+        if ([text containsString:c]) {
+            *match = c;
+            return YES;
+        }
+    }
+    return NO;
+}
+
 -(NSUInteger) bestMatchFromArray:(NSArray*)arr1 inArray:(NSArray*)arr2 match:(NSString**)bestMatchedString
 {
     NSUInteger bestDistance = UINT32_MAX;
-    NSString* bestMatch;
     for (NSString *a1 in arr1) {
         for (NSString* a2 in arr2) {
             NSUInteger curDistance = [a1 levenshteinDistanceToString:a2];
             if(curDistance < bestDistance){
                 bestDistance = curDistance;
-                bestMatch = a1;
+                *bestMatchedString = a1;
             }
         }
     }
     
-    *bestMatchedString = bestMatch;
     return bestDistance;
 }
 

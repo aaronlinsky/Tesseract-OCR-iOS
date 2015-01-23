@@ -26,10 +26,22 @@ static G8Tesseract *tess;
 {
     tess = [[G8Tesseract alloc] init];
     tess.language = @"eng";
-    tess.charWhitelist = @"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    [tess setVariableValue:@"0" forKey:kG8ParamChopEnable];
+//    [tess setVariableValue:@"0" forKey:kG8ParamLoadSystemDawg];
+//    [tess setVariableValue:@"0" forKey:kG8ParamLoadFreqDawg];
+//    [tess setVariableValue:@"0" forKey:kG8ParamLoadPuncDawg];
+//    [tess setVariableValue:@"0" forKey:kG8ParamLoadUnambigDawg];
+//    [tess setVariableValue:@"0" forKey:kG8ParamLoadBigramDawg];
+//    [tess setVariableValue:@"1" forKey:kG8ParamLoadNumberDawg];
+    [tess setVariableValue:@"user-words" forKey:kG8ParamUserWordsSuffix];
+//    [tess setVariableValue:@"5" forKey:kG8ParamLanguageModelPenaltyNonFreqDictWord];
+    [tess setVariableValue:@"0.9" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
+    [tess setVariableValue:@"1" forKey:kG8ParamRej1IlUseDictWord]; 
+
     tess.engineMode = G8OCREngineModeTesseractOnly;
     tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;
-    [tess setVariableValue:@"0" forKey:kG8ParamChopEnable];
+    tess.charWhitelist = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//abcdefghijklmnopqrstuvwxyz
+
     //kG8ParamTospImproveThresh
 }
 

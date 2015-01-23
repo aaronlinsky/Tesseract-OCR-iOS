@@ -61,8 +61,10 @@
     operation.delegate = self;
     operation.tesseract.image = bwImage;
     operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
-        TOCK;
+//        TOCK;
         NSString *recognizedText = tesseract.recognizedText;
+//        NSLog(@"%@",recognizedText);
+
         NSString* recognizedTextNoWhitespaces = [[recognizedText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@"" ];
         ocrResultsLabel.text = [recognizedTextNoWhitespaces stringByAppendingFormat:@"\n%f",ELAPSED];
 
@@ -72,20 +74,16 @@
             ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];//reinitialization signalling
             [G8RecognitionOperation reinitTess];
         }
-//        NSLog(@"%@",recognizedText);
-//        NSLog(@"2");
         
         if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
-            
             NSString *year;
             NSString *variety;
-            [OcrParser parseWine:@"mira" ocrString:recognizedText toYear:&year andVariety:&variety];
-            parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
+            BOOL parsingSuccessful = [OcrParser parseWine:@"mira" ocrString:recognizedText toYear:&year andVariety:&variety];
+
+            if(parsingSuccessful)
+                parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
         }
         
-//        TICK;
-//        NSLog(@"%lu",(unsigned long)[OcrParser parse:@"1234567890" to:@"12345607890"]);
-//        TOCK;
         
         self.readyToOCR = YES;
     };
@@ -142,7 +140,7 @@
     [vc.view addSubview:ocrResultsLabel];
     ocrResultsLabel.numberOfLines = 0;
     ocrResultsLabel.textColor = [UIColor whiteColor];
-    
+
     parsingResultsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,
                                                                    0,
                                                                    CGRectGetWidth(self.view.frame),
@@ -246,7 +244,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         AVCaptureDevice *device = [captureDeviceClass defaultDeviceWithMediaType:AVMediaTypeVideo];
         
         if([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-            
             CGRect screenRect = [[UIScreen mainScreen] bounds];
             double screenWidth = screenRect.size.width;
             double screenHeight = screenRect.size.height;
@@ -254,7 +251,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             double focus_y = aPoint.y/screenHeight;
             
             if([device lockForConfiguration:nil]) {
-                
                 [device setFocusPointOfInterest:CGPointMake(focus_x,focus_y)];
                 [device setFocusMode:AVCaptureFocusModeAutoFocus];
                 

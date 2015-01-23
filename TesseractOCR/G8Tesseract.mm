@@ -259,7 +259,10 @@ namespace tesseract {
     [self resetFlags];
 
     self.variables[key] = value;
-    _tesseract->SetVariable(key.UTF8String, value.UTF8String);
+    bool success = _tesseract->SetVariable(key.UTF8String, value.UTF8String);
+    if (!success) {
+        NSLog(@"Failed to set %@",key);
+    }
 }
 
 - (NSString*)variableValueForKey:(NSString *)key {
