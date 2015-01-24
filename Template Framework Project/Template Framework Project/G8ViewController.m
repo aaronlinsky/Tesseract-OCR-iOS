@@ -140,15 +140,9 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
 
 - (void)setupCameraSession
 {
-    //ICLog;
-    
     // Session
     _captureSession = [AVCaptureSession new];
-    [_captureSession setSessionPreset:  SessionPresetString(sessionPreset)
-                                        //AVCaptureSessionPreset352x288
-                                        //AVCaptureSessionPreset640x480
-                                        //AVCaptureSessionPreset1280x720
-     ];
+    [_captureSession setSessionPreset:  SessionPresetString(sessionPreset)];
     
     // Capture device
     AVCaptureDevice *inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -251,8 +245,8 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     [self presentViewController:vc animated:NO completion:nil];
     
     _dataOutput = [AVCaptureVideoDataOutput new];
-    _dataOutput.videoSettings = [NSDictionary dictionaryWithObject:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_420YpCbCr8BiPlanarFullRange]forKey:(NSString *)kCVPixelBufferPixelFormatTypeKey];
-    
+    _dataOutput.videoSettings = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt:kCVPixelFormatType_32BGRA]
+                                                            forKey:(id)kCVPixelBufferPixelFormatTypeKey];
     [_dataOutput setAlwaysDiscardsLateVideoFrames:YES];
     
     if ( [_captureSession canAddOutput:_dataOutput] )
@@ -274,17 +268,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
     
-    // For the iOS the luma is contained in full plane (8-bit)
-    size_t width = CVPixelBufferGetWidthOfPlane(imageBuffer, 0);
-    size_t height = CVPixelBufferGetHeightOfPlane(imageBuffer, 0);
-    size_t bytesPerRow = CVPixelBufferGetBytesPerRowOfPlane(imageBuffer, 0);
-    
-    Pixel_8 *lumaBuffer = CVPixelBufferGetBaseAddressOfPlane(imageBuffer, 0);
-    
-    const vImage_Buffer inImage = { lumaBuffer, height, width, bytesPerRow };
-    
-    CGColorSpaceRef grayColorSpace = CGColorSpaceCreateDeviceGray();
-    CGContextRef context = CGBitmapContextCreate(inImage.data, width, height, 8, bytesPerRow, grayColorSpace, kCGImageAlphaNone);
+    uint8_t *baseAddress = (uint8_t *)CVPixelBufferGetBaseAddress(imageBuffer);
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
+
+    CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, rgbColorSpace, (CGBitmapInfo) kCGImageAlphaNoneSkipLast);
     CGImageRef dstImageFilter = CGBitmapContextCreateImage(context);
     
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -292,7 +282,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     });
 
     if(self.readyToOCR){
-//        NSLog(@"1");
         UIImage *image = [UIImage imageWithCGImage:dstImageFilter];
         self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -303,11 +292,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CGImageRelease(dstImageFilter);
     CGContextRelease(context);
-    CGColorSpaceRelease(grayColorSpace);
+    CGColorSpaceRelease(rgbColorSpace);
 }
 
 -(void)quitPreview:(id)sender
 {
+    [_captureSession stopRunning];
     [_captureSession removeOutput:_dataOutput];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
