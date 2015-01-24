@@ -9,11 +9,18 @@
 
 #import "G8ViewController.h"
 #import "OcrParser.h"
+#import "ImagePreprocessor.h"
 
 #define TICK        NSDate *startTime = [NSDate date]
 #define ELAPSED     -[startTime timeIntervalSinceNow]
 #define TOCK        NSLog(@"Time: %f", ELAPSED)
 
+typedef enum : NSUInteger {
+    simpleBinarization,
+    adaptiveBinarization,
+    noPreprocessing
+} PreprocessMode;
+#define PreprocessModeString(enum) [@[@"simpleBinarization",@"adaptiveBinarization",@"noPreprocessing"] objectAtIndex:enum]
 
 @interface G8ViewController () 
 
@@ -29,6 +36,9 @@
 @implementation G8ViewController{
     UILabel *ocrResultsLabel;
     UILabel *parsingResultsLabel;
+    UIImageView *preprocessPreview;
+    UILabel *preprocessModeLabel;
+    PreprocessMode preprocessMode;
 }
 
 @synthesize captureSession = _captureSession;
@@ -54,8 +64,21 @@
 -(void)recognizeImageWithTesseract:(UIImage *)image
 {
     TICK;
-    UIImage *bwImage = image;//[image g8_blackAndWhite];
-
+    UIImage *bwImage;
+    
+    switch (preprocessMode) {
+        case simpleBinarization:
+            bwImage = [ImagePreprocessor binarize:image];
+            break;
+        case adaptiveBinarization:
+            bwImage = [ImagePreprocessor adaptiveBinarize:image];
+            break;
+        default://no preprocessing at all
+            bwImage = image;
+            break;
+    }
+    TOCK;
+    
     G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
     
     operation.delegate = self;
@@ -84,6 +107,8 @@
                 parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
         }
         
+        preprocessPreview.image = bwImage;
+        preprocessModeLabel.text = PreprocessModeString(preprocessMode);
         
         self.readyToOCR = YES;
     };
@@ -145,13 +170,30 @@
                                                                    0,
                                                                    CGRectGetWidth(self.view.frame),
                                                                    CGRectGetHeight(self.view.frame))];
-    parsingResultsLabel.layer.position = CGPointMake(CGRectGetWidth(parsingResultsLabel.frame)/2,CGRectGetHeight(self.view.frame)-50);
+    parsingResultsLabel.layer.position = CGPointMake(CGRectGetWidth(parsingResultsLabel.frame)/2,CGRectGetHeight(self.view.frame)-20);
     parsingResultsLabel.textAlignment = NSTextAlignmentCenter;
     [vc.view addSubview:parsingResultsLabel];
     parsingResultsLabel.numberOfLines = 0;
     parsingResultsLabel.textColor = [UIColor whiteColor];
     parsingResultsLabel.text = @"Year/Variety";
     
+    preprocessPreview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)/4,
+                                                                      CGRectGetHeight([UIScreen mainScreen].bounds) - CGRectGetWidth([UIScreen mainScreen].bounds)/2 - 40,
+                                                                      CGRectGetWidth([UIScreen mainScreen].bounds)/2,
+                                                                      CGRectGetWidth([UIScreen mainScreen].bounds)/2)];
+    preprocessPreview.alpha = 0.75;
+    [vc.view addSubview:preprocessPreview];
+
+   preprocessModeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,
+                                                                  -20,
+                                                                  CGRectGetWidth(preprocessPreview.frame),
+                                                                  20)];
+    preprocessModeLabel.textAlignment = NSTextAlignmentCenter;
+    preprocessModeLabel.textColor = [UIColor whiteColor];
+    preprocessModeLabel.text = @"preprocess mode";
+    preprocessModeLabel.font = [UIFont systemFontOfSize:10];
+    [preprocessPreview addSubview:preprocessModeLabel];
+
     UIButton *quitButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
                                                                      CGRectGetHeight([UIScreen mainScreen].bounds)-40,
                                                                      40,
@@ -163,6 +205,19 @@
     quitButton.layer.borderColor = [UIColor whiteColor].CGColor;
     quitButton.layer.borderWidth = 2;
     quitButton.layer.cornerRadius = 10;
+    
+    UIButton *preprocButton = [[UIButton alloc]initWithFrame:CGRectMake(0,
+                                                                         CGRectGetHeight([UIScreen mainScreen].bounds)-40,
+                                                                         50,
+                                                                         40)];
+    [preprocButton setTitle:@"Preproc" forState:UIControlStateNormal];
+    [preprocButton addTarget:self action:@selector(togglePreprocessMode:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.view addSubview:preprocButton];
+    [preprocButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    preprocButton.titleLabel.font = [UIFont systemFontOfSize:11];
+    preprocButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    preprocButton.layer.borderWidth = 2;
+    preprocButton.layer.cornerRadius = 10;
     
     [self presentViewController:vc animated:NO completion:nil];
     
@@ -209,7 +264,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
     if(self.readyToOCR){
 //        NSLog(@"1");
-        UIImage *image = [UIImage imageWithCGImage:dstImageFilter];//[UIImage imageWithCGImage:dstImageFilter scale:1.0 orientation:UIImageOrientationUp];
+        UIImage *image = [UIImage imageWithCGImage:dstImageFilter];
         self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self recognizeImageWithTesseract:image];
@@ -226,6 +281,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     [_captureSession removeOutput:_dataOutput];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)togglePreprocessMode:(id)sender
+{
+    preprocessMode = (preprocessMode + 1) % (noPreprocessing+1);
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
