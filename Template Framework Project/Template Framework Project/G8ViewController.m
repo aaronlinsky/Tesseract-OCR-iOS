@@ -15,12 +15,19 @@
 #define ELAPSED     -[startTime timeIntervalSinceNow]
 #define TOCK        NSLog(@"Time: %f", ELAPSED)
 
-typedef enum : NSUInteger {
-    simpleBinarization,
+typedef NS_ENUM(NSUInteger, PreprocessMode) {
     adaptiveBinarization,
+    simpleBinarization,
     noPreprocessing
-} PreprocessMode;
-#define PreprocessModeString(enum) [@[@"simpleBinarization",@"adaptiveBinarization",@"noPreprocessing"] objectAtIndex:enum]
+};
+#define PreprocessModeString(enum) [@[@"adaptiveBinarization",@"simpleBinarization",@"noPreprocessing"] objectAtIndex:enum]
+
+typedef NS_ENUM(NSUInteger, SessionPreset) {
+    preset128x720,
+    preset640x480,
+    preset352x288
+};
+#define SessionPresetString(enum) [@[AVCaptureSessionPreset1280x720,AVCaptureSessionPreset640x480,AVCaptureSessionPreset352x288] objectAtIndex:enum]
 
 @interface G8ViewController () 
 
@@ -38,7 +45,9 @@ typedef enum : NSUInteger {
     UILabel *parsingResultsLabel;
     UIImageView *preprocessPreview;
     UILabel *preprocessModeLabel;
+    UILabel *sessionPresetLabel;
     PreprocessMode preprocessMode;
+    SessionPreset sessionPreset;
 }
 
 @synthesize captureSession = _captureSession;
@@ -77,7 +86,7 @@ typedef enum : NSUInteger {
             bwImage = image;
             break;
     }
-    TOCK;
+//    TOCK;
     
     G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
     
@@ -109,6 +118,7 @@ typedef enum : NSUInteger {
         
         preprocessPreview.image = bwImage;
         preprocessModeLabel.text = PreprocessModeString(preprocessMode);
+        sessionPresetLabel.text = SessionPresetString(sessionPreset);
         
         self.readyToOCR = YES;
     };
@@ -134,9 +144,10 @@ typedef enum : NSUInteger {
     
     // Session
     _captureSession = [AVCaptureSession new];
-    [_captureSession setSessionPreset:  //AVCaptureSessionPreset352x288
+    [_captureSession setSessionPreset:  SessionPresetString(sessionPreset)
+                                        //AVCaptureSessionPreset352x288
                                         //AVCaptureSessionPreset640x480
-                                        AVCaptureSessionPreset1280x720
+                                        //AVCaptureSessionPreset1280x720
      ];
     
     // Capture device
@@ -184,16 +195,21 @@ typedef enum : NSUInteger {
     preprocessPreview.alpha = 0.75;
     [vc.view addSubview:preprocessPreview];
 
-   preprocessModeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,
-                                                                  -20,
-                                                                  CGRectGetWidth(preprocessPreview.frame),
-                                                                  20)];
+    preprocessModeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,-15,CGRectGetWidth(preprocessPreview.frame),20)];
     preprocessModeLabel.textAlignment = NSTextAlignmentCenter;
     preprocessModeLabel.textColor = [UIColor whiteColor];
     preprocessModeLabel.text = @"preprocess mode";
     preprocessModeLabel.font = [UIFont systemFontOfSize:10];
     [preprocessPreview addSubview:preprocessModeLabel];
 
+    sessionPresetLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,-25,CGRectGetWidth(preprocessPreview.frame),20)];
+    sessionPresetLabel.textAlignment = NSTextAlignmentCenter;
+    sessionPresetLabel.textColor = [UIColor whiteColor];
+    sessionPresetLabel.text = @"preset";
+    sessionPresetLabel.font = [UIFont systemFontOfSize:9];
+    [preprocessPreview addSubview:sessionPresetLabel];
+
+    
     UIButton *quitButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
                                                                      CGRectGetHeight([UIScreen mainScreen].bounds)-40,
                                                                      40,
@@ -218,6 +234,19 @@ typedef enum : NSUInteger {
     preprocButton.layer.borderColor = [UIColor whiteColor].CGColor;
     preprocButton.layer.borderWidth = 2;
     preprocButton.layer.cornerRadius = 10;
+    
+    UIButton *presetButton  = [[UIButton alloc]initWithFrame:CGRectMake(0,
+                                                                        CGRectGetHeight([UIScreen mainScreen].bounds)-40 - CGRectGetHeight(preprocButton.frame),
+                                                                        50,
+                                                                        40)];
+    [presetButton setTitle:@"Preset" forState:UIControlStateNormal];
+    [presetButton addTarget:self action:@selector(toggleSessionPreset:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.view addSubview:presetButton];
+    [presetButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    presetButton.titleLabel.font = [UIFont systemFontOfSize:11];
+    presetButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    presetButton.layer.borderWidth = 2;
+    presetButton.layer.cornerRadius = 10;
     
     [self presentViewController:vc animated:NO completion:nil];
     
@@ -268,7 +297,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self recognizeImageWithTesseract:image];
-//            [self recognizeImageWithTesseract:[[UIImage imageNamed:@"2009.jpg"] g8_blackAndWhite] ];
+//            [self recognizeImageWithTesseract:[UIImage imageNamed:@"2009.jpg"] ];
         });
     }
     
@@ -288,6 +317,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     preprocessMode = (preprocessMode + 1) % (noPreprocessing+1);
 }
 
+-(void)toggleSessionPreset:(id)sender
+{
+    sessionPreset = (sessionPreset + 1) % (preset352x288+1);
+    [self quitPreview:nil];//reinitializing capture
+}
+
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [[event allTouches] anyObject];
@@ -295,7 +330,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self focus:touchPoint];
 }
 
-- (void) focus:(CGPoint) aPoint;
+- (void) focus:(CGPoint) aPoint
 {
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
     
@@ -322,4 +357,5 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }
     }
 }
+
 @end
