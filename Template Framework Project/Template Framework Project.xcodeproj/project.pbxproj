@@ -12,6 +12,8 @@
 		585610341A725C2D00FBC7E7 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 585610331A725C2D00FBC7E7 /* Wine.m */; };
 		586D15151A713A0C0052BC0B /* OcrParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D15141A713A0C0052BC0B /* OcrParser.m */; };
 		586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D15181A71534A0052BC0B /* NSString+Levenshtein.m */; };
+		588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */; };
+		588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588638C81A73AD4300CABC24 /* libGPUImage.a */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
 		6400DDD9180C5DE000443362 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDD8180C5DE000443362 /* Foundation.framework */; };
 		6400DDDB180C5DE000443362 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDDA180C5DE000443362 /* CoreGraphics.framework */; };
@@ -35,6 +37,30 @@
 		DC52B06B1A5A3CDA0004E31B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC52B06A1A5A3CDA0004E31B /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		588638C71A73AD4300CABC24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		588638C91A73AD4300CABC24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCE209E51943F20C002FEED8;
+			remoteInfo = GPUImageFramework;
+		};
+		588638CB1A73AD5600CABC24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		428615B61845F340005D5A2E /* image_sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_sample.jpg; sourceTree = "<group>"; };
 		5853B1C21A72A1C900990FC3 /* WineDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineDictionary.h; sourceTree = "<group>"; };
@@ -45,6 +71,9 @@
 		586D15141A713A0C0052BC0B /* OcrParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OcrParser.m; sourceTree = "<group>"; };
 		586D15171A71534A0052BC0B /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
 		586D15181A71534A0052BC0B /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
+		588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreprocessor.h; sourceTree = "<group>"; };
+		588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreprocessor.m; sourceTree = "<group>"; };
 		5889EE731A7032720060CE6E /* 2009bin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009bin.jpg; sourceTree = "<group>"; };
 		6400DDD5180C5DE000443362 /* Template Framework Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Template Framework Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6400DDD8180C5DE000443362 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -89,18 +118,29 @@
 				6400DDDB180C5DE000443362 /* CoreGraphics.framework in Frameworks */,
 				6400DDDD180C5DE000443362 /* UIKit.framework in Frameworks */,
 				6400DDD9180C5DE000443362 /* Foundation.framework in Frameworks */,
+				588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		588638C21A73AD4300CABC24 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				588638C81A73AD4300CABC24 /* libGPUImage.a */,
+				588638CA1A73AD4300CABC24 /* GPUImage.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		6400DDCC180C5DE000443362 = {
 			isa = PBXGroup;
 			children = (
 				6400DDDE180C5DE000443362 /* Template Framework Project */,
 				6400DDD7180C5DE000443362 /* Frameworks */,
 				6400DDD6180C5DE000443362 /* Products */,
+				588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,6 +189,8 @@
 				585610331A725C2D00FBC7E7 /* Wine.m */,
 				5853B1C21A72A1C900990FC3 /* WineDictionary.h */,
 				5853B1C31A72A1C900990FC3 /* WineDictionary.m */,
+				588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */,
+				588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */,
 			);
 			path = "Template Framework Project";
 			sourceTree = "<group>";
@@ -182,6 +224,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				588638CC1A73AD5600CABC24 /* PBXTargetDependency */,
 			);
 			name = "Template Framework Project";
 			productName = "Template Framework Project";
@@ -214,12 +257,35 @@
 			mainGroup = 6400DDCC180C5DE000443362;
 			productRefGroup = 6400DDD6180C5DE000443362 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 588638C21A73AD4300CABC24 /* Products */;
+					ProjectRef = 588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6400DDD4180C5DE000443362 /* Template Framework Project */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		588638C81A73AD4300CABC24 /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = 588638C71A73AD4300CABC24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		588638CA1A73AD4300CABC24 /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 588638C91A73AD4300CABC24 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6400DDD3180C5DE000443362 /* Resources */ = {
@@ -244,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */,
 				585610341A725C2D00FBC7E7 /* Wine.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
@@ -255,6 +322,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		588638CC1A73AD5600CABC24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage;
+			targetProxy = 588638CB1A73AD5600CABC24 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6400DDE1180C5DE000443362 /* InfoPlist.strings */ = {
@@ -366,6 +441,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Template Framework Project/Template Framework Project-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../GPUImage/framework\"/**",
+				);
 				INFOPLIST_FILE = "Template Framework Project/Template Framework Project-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -388,6 +468,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Template Framework Project/Template Framework Project-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../GPUImage/framework\"/**",
+				);
 				INFOPLIST_FILE = "Template Framework Project/Template Framework Project-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
