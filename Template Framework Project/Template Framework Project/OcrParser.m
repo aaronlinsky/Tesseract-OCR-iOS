@@ -113,7 +113,7 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
 -(BOOL) exactMatchInString:(NSString*)text inArray:(NSArray*)candidates match:(NSString**)match
 {
     for (NSString* c in candidates) {
-        if ([text containsString:c]) {
+        if ([text rangeOfString:c].location != NSNotFound) {
             *match = c;
             return YES;
         }
