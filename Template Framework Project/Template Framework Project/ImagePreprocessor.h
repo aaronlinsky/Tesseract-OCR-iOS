@@ -12,5 +12,6 @@
 
 +(UIImage*)binarize:(UIImage*)image;
 +(UIImage*)adaptiveBinarize:(UIImage*)image;
++(UIImage*)inverseAdaptiveBinarize:(UIImage*)image;
 
 @end

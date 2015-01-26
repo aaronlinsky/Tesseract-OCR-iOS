@@ -8,6 +8,7 @@
 
 #import "ImagePreprocessor.h"
 #import "GPUImage.h"
+#import "InverseAdaptiveThresholdFilter.h"
 
 @implementation ImagePreprocessor
 
@@ -22,6 +23,13 @@
 +(UIImage*)adaptiveBinarize:(UIImage*)image
 {
     GPUImageAdaptiveThresholdFilter *adaptiveThresholdFilter = [[GPUImageAdaptiveThresholdFilter alloc] init];
+    
+    return [ImagePreprocessor processImage:image withFilter:adaptiveThresholdFilter];
+}
+
++(UIImage*)inverseAdaptiveBinarize:(UIImage*)image
+{
+    InverseAdaptiveThresholdFilter *adaptiveThresholdFilter = [[InverseAdaptiveThresholdFilter alloc] init];
     
     return [ImagePreprocessor processImage:image withFilter:adaptiveThresholdFilter];
 }
