@@ -103,10 +103,11 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
         if(bestDistance < MAX_YEAR_DISTANCE){
             *variety = [(Wine*)wineVarietiesAndYears[bestVariety] displayName];
             *year = bestYear;
+            return YES;
         }
     }
     
-    return YES;
+    return NO;
 }
 
 -(BOOL) exactMatchInString:(NSString*)text inArray:(NSArray*)candidates match:(NSString**)match
