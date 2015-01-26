@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		428615B71845F340005D5A2E /* image_sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 428615B61845F340005D5A2E /* image_sample.jpg */; };
+		5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */; };
 		5853B1C41A72A1C900990FC3 /* WineDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 5853B1C31A72A1C900990FC3 /* WineDictionary.m */; };
 		585610341A725C2D00FBC7E7 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 585610331A725C2D00FBC7E7 /* Wine.m */; };
 		586D15151A713A0C0052BC0B /* OcrParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D15141A713A0C0052BC0B /* OcrParser.m */; };
@@ -63,6 +64,8 @@
 
 /* Begin PBXFileReference section */
 		428615B61845F340005D5A2E /* image_sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_sample.jpg; sourceTree = "<group>"; };
+		5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InverseAdaptiveThresholdFilter.h; sourceTree = "<group>"; };
+		5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InverseAdaptiveThresholdFilter.m; sourceTree = "<group>"; };
 		5853B1C21A72A1C900990FC3 /* WineDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineDictionary.h; sourceTree = "<group>"; };
 		5853B1C31A72A1C900990FC3 /* WineDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineDictionary.m; sourceTree = "<group>"; };
 		585610321A725C2D00FBC7E7 /* Wine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wine.h; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				5853B1C31A72A1C900990FC3 /* WineDictionary.m */,
 				588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */,
 				588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */,
+				5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */,
+				5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */,
 			);
 			path = "Template Framework Project";
 			sourceTree = "<group>";
@@ -317,6 +322,7 @@
 				6400DDEF180C5DE000443362 /* G8ViewController.m in Sources */,
 				586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */,
 				5853B1C41A72A1C900990FC3 /* WineDictionary.m in Sources */,
+				5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */,
 				586D15151A713A0C0052BC0B /* OcrParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

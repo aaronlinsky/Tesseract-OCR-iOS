@@ -17,10 +17,10 @@
 
 typedef NS_ENUM(NSUInteger, PreprocessMode) {
     adaptiveBinarization,
-    simpleBinarization,
+    inverseAdaptiveBinarization,
     noPreprocessing
 };
-#define PreprocessModeString(enum) [@[@"adaptiveBinarization",@"simpleBinarization",@"noPreprocessing"] objectAtIndex:enum]
+#define PreprocessModeString(enum) [@[@"adaptiveBinarization",@"inverseAdaptiveBinarization",@"noPreprocessing"] objectAtIndex:enum]
 
 typedef NS_ENUM(NSUInteger, SessionPreset) {
     preset128x720,
@@ -70,14 +70,14 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     [self openVideo:nil];
 }
 
--(void)recognizeImageWithTesseract:(UIImage *)image
+-(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode
 {
     TICK;
     UIImage *bwImage;
     
-    switch (preprocessMode) {
-        case simpleBinarization:
-            bwImage = [ImagePreprocessor binarize:image];
+    switch (mode) {
+        case inverseAdaptiveBinarization:
+            bwImage = [ImagePreprocessor inverseAdaptiveBinarize:image];
             break;
         case adaptiveBinarization:
             bwImage = [ImagePreprocessor adaptiveBinarize:image];
@@ -95,6 +95,10 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
 //        TOCK;
         NSString *recognizedText = tesseract.recognizedText;
+        preprocessPreview.image = bwImage;
+        preprocessModeLabel.text = PreprocessModeString(preprocessMode);
+        sessionPresetLabel.text = SessionPresetString(sessionPreset);
+
 //        NSLog(@"%@",recognizedText);
 
         NSString* recognizedTextNoWhitespaces = [[recognizedText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@"" ];
@@ -112,15 +116,26 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
             NSString *variety;
             BOOL parsingSuccessful = [OcrParser parseWine:@"mira" ocrString:recognizedText toYear:&year andVariety:&variety];
 
-            if(parsingSuccessful)
+            if(parsingSuccessful){
                 parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
+                self.readyToOCR = YES;
+            }
+            else{
+                if (mode == adaptiveBinarization) {
+                    //possibly white-on-black. perform additional pass
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        [self preprocessAndRecognizeImage: image withMode:inverseAdaptiveBinarization];
+                    });
+                }
+                else{
+                    self.readyToOCR = YES;
+                }
+            }
+        }
+        else{
+            self.readyToOCR = YES;
         }
         
-        preprocessPreview.image = bwImage;
-        preprocessModeLabel.text = PreprocessModeString(preprocessMode);
-        sessionPresetLabel.text = SessionPresetString(sessionPreset);
-        
-        self.readyToOCR = YES;
     };
 
     [self.operationQueue addOperation:operation];
@@ -216,21 +231,21 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     quitButton.layer.borderWidth = 2;
     quitButton.layer.cornerRadius = 10;
     
-    UIButton *preprocButton = [[UIButton alloc]initWithFrame:CGRectMake(0,
-                                                                         CGRectGetHeight([UIScreen mainScreen].bounds)-40,
-                                                                         50,
-                                                                         40)];
-    [preprocButton setTitle:@"Preproc" forState:UIControlStateNormal];
-    [preprocButton addTarget:self action:@selector(togglePreprocessMode:) forControlEvents:UIControlEventTouchUpInside];
-    [vc.view addSubview:preprocButton];
-    [preprocButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    preprocButton.titleLabel.font = [UIFont systemFontOfSize:11];
-    preprocButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    preprocButton.layer.borderWidth = 2;
-    preprocButton.layer.cornerRadius = 10;
+//    UIButton *preprocButton = [[UIButton alloc]initWithFrame:CGRectMake(0,
+//                                                                         CGRectGetHeight([UIScreen mainScreen].bounds)-40,
+//                                                                         50,
+//                                                                         40)];
+//    [preprocButton setTitle:@"Preproc" forState:UIControlStateNormal];
+//    [preprocButton addTarget:self action:@selector(togglePreprocessMode:) forControlEvents:UIControlEventTouchUpInside];
+//    [vc.view addSubview:preprocButton];
+//    [preprocButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    preprocButton.titleLabel.font = [UIFont systemFontOfSize:11];
+//    preprocButton.layer.borderColor = [UIColor whiteColor].CGColor;
+//    preprocButton.layer.borderWidth = 2;
+//    preprocButton.layer.cornerRadius = 10;
     
     UIButton *presetButton  = [[UIButton alloc]initWithFrame:CGRectMake(0,
-                                                                        CGRectGetHeight([UIScreen mainScreen].bounds)-40 - CGRectGetHeight(preprocButton.frame),
+                                                                        CGRectGetHeight([UIScreen mainScreen].bounds)-40,
                                                                         50,
                                                                         40)];
     [presetButton setTitle:@"Preset" forState:UIControlStateNormal];
@@ -285,7 +300,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         UIImage *image = [UIImage imageWithCGImage:dstImageFilter];
         self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self recognizeImageWithTesseract:image];
+//            [self preprocessAndRecognizeImage: image withMode:adaptiveBinarization];
+//            [self preprocessAndRecognizeImage: image withMode:inverseAdaptiveBinarization];
+            [self preprocessAndRecognizeImage: image withMode:preprocessMode];
+//            [self togglePreprocessMode:nil];
 //            [self recognizeImageWithTesseract:[UIImage imageNamed:@"2009.jpg"] ];
         });
     }
@@ -304,7 +322,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(void)togglePreprocessMode:(id)sender
 {
-    preprocessMode = (preprocessMode + 1) % (noPreprocessing+1);
+    preprocessMode = (preprocessMode + 1) % (noPreprocessing);
 }
 
 -(void)toggleSessionPreset:(id)sender
