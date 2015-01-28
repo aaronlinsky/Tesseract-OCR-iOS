@@ -10,18 +10,19 @@
 #import "NSString+Levenshtein.h"
 #import "Wine.h"
 #import "WineDictionary.h"
+#import "WinesDatabase.h"
 
 static NSUInteger const MAX_VARIETY_DISTANCE = 2;
 static NSUInteger const MAX_YEAR_DISTANCE = 1;
 
 @interface OcrParser()
-@property(nonatomic,strong) NSDictionary* wines;
+@property(nonatomic,strong) NSDictionary* wines;//with vuforia
+@property(nonatomic,strong) NSDictionary* wines2;//without vuforia
 @end
 
 @implementation OcrParser
 
-+(instancetype)instance
-{
++(instancetype)instance{
     static id instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -31,11 +32,9 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
     return instance;
 }
 
--(instancetype)init
-{
+-(instancetype)init{
     self = [super init];
-    if(self)
-    {
+    if(self){
         WineDictionary *mira_wd = [[WineDictionary alloc]init];
         [mira_wd insert:[[Wine alloc]
                          initWithDisplayName:@"Pinot Noir"
@@ -58,13 +57,12 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
                          years:@[@"2009", @"2010"]]];
         
         self.wines = @{@"mira": mira_wd};
-
+//        self.wines2 = [WinesDatabase winerysAndVarieties];
     }
     return self;
 }
 
-+(BOOL)parseWine:(NSString*)wineFamily ocrString:(NSString*)text toYear:(NSString**)year andVariety:(NSString**)variety
-{
++(BOOL)parseWine:(NSString*)wineFamily ocrString:(NSString*)text toYear:(NSString**)year andVariety:(NSString**)variety{
     *year = *variety = @"???";
     
     if ([text length] < 10)
@@ -110,10 +108,28 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
     return NO;
 }
 
--(BOOL) exactMatchInString:(NSString*)text inArray:(NSArray*)candidates match:(NSString**)match
-{
+//WARNING! This method is still in "work in progress" state.
++(BOOL)parseUnknownWine:(NSString*)ocrText toYear:(NSString**)year andVariety:(NSString**)variety{
+    
+    NSArray *rows = [ocrText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *oneLine = [rows componentsJoinedByString:@""];
+
+    //attempt to find winery
+    NSString *exactMatch;
+    BOOL exact = [[OcrParser instance] exactMatchInString:oneLine inArray:[OcrParser instance].wines2.allKeys match:&exactMatch];
+    if (exact) {//found winery exactly
+        //iterate all winery's wines and return best one
+        //TODO: code here
+    }
+
+    //for each entry in array search for best match (Levenshtein) in ocrText
+    //if best match is better than threshold - return it
+    return NO;
+}
+
+-(BOOL) exactMatchInString:(NSString*)text inArray:(NSArray*)candidates match:(NSString**)match{
     for (NSString* c in candidates) {
-        if ([text rangeOfString:c].location != NSNotFound) {
+        if ([text rangeOfString:c options:NSCaseInsensitiveSearch].location != NSNotFound) {
             *match = c;
             return YES;
         }
@@ -121,8 +137,7 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
     return NO;
 }
 
--(NSUInteger) bestMatchFromArray:(NSArray*)arr1 inArray:(NSArray*)arr2 match:(NSString**)bestMatchedString
-{
+-(NSUInteger) bestMatchFromArray:(NSArray*)arr1 inArray:(NSArray*)arr2 match:(NSString**)bestMatchedString{
     NSUInteger bestDistance = UINT32_MAX;
     for (NSString *a1 in arr1) {
         for (NSString* a2 in arr2) {

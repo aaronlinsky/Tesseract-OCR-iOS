@@ -61,6 +61,8 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
 
     // Create a queue to perform recognition operations
     self.operationQueue = [[NSOperationQueue alloc] init];
+    
+    [OcrParser instance];//warming-up parser
     self.readyToOCR = YES;
 }
 
@@ -107,15 +109,16 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
         if(ELAPSED > 0.7)//should not use constant value here but derive from average ELAPSED time
         {//degradation detected. Force tesserect reinit
             NSLog(@"Reinitializing...");
-            ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];//reinitialization signalling
+            ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];
             [G8RecognitionOperation reinitTess];
         }
-        
+                
         if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
             NSString *year;
             NSString *variety;
             BOOL parsingSuccessful = [OcrParser parseWine:@"mira" ocrString:recognizedText toYear:&year andVariety:&variety];
-
+//            BOOL parsingSuccessful = [OcrParser parseUnknownWine:recognizedText toYear:&year andVariety:&variety];
+            
             if(parsingSuccessful){
                 parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
                 self.readyToOCR = YES;
