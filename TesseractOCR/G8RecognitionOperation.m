@@ -32,17 +32,11 @@ static G8Tesseract *tess;
     [tess setVariableValue:@"0" forKey:kG8ParamLoadPuncDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadUnambigDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadBigramDawg];
-//    [tess setVariableValue:@"1" forKey:kG8ParamLoadNumberDawg];
-//    [tess setVariableValue:@"user-words" forKey:kG8ParamUserWordsSuffix];
-//    [tess setVariableValue:@"5" forKey:kG8ParamLanguageModelPenaltyNonFreqDictWord];
-    [tess setVariableValue:@"1" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
-//    [tess setVariableValue:@"1" forKey:kG8ParamRej1IlUseDictWord]; 
+//    [tess setVariableValue:@"1" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
 
     tess.engineMode = G8OCREngineModeTesseractOnly;
     tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;
-    tess.charWhitelist = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//abcdefghijklmnopqrstuvwxyz
-
-    //kG8ParamTospImproveThresh
+    tess.charWhitelist = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 }
 
 - (id)init

@@ -16,6 +16,9 @@
 		588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */; };
 		588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588638C81A73AD4300CABC24 /* libGPUImage.a */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
+		58E19A241A793EA30033AFEC /* WinesDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A231A793EA30033AFEC /* WinesDatabase.m */; };
+		58E19A281A793F720033AFEC /* TermListByWinery.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58E19A271A793F720033AFEC /* TermListByWinery.csv */; };
+		58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A2B1A7941780033AFEC /* CHCSVParser.m */; };
 		6400DDD9180C5DE000443362 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDD8180C5DE000443362 /* Foundation.framework */; };
 		6400DDDB180C5DE000443362 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDDA180C5DE000443362 /* CoreGraphics.framework */; };
 		6400DDDD180C5DE000443362 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDDC180C5DE000443362 /* UIKit.framework */; };
@@ -78,6 +81,11 @@
 		588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreprocessor.h; sourceTree = "<group>"; };
 		588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreprocessor.m; sourceTree = "<group>"; };
 		5889EE731A7032720060CE6E /* 2009bin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009bin.jpg; sourceTree = "<group>"; };
+		58E19A221A793EA30033AFEC /* WinesDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinesDatabase.h; sourceTree = "<group>"; };
+		58E19A231A793EA30033AFEC /* WinesDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinesDatabase.m; sourceTree = "<group>"; };
+		58E19A271A793F720033AFEC /* TermListByWinery.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermListByWinery.csv; sourceTree = "<group>"; };
+		58E19A2A1A7941780033AFEC /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
+		58E19A2B1A7941780033AFEC /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
 		6400DDD5180C5DE000443362 /* Template Framework Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Template Framework Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6400DDD8180C5DE000443362 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6400DDDA180C5DE000443362 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -137,6 +145,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		58E19A291A7941780033AFEC /* CHCSVParser */ = {
+			isa = PBXGroup;
+			children = (
+				58E19A2A1A7941780033AFEC /* CHCSVParser.h */,
+				58E19A2B1A7941780033AFEC /* CHCSVParser.m */,
+			);
+			path = CHCSVParser;
+			sourceTree = "<group>";
+		};
 		6400DDCC180C5DE000443362 = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +193,7 @@
 		6400DDDE180C5DE000443362 /* Template Framework Project */ = {
 			isa = PBXGroup;
 			children = (
+				58E19A291A7941780033AFEC /* CHCSVParser */,
 				64DDA75A188FD9140025590D /* tessdata */,
 				6400DDE7180C5DE000443362 /* G8AppDelegate.h */,
 				6400DDE8180C5DE000443362 /* G8AppDelegate.m */,
@@ -196,6 +214,8 @@
 				588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */,
 				5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */,
 				5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */,
+				58E19A221A793EA30033AFEC /* WinesDatabase.h */,
+				58E19A231A793EA30033AFEC /* WinesDatabase.m */,
 			);
 			path = "Template Framework Project";
 			sourceTree = "<group>";
@@ -203,6 +223,7 @@
 		6400DDDF180C5DE000443362 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				58E19A271A793F720033AFEC /* TermListByWinery.csv */,
 				428615B61845F340005D5A2E /* image_sample.jpg */,
 				5889EE731A7032720060CE6E /* 2009bin.jpg */,
 				DC52B05E1A59E7E70004E31B /* 2009.jpg */,
@@ -302,6 +323,7 @@
 				5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */,
 				DC52B05F1A59E7E70004E31B /* 2009.jpg in Resources */,
 				DC52B0611A59E7FE0004E31B /* 2010.png in Resources */,
+				58E19A281A793F720033AFEC /* TermListByWinery.csv in Resources */,
 				64DDA75B188FD9140025590D /* tessdata in Resources */,
 				6400DDE3180C5DE000443362 /* InfoPlist.strings in Resources */,
 				64DDA74E188FD7D10025590D /* Main.storyboard in Resources */,
@@ -316,6 +338,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */,
+				58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */,
+				58E19A241A793EA30033AFEC /* WinesDatabase.m in Sources */,
 				585610341A725C2D00FBC7E7 /* Wine.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
