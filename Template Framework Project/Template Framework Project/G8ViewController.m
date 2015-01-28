@@ -234,19 +234,6 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     quitButton.layer.borderWidth = 2;
     quitButton.layer.cornerRadius = 10;
     
-//    UIButton *preprocButton = [[UIButton alloc]initWithFrame:CGRectMake(0,
-//                                                                         CGRectGetHeight([UIScreen mainScreen].bounds)-40,
-//                                                                         50,
-//                                                                         40)];
-//    [preprocButton setTitle:@"Preproc" forState:UIControlStateNormal];
-//    [preprocButton addTarget:self action:@selector(togglePreprocessMode:) forControlEvents:UIControlEventTouchUpInside];
-//    [vc.view addSubview:preprocButton];
-//    [preprocButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    preprocButton.titleLabel.font = [UIFont systemFontOfSize:11];
-//    preprocButton.layer.borderColor = [UIColor whiteColor].CGColor;
-//    preprocButton.layer.borderWidth = 2;
-//    preprocButton.layer.cornerRadius = 10;
-    
     UIButton *presetButton  = [[UIButton alloc]initWithFrame:CGRectMake(0,
                                                                         CGRectGetHeight([UIScreen mainScreen].bounds)-40,
                                                                         50,
@@ -303,10 +290,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         UIImage *image = [UIImage imageWithCGImage:dstImageFilter];
         self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            [self preprocessAndRecognizeImage: image withMode:adaptiveBinarization];
-//            [self preprocessAndRecognizeImage: image withMode:inverseAdaptiveBinarization];
             [self preprocessAndRecognizeImage: image withMode:preprocessMode];
-//            [self togglePreprocessMode:nil];
 //            [self recognizeImageWithTesseract:[UIImage imageNamed:@"2009.jpg"] ];
         });
     }
