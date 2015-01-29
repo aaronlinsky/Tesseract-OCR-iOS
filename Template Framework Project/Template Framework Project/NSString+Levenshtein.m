@@ -23,7 +23,7 @@
     }
     for (NSUInteger j = 1; j <= tl; j++) {
         for (NSUInteger i = 1; i <= sl; i++) {
-            if ([self characterAtIndex:i-1] == [string characterAtIndex:j-1]) {
+            if (tolower( [self characterAtIndex:i-1] ) == tolower( [string characterAtIndex:j-1] ) ) {
                 d(i, j) = d(i-1, j-1);
             } else {
                 d(i, j) = MIN(d(i-1, j), MIN(d(i, j-1), d(i-1, j-1))) + 1;
