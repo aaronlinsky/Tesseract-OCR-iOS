@@ -12,11 +12,13 @@
 #import "WineDictionary.h"
 #import "WinesDatabase.h"
 
+#define vintages  @[@"1980",@"1981",@"1982",@"1983",@"1984",@"1985",@"1986",@"1987",@"1988",@"1989",@"1990",@"1991",@"1992",@"1993",@"1994",@"1995",@"1996",@"1997",@"1998",@"1999",@"2000",@"2001",@"2002",@"2003",@"2004",@"2005",@"2006",@"2007",@"2008",@"2009",@"2010",@"2011",@"2012",@"2013",@"2014",@"2015",@"2016",@"2017",@"2018",@"2019",@"2020"];
+
 static NSUInteger const MAX_VARIETY_DISTANCE = 2;
 static NSUInteger const MAX_YEAR_DISTANCE = 1;
 
 @interface OcrParser()
-@property(nonatomic,strong) NSDictionary* wines;//with vuforia
+//@property(nonatomic,strong) NSDictionary* wines;//with vuforia
 @property(nonatomic,strong) NSDictionary* wines2;//without vuforia
 @end
 
@@ -28,36 +30,36 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
     dispatch_once(&onceToken, ^{
         instance = [[OcrParser alloc]init];
     });
-    
+
     return instance;
 }
 
 -(instancetype)init{
     self = [super init];
     if(self){
-        WineDictionary *mira_wd = [[WineDictionary alloc]init];
-        [mira_wd insert:[[Wine alloc]
-                         initWithDisplayName:@"Pinot Noir"
-                         recognizedNames:@[@"PINOT",@"NOIR"]
-                         years:@[@"2010",@"2011"]]];
-        
-        [mira_wd insert:[[Wine alloc]
-                         initWithDisplayName:@"Cabernet Sauvignon"
-                         recognizedNames:@[@"CABERNET",@"SAUVIGNON",@"CABER",@"ERNET",@"SAUVI",@"IGNON",@"BERN",@"UVIGN"]
-                         years:@[@"2009", @"2010", @"2011"]]];
-        
-        [mira_wd insert:[[Wine alloc]
-                         initWithDisplayName:@"Chardonnay"
-                         recognizedNames:@[@"CHARDONNAY",@"CHARD",@"ONNAY",@"ARDON"]
-                         years:@[@"2010", @"2011", @"2012"]]];
-        
-        [mira_wd insert:[[Wine alloc]
-                         initWithDisplayName:@"Syrah"
-                         recognizedNames:@[@"SYRAH"]
-                         years:@[@"2009", @"2010"]]];
-        
-        self.wines = @{@"mira": mira_wd};
-//        self.wines2 = [WinesDatabase winerysAndVarieties];
+//        WineDictionary *mira_wd = [[WineDictionary alloc]init];
+//        [mira_wd insert:[[Wine alloc]
+//                         initWithDisplayName:@"Pinot Noir"
+//                         recognizedNames:@[@"PINOT",@"NOIR"]
+//                         years:@[@"2010",@"2011"]]];
+//        
+//        [mira_wd insert:[[Wine alloc]
+//                         initWithDisplayName:@"Cabernet Sauvignon"
+//                         recognizedNames:@[@"CABERNET",@"SAUVIGNON",@"CABER",@"ERNET",@"SAUVI",@"IGNON",@"BERN",@"UVIGN"]
+//                         years:@[@"2009", @"2010", @"2011"]]];
+//        
+//        [mira_wd insert:[[Wine alloc]
+//                         initWithDisplayName:@"Chardonnay"
+//                         recognizedNames:@[@"CHARDONNAY",@"CHARD",@"ONNAY",@"ARDON"]
+//                         years:@[@"2010", @"2011", @"2012"]]];
+//        
+//        [mira_wd insert:[[Wine alloc]
+//                         initWithDisplayName:@"Syrah"
+//                         recognizedNames:@[@"SYRAH"]
+//                         years:@[@"2009", @"2010"]]];
+//        
+//        self.wines = @{@"mira": mira_wd};
+        self.wines2 = [WinesDatabase wineriesAndVarieties];
     }
     return self;
 }
@@ -68,43 +70,48 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
     if ([text length] < 10)
         return NO;
     
-    WineDictionary *wineVarietiesAndYears = [OcrParser instance].wines[wineFamily];
-    if(wineVarietiesAndYears == nil)
+    NSArray *wineVarieties = [OcrParser instance].wines2[wineFamily];
+    if(wineVarieties == nil)//specified winery not present
         return NO;
 
     NSArray *rows = [text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *oneLine = [rows componentsJoinedByString:@""];
     
     //first pass: trying to match substring exactly
-    NSString *exactMatch;
-    BOOL exact = [[OcrParser instance] exactMatchInString:oneLine inArray:wineVarietiesAndYears.allKeys match:&exactMatch];
-    if(exact){
-        NSLog(@"Exact match: %@",exactMatch);
-        *variety = [(Wine*)wineVarietiesAndYears[exactMatch] displayName];
-        NSArray *years = [(Wine*)wineVarietiesAndYears[exactMatch] years];
-        [[OcrParser instance] bestMatchFromArray:years inArray:rows match:year];
-        return YES;
-    }
-    
-    //second pass: best Levenshtein distance
-    NSString *bestVariety;
-    NSUInteger bestDistance = [[OcrParser instance] bestMatchFromArray:wineVarietiesAndYears.allKeys inArray:rows match:&bestVariety];
-
-    if(bestDistance < MAX_VARIETY_DISTANCE){
-        NSLog(@"Levenshtein: %@",bestVariety);
-
-        NSArray *years = [(Wine*)wineVarietiesAndYears[bestVariety] years];
-
-        NSString *bestYear;
-        bestDistance = [[OcrParser instance] bestMatchFromArray:years inArray:rows match:&bestYear];
-
-        if(bestDistance < MAX_YEAR_DISTANCE){
-            *variety = [(Wine*)wineVarietiesAndYears[bestVariety] displayName];
-            *year = bestYear;
+    for (Wine *wine in wineVarieties) {
+        
+        NSString *exactMatch;
+        BOOL exact = [[OcrParser instance] exactMatchInString:oneLine inArray:wine.recognizedNames match:&exactMatch];
+        if(exact){
+            NSLog(@"Exact match: %@",exactMatch);
+            *variety = wine.displayName;
+            NSArray *years = wine.years != nil ? wine.years : vintages;
+            [[OcrParser instance] bestMatchFromArray:years inArray:rows match:year];
             return YES;
         }
     }
     
+    //second pass: best Levenshtein distance
+    for (Wine *wine in wineVarieties) {
+
+        NSString *bestVariety;
+        NSUInteger bestDistance = [[OcrParser instance] bestMatchFromArray:wine.recognizedNames inArray:rows match:&bestVariety];
+
+        if(bestDistance <= MAX_VARIETY_DISTANCE){
+            NSLog(@"Levenshtein(%lu): %@",bestDistance,bestVariety);
+
+            NSArray *years = wine.years != nil ? wine.years : vintages;
+
+            NSString *bestYear;
+            bestDistance = [[OcrParser instance] bestMatchFromArray:years inArray:rows match:&bestYear];
+
+            if(bestDistance <= MAX_YEAR_DISTANCE){
+                *variety = wine.displayName;
+                *year = bestYear;
+                return YES;
+            }
+        }
+    }
     return NO;
 }
 
