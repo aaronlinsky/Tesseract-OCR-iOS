@@ -62,13 +62,15 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     // Create a queue to perform recognition operations
     self.operationQueue = [[NSOperationQueue alloc] init];
     
-    [OcrParser instance];//warming-up parser
     self.readyToOCR = YES;
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [OcrParser instance];//warming-up parser
+
     [self openVideo:nil];
 }
 
@@ -112,11 +114,11 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
             ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];
             [G8RecognitionOperation reinitTess];
         }
-                
+
         if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
             NSString *year;
             NSString *variety;
-            BOOL parsingSuccessful = [OcrParser parseWine:@"mira" ocrString:recognizedText toYear:&year andVariety:&variety];
+            BOOL parsingSuccessful = [OcrParser parseWine:@"Mira" ocrString:recognizedText toYear:&year andVariety:&variety];
 //            BOOL parsingSuccessful = [OcrParser parseUnknownWine:recognizedText toYear:&year andVariety:&variety];
             
             if(parsingSuccessful){
@@ -279,7 +281,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     size_t height = CVPixelBufferGetHeight(imageBuffer);
 
     CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, rgbColorSpace, (CGBitmapInfo) kCGImageAlphaNoneSkipLast);
+    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, rgbColorSpace, (CGBitmapInfo) kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
     CGImageRef dstImageFilter = CGBitmapContextCreateImage(context);
     
     dispatch_sync(dispatch_get_main_queue(), ^{
