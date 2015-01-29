@@ -10,6 +10,6 @@
 
 @interface WinesDatabase : NSObject
 
-+(NSDictionary*)winerysAndVarieties;
++(NSDictionary*)wineriesAndVarieties;
 
 @end
