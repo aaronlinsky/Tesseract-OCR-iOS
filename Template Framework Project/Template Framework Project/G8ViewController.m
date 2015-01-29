@@ -222,7 +222,6 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     sessionPresetLabel.text = @"preset";
     sessionPresetLabel.font = [UIFont systemFontOfSize:9];
     [preprocessPreview addSubview:sessionPresetLabel];
-
     
     UIButton *quitButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
                                                                      CGRectGetHeight([UIScreen mainScreen].bounds)-40,
@@ -322,6 +321,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
+    
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint touchPoint = [touch locationInView:touch.view];
     [self focus:touchPoint];
