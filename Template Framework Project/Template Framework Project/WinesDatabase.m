@@ -37,23 +37,23 @@ static NSString* const DB = @"TermListByWineryNewWorldOnly";
     self = [super init];
     if(self){
         _wineriesVarieties = [[NSMutableDictionary alloc]init];
+        
+        NSString *dbPath = [[NSBundle mainBundle] pathForResource:DB ofType:@"csv"];
+        NSInputStream *stream = [NSInputStream inputStreamWithURL:[NSURL fileURLWithPath:dbPath]];
+        NSStringEncoding encoding = NSWindowsCP1251StringEncoding;
+        CHCSVParser *csv = [[CHCSVParser alloc]initWithInputStream:stream usedEncoding:&encoding delimiter:','];
+        csv.sanitizesFields = YES;
+        csv.trimsWhitespace = YES;
+        csv.recognizesBackslashesAsEscapes = YES;
+        csv.recognizesComments = YES;
+        csv.delegate = self;
+        [csv parse];
+
     }
     return self;
 }
 
 +(NSDictionary*)wineriesAndVarieties{
-    NSString *dbPath = [[NSBundle mainBundle] pathForResource:DB ofType:@"csv"];
-
-    NSInputStream *stream = [NSInputStream inputStreamWithURL:[NSURL fileURLWithPath:dbPath]];
-    NSStringEncoding encoding = NSWindowsCP1251StringEncoding;
-    CHCSVParser *csv = [[CHCSVParser alloc]initWithInputStream:stream usedEncoding:&encoding delimiter:','];
-    csv.sanitizesFields = YES;
-    csv.trimsWhitespace = YES;
-    csv.recognizesBackslashesAsEscapes = YES;
-    csv.recognizesComments = YES;
-    csv.delegate = [WinesDatabase instance];
-    [csv parse];
-
     return [WinesDatabase instance].wineriesVarieties;
 }
 
