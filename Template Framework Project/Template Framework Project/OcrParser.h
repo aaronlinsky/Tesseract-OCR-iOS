@@ -11,7 +11,7 @@
 @interface OcrParser : NSObject
 
 +(instancetype)instance;
-+(BOOL)parseWine:(NSString*)wineFamily  ocrString:(NSString*)text toYear:(NSString**)year andVariety:(NSString**)variety;
++(BOOL)parseWine:(NSString*)wineFamily ocrString:(NSString*)text toYear:(NSString**)year variety:(NSString**)variety vineyard:(NSString**)vineyard;
 +(BOOL)parseUnknownWine:(NSString*)ocrText toYear:(NSString**)year andVariety:(NSString**)variety;
 
 @end

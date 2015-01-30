@@ -127,11 +127,12 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
         if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
             NSString *year;
             NSString *variety;
-            BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year andVariety:&variety];
+            NSString *vineyard;
+            BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year variety:&variety vineyard:&vineyard];
 //            BOOL parsingSuccessful = [OcrParser parseUnknownWine:recognizedText toYear:&year andVariety:&variety];
             
             if(parsingSuccessful){
-                parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@",year,variety];
+                parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@ \n%@",year,variety,vineyard];
                 self.readyToOCR = YES;
             }
             else{
@@ -201,15 +202,14 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     ocrResultsLabel.textColor = [UIColor whiteColor];
 
     parsingResultsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,
-                                                                   0,
+                                                                   CGRectGetHeight(self.view.frame)-45,
                                                                    CGRectGetWidth(self.view.frame),
-                                                                   CGRectGetHeight(self.view.frame))];
-    parsingResultsLabel.layer.position = CGPointMake(CGRectGetWidth(parsingResultsLabel.frame)/2,CGRectGetHeight(self.view.frame)-20);
+                                                                   50)];
     parsingResultsLabel.textAlignment = NSTextAlignmentCenter;
     [vc.view addSubview:parsingResultsLabel];
     parsingResultsLabel.numberOfLines = 0;
     parsingResultsLabel.textColor = [UIColor whiteColor];
-    parsingResultsLabel.text = @"Year/Variety";
+    parsingResultsLabel.text = @"Year/Variety\nVineyard";
     
     preprocessPreview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)/4,
                                                                       CGRectGetHeight([UIScreen mainScreen].bounds) - CGRectGetWidth([UIScreen mainScreen].bounds)/2 - 40,
