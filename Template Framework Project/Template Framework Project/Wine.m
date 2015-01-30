@@ -12,11 +12,8 @@
 
 -(instancetype)initWithDisplayName:(NSString*)display recognizedNames:(NSArray*)recognized years:(NSArray*)years
 {
-    self = [super init];
-    if(self)
-    {
-        _displayName = display;
-        _recognizedNames = recognized;
+    self = [super initWithDisplayName:display recognizedNames:recognized];
+    if(self){
         _years = years;
     }
     return self;

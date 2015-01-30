@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RecognizableEntity.h"
 
-@interface Wine : NSObject
+@interface Wine : RecognizableEntity
 
-@property(nonatomic,readonly) NSString  *displayName;
-@property(nonatomic,readonly) NSArray   *recognizedNames;
 @property(nonatomic,readonly) NSArray   *years;
 
 -(instancetype)initWithDisplayName:(NSString*)display recognizedNames:(NSArray*)recognized years:(NSArray*)years;
