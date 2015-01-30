@@ -52,6 +52,7 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
     
     NSArray *wineVarieties = [OcrParser instance].wines[wineFamily];
     NSArray *wineVineyards = [OcrParser instance].vineyards[wineFamily];
+    
     if(wineVarieties == nil && wineVineyards == nil)//specified winery not present
         return NO;
 
