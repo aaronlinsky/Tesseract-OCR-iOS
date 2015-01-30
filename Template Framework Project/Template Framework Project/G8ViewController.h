@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) AVCaptureVideoDataOutput *dataOutput;
 @property (nonatomic, strong) CALayer *customPreviewLayer;
+@property (nonatomic, copy) NSString *winery;
 
 - (IBAction)openVideo:(id)sender;
 - (void)setupCameraSession;

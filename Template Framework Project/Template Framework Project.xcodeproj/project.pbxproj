@@ -17,6 +17,7 @@
 		588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */; };
 		588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588638C81A73AD4300CABC24 /* libGPUImage.a */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
+		58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B534C61A7B890200176EBA /* WineryPickerController.m */; };
 		58E19A241A793EA30033AFEC /* WinesDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A231A793EA30033AFEC /* WinesDatabase.m */; };
 		58E19A281A793F720033AFEC /* TermListByWinery.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58E19A271A793F720033AFEC /* TermListByWinery.csv */; };
 		58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A2B1A7941780033AFEC /* CHCSVParser.m */; };
@@ -83,6 +84,8 @@
 		588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreprocessor.h; sourceTree = "<group>"; };
 		588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreprocessor.m; sourceTree = "<group>"; };
 		5889EE731A7032720060CE6E /* 2009bin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009bin.jpg; sourceTree = "<group>"; };
+		58B534C51A7B890200176EBA /* WineryPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineryPickerController.h; sourceTree = "<group>"; };
+		58B534C61A7B890200176EBA /* WineryPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineryPickerController.m; sourceTree = "<group>"; };
 		58E19A221A793EA30033AFEC /* WinesDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinesDatabase.h; sourceTree = "<group>"; };
 		58E19A231A793EA30033AFEC /* WinesDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinesDatabase.m; sourceTree = "<group>"; };
 		58E19A271A793F720033AFEC /* TermListByWinery.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermListByWinery.csv; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 				5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */,
 				58E19A221A793EA30033AFEC /* WinesDatabase.h */,
 				58E19A231A793EA30033AFEC /* WinesDatabase.m */,
+				58B534C51A7B890200176EBA /* WineryPickerController.h */,
+				58B534C61A7B890200176EBA /* WineryPickerController.m */,
 			);
 			path = "Template Framework Project";
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */,
 				58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */,
 				58E19A241A793EA30033AFEC /* WinesDatabase.m in Sources */,
+				58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */,
 				585610341A725C2D00FBC7E7 /* Wine.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,

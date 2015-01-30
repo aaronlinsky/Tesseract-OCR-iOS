@@ -46,8 +46,10 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     UIImageView *preprocessPreview;
     UILabel *preprocessModeLabel;
     UILabel *sessionPresetLabel;
+    UILabel *wineryLabel;
     PreprocessMode preprocessMode;
     SessionPreset sessionPreset;
+    UIViewController *vc;
 }
 
 @synthesize captureSession = _captureSession;
@@ -61,7 +63,6 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
 
     // Create a queue to perform recognition operations
     self.operationQueue = [[NSOperationQueue alloc] init];
-    
     self.readyToOCR = YES;
 }
 
@@ -70,8 +71,16 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     [super viewDidAppear:animated];
     
     [OcrParser instance];//warming-up parser
+    self.winery = @"Mira";
 
     [self openVideo:nil];
+
+}
+
+-(void)setWinery:(NSString *)winery
+{
+    _winery = winery;
+    wineryLabel.text = winery;
 }
 
 -(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode
@@ -118,7 +127,7 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
         if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
             NSString *year;
             NSString *variety;
-            BOOL parsingSuccessful = [OcrParser parseWine:@"Mira" ocrString:recognizedText toYear:&year andVariety:&variety];
+            BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year andVariety:&variety];
 //            BOOL parsingSuccessful = [OcrParser parseUnknownWine:recognizedText toYear:&year andVariety:&variety];
             
             if(parsingSuccessful){
@@ -178,7 +187,7 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     _customPreviewLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _customPreviewLayer.position = CGPointMake(self.view.frame.size.width/2., self.view.frame.size.height/2.);
     
-    UIViewController *vc = [[UIViewController alloc] init];
+    vc = [[UIViewController alloc] init];
     [vc.view.layer addSublayer:_customPreviewLayer ];
     
     ocrResultsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,
@@ -222,7 +231,15 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     sessionPresetLabel.text = @"preset";
     sessionPresetLabel.font = [UIFont systemFontOfSize:9];
     [preprocessPreview addSubview:sessionPresetLabel];
+
+    wineryLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,-35,CGRectGetWidth(preprocessPreview.frame),20)];
+    wineryLabel.textAlignment = NSTextAlignmentCenter;
+    wineryLabel.textColor = [UIColor grayColor];
+    wineryLabel.text = self.winery;
+    wineryLabel.font = [UIFont systemFontOfSize:9];
+    [preprocessPreview addSubview:wineryLabel];
     
+
     UIButton *quitButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
                                                                      CGRectGetHeight([UIScreen mainScreen].bounds)-40,
                                                                      40,
@@ -234,6 +251,20 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     quitButton.layer.borderColor = [UIColor whiteColor].CGColor;
     quitButton.layer.borderWidth = 2;
     quitButton.layer.cornerRadius = 10;
+    
+    UIButton *wineryButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
+                                                                     CGRectGetHeight([UIScreen mainScreen].bounds)-80,
+                                                                     40,
+                                                                     40)];
+    [wineryButton setTitle:@"Winery" forState:UIControlStateNormal];
+    [wineryButton addTarget:self action:@selector(pickWinery:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.view addSubview:wineryButton];
+    [wineryButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    wineryButton.titleLabel.font = [UIFont systemFontOfSize:11];
+    wineryButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    wineryButton.layer.borderWidth = 2;
+    wineryButton.layer.cornerRadius = 10;
+
     
     UIButton *presetButton  = [[UIButton alloc]initWithFrame:CGRectMake(0,
                                                                         CGRectGetHeight([UIScreen mainScreen].bounds)-40,
@@ -317,6 +348,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     sessionPreset = (sessionPreset + 1) % (preset352x288+1);
     [self quitPreview:nil];//reinitializing capture
+}
+
+-(void)pickWinery:(id)sender
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
+    UIViewController *wineryPciker = [mainStoryboard instantiateViewControllerWithIdentifier:@"WineryPickerController"];
+    
+    [vc presentViewController:wineryPciker animated:YES completion:nil];
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
