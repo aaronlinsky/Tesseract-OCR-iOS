@@ -17,8 +17,7 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 2;
 static NSUInteger const MAX_YEAR_DISTANCE = 1;
 
 @interface OcrParser()
-//@property(nonatomic,strong) NSDictionary* wines;//with vuforia
-@property(nonatomic,strong) NSDictionary* wines2;//without vuforia
+@property(nonatomic,strong) NSDictionary* wines2;
 @end
 
 @implementation OcrParser
@@ -36,28 +35,6 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
 -(instancetype)init{
     self = [super init];
     if(self){
-//        WineDictionary *mira_wd = [[WineDictionary alloc]init];
-//        [mira_wd insert:[[Wine alloc]
-//                         initWithDisplayName:@"Pinot Noir"
-//                         recognizedNames:@[@"PINOT",@"NOIR"]
-//                         years:@[@"2010",@"2011"]]];
-//        
-//        [mira_wd insert:[[Wine alloc]
-//                         initWithDisplayName:@"Cabernet Sauvignon"
-//                         recognizedNames:@[@"CABERNET",@"SAUVIGNON",@"CABER",@"ERNET",@"SAUVI",@"IGNON",@"BERN",@"UVIGN"]
-//                         years:@[@"2009", @"2010", @"2011"]]];
-//        
-//        [mira_wd insert:[[Wine alloc]
-//                         initWithDisplayName:@"Chardonnay"
-//                         recognizedNames:@[@"CHARDONNAY",@"CHARD",@"ONNAY",@"ARDON"]
-//                         years:@[@"2010", @"2011", @"2012"]]];
-//        
-//        [mira_wd insert:[[Wine alloc]
-//                         initWithDisplayName:@"Syrah"
-//                         recognizedNames:@[@"SYRAH"]
-//                         years:@[@"2009", @"2010"]]];
-//        
-//        self.wines = @{@"mira": mira_wd};
         self.wines2 = [WinesDatabase wineriesAndVarieties];
     }
     return self;
