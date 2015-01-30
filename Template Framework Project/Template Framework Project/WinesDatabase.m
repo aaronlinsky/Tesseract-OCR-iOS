@@ -9,12 +9,14 @@
 #import "WinesDatabase.h"
 #import "CHCSVParser.h"
 #import "Wine.h"
+#import "Vineyard.h"
 
 static NSUInteger const WORD_SPLIT_LEN = 5;
 static NSString* const DB = @"TermListByWineryNewWorldOnly";
 
 @interface WinesDatabase()<CHCSVParserDelegate>
 @property(nonatomic,strong) NSMutableDictionary *wineriesVarieties;
+@property(nonatomic,strong) NSMutableDictionary *wineriesVineyards;
 @end
 
 @implementation WinesDatabase
@@ -37,10 +39,11 @@ static NSString* const DB = @"TermListByWineryNewWorldOnly";
     self = [super init];
     if(self){
         _wineriesVarieties = [[NSMutableDictionary alloc]init];
+        _wineriesVineyards = [[NSMutableDictionary alloc]init];
         
         NSString *dbPath = [[NSBundle mainBundle] pathForResource:DB ofType:@"csv"];
         NSInputStream *stream = [NSInputStream inputStreamWithURL:[NSURL fileURLWithPath:dbPath]];
-        NSStringEncoding encoding = NSWindowsCP1251StringEncoding;
+        NSStringEncoding encoding = nil;//NSUnicodeStringEncoding;//NSWindowsCP1251StringEncoding;
         CHCSVParser *csv = [[CHCSVParser alloc]initWithInputStream:stream usedEncoding:&encoding delimiter:','];
         csv.sanitizesFields = YES;
         csv.trimsWhitespace = YES;
@@ -48,13 +51,16 @@ static NSString* const DB = @"TermListByWineryNewWorldOnly";
         csv.recognizesComments = YES;
         csv.delegate = self;
         [csv parse];
-
     }
     return self;
 }
 
 +(NSDictionary*)wineriesAndVarieties{
     return [WinesDatabase instance].wineriesVarieties;
+}
+
++(NSDictionary*)wineriesAndVineyards{
+    return [WinesDatabase instance].wineriesVineyards;
 }
 
 
@@ -68,18 +74,28 @@ static NSString* const DB = @"TermListByWineryNewWorldOnly";
             break;
         case 2:
             if ([field isEqualToString:@"varietal"]) {
-                NSArray *wineOCRnames = [self wineNames:lastValue];
+                NSArray *wineOCRnames = [self shortNames:lastValue];
                 Wine *wine = [[Wine alloc]initWithDisplayName:lastValue recognizedNames:wineOCRnames years:nil];
-                if(self.wineriesVarieties[lastKey] == nil){
-                    self.wineriesVarieties[lastKey] = [NSMutableArray arrayWithObject: wine];
-                }
-                else{
-                    [self.wineriesVarieties[lastKey] addObject: wine];
-                }
+                [self addObject:wine toDictionary:self.wineriesVarieties byKey:lastKey];
+            }
+            if ([field isEqualToString:@"vineyard"]) {
+                NSArray *yardOCRnames = [self shortNames:lastValue];
+                Vineyard *vineyard = [[Vineyard alloc] initWithDisplayName:lastValue recognizedNames:yardOCRnames];
+                [self addObject:vineyard toDictionary:self.wineriesVineyards byKey:lastKey];
             }
             break;
         default:
             break;
+    }
+}
+
+-(void) addObject:(id)object toDictionary:(NSMutableDictionary*)dictionary byKey:(NSString*)key
+{
+    if(dictionary[key] == nil){
+        dictionary[key] = [NSMutableArray arrayWithObject: object];
+    }
+    else{
+        [dictionary[key] addObject: object];
     }
 }
 
@@ -95,11 +111,11 @@ static NSString* const DB = @"TermListByWineryNewWorldOnly";
 }
 
 - (void)parserDidEndDocument:(CHCSVParser *)parser;{
-    NSLog(@"CSV parsing finished successfully. %lu fields collected",[self.wineriesVarieties count]);
+    NSLog(@"CSV parsing finished successfully. Varieties:%lu Vineries:%lu",[self.wineriesVarieties count], [self.wineriesVineyards count]);
 }
 
--(NSArray*)wineNames:(NSString*)wine{
-    NSArray *dst = [self cleanUpAndParseWords:@[wine]];
+-(NSArray*)shortNames:(NSString*)longName{
+    NSArray *dst = [self cleanUpAndParseWords:@[longName]];
     dst = [self splitLongWords:dst length:WORD_SPLIT_LEN];
     return dst;
 }
