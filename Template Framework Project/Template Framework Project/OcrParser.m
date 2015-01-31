@@ -57,18 +57,20 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
         return NO;
 
     NSArray *rows = [text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
+    NSString *oneLine = [rows componentsJoinedByString:@""];
+
     //variety match
     Wine *varietyMatch = (Wine*)[OcrParser searchStringArray:rows withEntitiesArray:wineVarieties];
     if (varietyMatch) {
         *variety = varietyMatch.displayName;
     }
     
-    //year (Levenshtein-only) match
-    NSString *bestYear;
-    NSUInteger bestYearDistance = [[OcrParser instance] bestMatchFromArray:vintages inArray:rows match:&bestYear];
-    if(bestYearDistance <= MAX_YEAR_DISTANCE){
-        *year = bestYear;
+    //year (exacy-only) match
+    NSString *exactYear;
+    BOOL exact = [[OcrParser instance] exactMatchInString:oneLine inArray:vintages match:&exactYear];
+    if(exact){
+        NSLog(@"Exact match: %@",exactYear);
+        *year = exactYear;
     }
 
     //vineyard match
@@ -77,7 +79,7 @@ static NSUInteger const MAX_YEAR_DISTANCE = 1;
         *vineyard = vineyardMatch.displayName;
     }
     
-    if(*year && (varietyMatch || vineyardMatch) )
+    if(*year || varietyMatch || vineyardMatch)
         return YES;
     
     return NO;
