@@ -25,14 +25,14 @@ static G8Tesseract *tess;
 +(void)reinitTess
 {
     tess = [[G8Tesseract alloc] init];
-    tess.language = @"eng";
+    tess.language = @"eng+novia";
     [tess setVariableValue:@"0" forKey:kG8ParamChopEnable];
 //    [tess setVariableValue:@"0" forKey:kG8ParamLoadSystemDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadFreqDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadPuncDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadUnambigDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadBigramDawg];
-//    [tess setVariableValue:@"1" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
+    [tess setVariableValue:@"0.3" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
 
     tess.engineMode = G8OCREngineModeTesseractOnly;
     tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;
