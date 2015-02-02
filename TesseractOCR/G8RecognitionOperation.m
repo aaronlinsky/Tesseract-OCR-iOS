@@ -25,7 +25,7 @@ static G8Tesseract *tess;
 +(void)reinitTess
 {
     tess = [[G8Tesseract alloc] init];
-    tess.language = @"eng+novia";
+    tess.language = @"eng";//@"novia";//@"eng+novia";
     [tess setVariableValue:@"0" forKey:kG8ParamChopEnable];
 //    [tess setVariableValue:@"0" forKey:kG8ParamLoadSystemDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadFreqDawg];
