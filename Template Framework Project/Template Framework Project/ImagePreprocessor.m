@@ -9,6 +9,7 @@
 #import "ImagePreprocessor.h"
 #import "GPUImage.h"
 #import "InverseAdaptiveThresholdFilter.h"
+#import "Median5x5Filter.h"
 
 @implementation ImagePreprocessor
 
@@ -45,6 +46,14 @@
     UIImage *filteredImage = [filter imageFromCurrentFramebuffer];
 
     return filteredImage;
+}
+
++(UIImage*)denoiseImage:(UIImage*)image
+{
+    GPUImageMedianFilter *filter = [[GPUImageMedianFilter alloc] init];
+    return [ImagePreprocessor processImage:image withFilter:filter];
+//    Median5x5Filter *filter = [[Median5x5Filter alloc]initWithImage:image];
+//    return [ImagePreprocessor processImage:image withFilter:filter];
 }
 
 @end

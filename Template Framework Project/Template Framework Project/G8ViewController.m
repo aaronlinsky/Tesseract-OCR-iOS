@@ -85,9 +85,11 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
 
 -(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode
 {
-    TICK;
+
     UIImage *bwImage;
-    
+    TICK;
+    image = [ImagePreprocessor denoiseImage:image];
+
     switch (mode) {
         case inverseAdaptiveBinarization:
             bwImage = [ImagePreprocessor inverseAdaptiveBinarize:image];
@@ -99,8 +101,11 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
             bwImage = image;
             break;
     }
+//    TICK;
+//    bwImage = [ImagePreprocessor denoiseImage:bwImage];
+
 //    TOCK;
-    
+
     G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
     
     operation.delegate = self;
@@ -117,7 +122,7 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
         NSString* recognizedTextNoWhitespaces = [[recognizedText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@"" ];
         ocrResultsLabel.text = [recognizedTextNoWhitespaces stringByAppendingFormat:@"\n%f",ELAPSED];
 
-        if(ELAPSED > 0.7)//should not use constant value here but derive from average ELAPSED time
+        if(ELAPSED > 1.7)//should not use constant value here but derive from average ELAPSED time
         {//degradation detected. Force tesserect reinit
             NSLog(@"Reinitializing...");
             ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];
