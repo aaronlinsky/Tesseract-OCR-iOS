@@ -32,7 +32,7 @@ static G8Tesseract *tess;
     [tess setVariableValue:@"0" forKey:kG8ParamLoadPuncDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadUnambigDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadBigramDawg];
-    [tess setVariableValue:@"0.3" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
+//    [tess setVariableValue:@"0.3" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
 
     tess.engineMode = G8OCREngineModeTesseractOnly;
     tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;
