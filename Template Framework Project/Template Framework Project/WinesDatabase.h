@@ -12,5 +12,6 @@
 
 +(NSDictionary*)wineriesAndVarieties;
 +(NSDictionary*)wineriesAndVineyards;
++(NSDictionary*)wineriesAndSubregions;
 
 @end

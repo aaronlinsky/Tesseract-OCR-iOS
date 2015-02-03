@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		428615B71845F340005D5A2E /* image_sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 428615B61845F340005D5A2E /* image_sample.jpg */; };
+		581E004D1A80BDFD0041F545 /* Subregion.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E004C1A80BDFD0041F545 /* Subregion.m */; };
+		581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00561A80E9410041F545 /* WineryPickerCell.m */; };
 		58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */; };
 		5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */; };
 		585610341A725C2D00FBC7E7 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 585610331A725C2D00FBC7E7 /* Wine.m */; };
@@ -72,6 +74,10 @@
 
 /* Begin PBXFileReference section */
 		428615B61845F340005D5A2E /* image_sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_sample.jpg; sourceTree = "<group>"; };
+		581E004B1A80BDFD0041F545 /* Subregion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subregion.h; sourceTree = "<group>"; };
+		581E004C1A80BDFD0041F545 /* Subregion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subregion.m; sourceTree = "<group>"; };
+		581E00551A80E9410041F545 /* WineryPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineryPickerCell.h; sourceTree = "<group>"; };
+		581E00561A80E9410041F545 /* WineryPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineryPickerCell.m; sourceTree = "<group>"; };
 		58303E2D1A7F8F41005C3017 /* Median5x5Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Median5x5Filter.h; sourceTree = "<group>"; };
 		58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Median5x5Filter.m; sourceTree = "<group>"; };
 		5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InverseAdaptiveThresholdFilter.h; sourceTree = "<group>"; };
@@ -149,6 +155,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		581E00501A80BE150041F545 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6400DDEA180C5DE000443362 /* Main.storyboard */,
+				6400DDED180C5DE000443362 /* G8ViewController.h */,
+				6400DDEE180C5DE000443362 /* G8ViewController.m */,
+				58B534C51A7B890200176EBA /* WineryPickerController.h */,
+				58B534C61A7B890200176EBA /* WineryPickerController.m */,
+				581E00551A80E9410041F545 /* WineryPickerCell.h */,
+				581E00561A80E9410041F545 /* WineryPickerCell.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		581E00511A80BE400041F545 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				586D15131A713A0C0052BC0B /* OcrParser.h */,
+				586D15141A713A0C0052BC0B /* OcrParser.m */,
+				586D15171A71534A0052BC0B /* NSString+Levenshtein.h */,
+				586D15181A71534A0052BC0B /* NSString+Levenshtein.m */,
+			);
+			name = Parser;
+			sourceTree = "<group>";
+		};
+		581E00521A80BE820041F545 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				581E00541A80BEF80041F545 /* Entities */,
+				58E19A221A793EA30033AFEC /* WinesDatabase.h */,
+				58E19A231A793EA30033AFEC /* WinesDatabase.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		581E00531A80BE9B0041F545 /* Image processing */ = {
+			isa = PBXGroup;
+			children = (
+				588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */,
+				588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */,
+				5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */,
+				5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */,
+				58303E2D1A7F8F41005C3017 /* Median5x5Filter.h */,
+				58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */,
+			);
+			name = "Image processing";
+			sourceTree = "<group>";
+		};
+		581E00541A80BEF80041F545 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				58B534D01A7BDC7C00176EBA /* RecognizableEntity.h */,
+				58B534D11A7BDC7C00176EBA /* RecognizableEntity.m */,
+				585610321A725C2D00FBC7E7 /* Wine.h */,
+				585610331A725C2D00FBC7E7 /* Wine.m */,
+				58B534CA1A7BC85900176EBA /* Vineyard.h */,
+				58B534CB1A7BC85900176EBA /* Vineyard.m */,
+				581E004B1A80BDFD0041F545 /* Subregion.h */,
+				581E004C1A80BDFD0041F545 /* Subregion.m */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
 		588638C21A73AD4300CABC24 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,35 +275,16 @@
 		6400DDDE180C5DE000443362 /* Template Framework Project */ = {
 			isa = PBXGroup;
 			children = (
-				58E19A291A7941780033AFEC /* CHCSVParser */,
 				64DDA75A188FD9140025590D /* tessdata */,
+				58E19A291A7941780033AFEC /* CHCSVParser */,
+				581E00501A80BE150041F545 /* UI */,
+				581E00511A80BE400041F545 /* Parser */,
+				581E00521A80BE820041F545 /* Model */,
+				581E00531A80BE9B0041F545 /* Image processing */,
 				6400DDE7180C5DE000443362 /* G8AppDelegate.h */,
 				6400DDE8180C5DE000443362 /* G8AppDelegate.m */,
-				6400DDEA180C5DE000443362 /* Main.storyboard */,
-				6400DDED180C5DE000443362 /* G8ViewController.h */,
-				6400DDEE180C5DE000443362 /* G8ViewController.m */,
-				586D15131A713A0C0052BC0B /* OcrParser.h */,
-				586D15141A713A0C0052BC0B /* OcrParser.m */,
 				6400DDF0180C5DE000443362 /* Images.xcassets */,
 				6400DDDF180C5DE000443362 /* Supporting Files */,
-				586D15171A71534A0052BC0B /* NSString+Levenshtein.h */,
-				586D15181A71534A0052BC0B /* NSString+Levenshtein.m */,
-				58B534D01A7BDC7C00176EBA /* RecognizableEntity.h */,
-				58B534D11A7BDC7C00176EBA /* RecognizableEntity.m */,
-				585610321A725C2D00FBC7E7 /* Wine.h */,
-				585610331A725C2D00FBC7E7 /* Wine.m */,
-				58B534CA1A7BC85900176EBA /* Vineyard.h */,
-				58B534CB1A7BC85900176EBA /* Vineyard.m */,
-				588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */,
-				588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */,
-				5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */,
-				5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */,
-				58303E2D1A7F8F41005C3017 /* Median5x5Filter.h */,
-				58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */,
-				58E19A221A793EA30033AFEC /* WinesDatabase.h */,
-				58E19A231A793EA30033AFEC /* WinesDatabase.m */,
-				58B534C51A7B890200176EBA /* WineryPickerController.h */,
-				58B534C61A7B890200176EBA /* WineryPickerController.m */,
 			);
 			path = "Template Framework Project";
 			sourceTree = "<group>";
@@ -368,6 +418,8 @@
 				585610341A725C2D00FBC7E7 /* Wine.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
+				581E004D1A80BDFD0041F545 /* Subregion.m in Sources */,
+				581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */,
 				6400DDEF180C5DE000443362 /* G8ViewController.m in Sources */,
 				586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */,
 				58B534D21A7BDC7C00176EBA /* RecognizableEntity.m in Sources */,

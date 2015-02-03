@@ -14,5 +14,6 @@
 @property(nonatomic,readonly) NSArray   *recognizedNames;
 
 -(instancetype)initWithDisplayName:(NSString*)display recognizedNames:(NSArray*)recognized;
+-(instancetype)initWithDisplayName:(NSString*)display;
 
 @end
