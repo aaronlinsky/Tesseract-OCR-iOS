@@ -9,11 +9,15 @@
 #import "WineryPickerController.h"
 #import "WinesDatabase.h"
 #import "G8ViewController.h"
+#import "WineryPickerCell.h"
 
 static NSUInteger lastSelection = -1;
 
 @interface WineryPickerController ()
 @property(nonatomic,strong) NSArray *wineries;
+@property(nonatomic,strong) NSDictionary *wineriesVarieties;
+@property(nonatomic,strong) NSDictionary *wineriesVineyards;
+@property(nonatomic,strong) NSDictionary *wineriesSubregions;
 @property(nonatomic,strong) NSMutableArray *filteredWineries;
 @end
 
@@ -22,14 +26,18 @@ static NSUInteger lastSelection = -1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _wineries = [[[WinesDatabase wineriesAndVarieties] allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    _wineriesVarieties = [WinesDatabase wineriesAndVarieties];
+    _wineriesVineyards = [WinesDatabase wineriesAndVineyards];
+    _wineriesSubregions = [WinesDatabase wineriesAndSubregions];
+    _wineries = [[_wineriesVarieties allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [(NSString *)obj1 compare:(NSString *)obj2];
     }];
     
     _filteredWineries = [[NSMutableArray alloc]initWithArray:_wineries];
         
     self.clearsSelectionOnViewWillAppear = NO;
-    [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"WineryCell"];
+//    [self.searchDisplayController.searchResultsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"WineryCell"];
+    [self.searchDisplayController.searchResultsTableView registerClass:[WineryPickerCell class] forCellReuseIdentifier:@"WineryCell"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -47,11 +55,15 @@ static NSUInteger lastSelection = -1;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WineryCell"];
 
+    NSString *winery;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        cell.textLabel.text = self.filteredWineries[indexPath.row];
+        winery = self.filteredWineries[indexPath.row];
     } else {
-        cell.textLabel.text = self.wineries[indexPath.row];
+        winery = self.wineries[indexPath.row];
     }
+    
+    cell.textLabel.text = winery;
+    cell.detailTextLabel.text =  [NSString stringWithFormat:@"Varieties:%lu Vineyards:%lu Locations:%lu", [self.wineriesVarieties[winery] count], [self.wineriesVineyards[winery] count], [self.wineriesSubregions[winery] count]];
     
     return cell;
 }
@@ -76,7 +88,7 @@ static NSUInteger lastSelection = -1;
     self.filteredWineries =
     [self.wineries filteredArrayUsingPredicate:
      [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        return [(NSString*)evaluatedObject containsString: searchText];
+        return [(NSString*)evaluatedObject rangeOfString: searchText options:NSCaseInsensitiveSearch].length > 0;
     }]].mutableCopy;
 }
 
