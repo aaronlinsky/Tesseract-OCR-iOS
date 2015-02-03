@@ -10,6 +10,7 @@
 #import "NSString+Levenshtein.h"
 #import "Wine.h"
 #import "Vineyard.h"
+#import "Subregion.h"
 #import "RecognizableEntity.h"
 #import "WinesDatabase.h"
 
@@ -21,6 +22,7 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
 @interface OcrParser()
 @property(nonatomic,strong) NSDictionary* wines;
 @property(nonatomic,strong) NSDictionary* vineyards;
+@property(nonatomic,strong) NSDictionary* subregions;
 @end
 
 @implementation OcrParser
@@ -40,20 +42,22 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
     if(self){
         self.wines = [WinesDatabase wineriesAndVarieties];
         self.vineyards = [WinesDatabase wineriesAndVineyards];
+        self.subregions = [WinesDatabase wineriesAndSubregions];
     }
     return self;
 }
 
-+(BOOL)parseWine:(NSString*)wineFamily ocrString:(NSString*)text toYear:(NSString**)year variety:(NSString**)variety vineyard:(NSString**)vineyard{
-    *year = *variety = *vineyard = @"???";
++(BOOL)parseWine:(NSString*)wineFamily ocrString:(NSString*)text toYear:(NSString**)year variety:(NSString**)variety vineyard:(NSString**)vineyard subregion:(NSString**)subregion{
+    *year = *variety = *vineyard = *subregion = @"???";
     
     if ([text length] < 10)
         return NO;
     
     NSArray *wineVarieties = [OcrParser instance].wines[wineFamily];
     NSArray *wineVineyards = [OcrParser instance].vineyards[wineFamily];
+    NSArray *wineSubregions= [OcrParser instance].subregions[wineFamily];
     
-    if(wineVarieties == nil && wineVineyards == nil)//specified winery not present
+    if(wineVarieties == nil && wineVineyards == nil && wineSubregions == nil)//specified winery not present
         return NO;
 
     NSArray *rows = [text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -79,7 +83,14 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
         *vineyard = vineyardMatch.displayName;
     }
     
-    if(exactYear || varietyMatch || vineyardMatch)
+    //subregion match
+    Subregion *subregionMatch = (Subregion*)[OcrParser searchStringArray:rows withEntitiesArray:wineSubregions];
+    if(subregionMatch){
+        *subregion = subregionMatch.displayName;
+    }
+
+    
+    if(exactYear || varietyMatch || vineyardMatch || subregionMatch)
         return YES;
     
     return NO;
@@ -88,14 +99,35 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
 +(RecognizableEntity*)searchStringArray:(NSArray*)src withEntitiesArray:(NSArray*)patterns{
     NSString *oneLine = [src componentsJoinedByString:@""];
     
+    NSComparisonResult (^stringsLenComparator)(id obj1, id obj2) =
+    ^NSComparisonResult(id obj1, id obj2) {
+        if([obj1 length] < [obj2 length]){
+            return NSOrderedDescending;
+        }
+        if([obj1 length] == [obj2 length]){
+            return NSOrderedSame;
+        }
+        return NSOrderedAscending;
+    };
+    
+    
     //first pass: trying to match substring exactly
+    RecognizableEntity *bestExactMatchEntity;
+    NSUInteger bestMatchLen = 0;
+    NSString *bestExactMatch;
     for (RecognizableEntity *entity in patterns) {
         NSString *exactMatch;
-        BOOL exact = [[OcrParser instance] exactMatchInString:oneLine inArray:entity.recognizedNames match:&exactMatch];
-        if(exact){
-            NSLog(@"Exact match: %@",exactMatch);
-            return entity;
+        NSUInteger matchLen = [[OcrParser instance] exactMatchInString:oneLine inArray: [entity.recognizedNames sortedArrayUsingComparator: stringsLenComparator] match:&exactMatch];
+        
+        if(matchLen > bestMatchLen){
+            bestExactMatch = exactMatch;
+            bestExactMatchEntity = entity;
+            bestMatchLen = matchLen;
         }
+    }
+    if(bestMatchLen > 0){
+        NSLog(@"Exact match: %@",bestExactMatch);
+        return bestExactMatchEntity;
     }
     
     //second pass: best Levenshtein distance
@@ -103,10 +135,12 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
     NSString *bestMatch;//debugging purposes only
     NSUInteger bestDistance = UINT32_MAX;
     for (RecognizableEntity *entity in patterns) {
-        NSUInteger distance = [[OcrParser instance] bestMatchFromArray:entity.recognizedNames inArray:src match:&bestMatch];
+        NSString *match;
+        NSUInteger distance = [[OcrParser instance] bestMatchFromArray: [entity.recognizedNames sortedArrayUsingComparator:stringsLenComparator ] inArray:src match:&match];
         if(distance < bestDistance){
             bestDistance = distance;
             bestMatchEntity = entity;
+            bestMatch = match;
         }
     }
     if(bestDistance <= MAX_VARIETY_DISTANCE){
@@ -136,14 +170,15 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
     return NO;
 }
 
--(BOOL) exactMatchInString:(NSString*)text inArray:(NSArray*)candidates match:(NSString**)match{
+-(NSUInteger) exactMatchInString:(NSString*)text inArray:(NSArray*)candidates match:(NSString**)match{
+    NSUInteger matchedLen=0;
     for (NSString* c in candidates) {
         if ([text rangeOfString:c options:NSCaseInsensitiveSearch].location != NSNotFound) {
             *match = c;
-            return YES;
+            matchedLen += c.length;
         }
     }
-    return NO;
+    return matchedLen;
 }
 
 -(NSUInteger) bestMatchFromArray:(NSArray*)arr1 inArray:(NSArray*)arr2 match:(NSString**)bestMatchedString{

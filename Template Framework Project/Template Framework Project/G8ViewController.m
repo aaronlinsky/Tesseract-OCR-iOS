@@ -71,10 +71,9 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     [super viewDidAppear:animated];
     
     [OcrParser instance];//warming-up parser
-    self.winery = @"Mira";
+    self.winery = @"Louis Jadot";//@"Mira";
 
     [self openVideo:nil];
-
 }
 
 -(void)setWinery:(NSString *)winery
@@ -85,7 +84,6 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
 
 -(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode
 {
-
     UIImage *bwImage;
     TICK;
     image = [ImagePreprocessor denoiseImage:image];
@@ -133,11 +131,14 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
             NSString *year;
             NSString *variety;
             NSString *vineyard;
-            BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year variety:&variety vineyard:&vineyard];
+            NSString *subregion;
+            
+            BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year variety:&variety vineyard:&vineyard subregion:&subregion];
 //            BOOL parsingSuccessful = [OcrParser parseUnknownWine:recognizedText toYear:&year andVariety:&variety];
             
             if(parsingSuccessful){
-                parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@ \n%@",year,variety,vineyard];
+                parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@ \n%@\n%@",year,variety,vineyard,subregion];
+                
                 self.readyToOCR = YES;
             }
             else{
@@ -214,7 +215,8 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     [vc.view addSubview:parsingResultsLabel];
     parsingResultsLabel.numberOfLines = 0;
     parsingResultsLabel.textColor = [UIColor whiteColor];
-    parsingResultsLabel.text = @"Year/Variety\nVineyard";
+    parsingResultsLabel.font = [UIFont systemFontOfSize:12];
+    parsingResultsLabel.text = @"Year/Variety\nVineyard\nLocation";
     
     preprocessPreview = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)/4,
                                                                       CGRectGetHeight([UIScreen mainScreen].bounds) - CGRectGetWidth([UIScreen mainScreen].bounds)/2 - 40,
