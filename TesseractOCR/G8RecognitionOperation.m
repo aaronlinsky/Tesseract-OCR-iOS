@@ -33,9 +33,10 @@ static G8Tesseract *tess;
     [tess setVariableValue:@"0" forKey:kG8ParamLoadUnambigDawg];
     [tess setVariableValue:@"0" forKey:kG8ParamLoadBigramDawg];
 //    [tess setVariableValue:@"0.3" forKey:kG8ParamLanguageModelPenaltyNonDictWord];
-
+    
+    tess.maximumRecognitionTime = 2;
     tess.engineMode = G8OCREngineModeTesseractOnly;
-    tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;
+    tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;//G8PageSegmentationModeSparseText;//
     tess.charWhitelist = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 }
 

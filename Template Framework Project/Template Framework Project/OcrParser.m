@@ -88,7 +88,6 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
     if(subregionMatch){
         *subregion = subregionMatch.displayName;
     }
-
     
     if(exactYear || varietyMatch || vineyardMatch || subregionMatch)
         return YES;
@@ -99,26 +98,13 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
 +(RecognizableEntity*)searchStringArray:(NSArray*)src withEntitiesArray:(NSArray*)patterns{
     NSString *oneLine = [src componentsJoinedByString:@""];
     
-    NSComparisonResult (^stringsLenComparator)(id obj1, id obj2) =
-    ^NSComparisonResult(id obj1, id obj2) {
-        if([obj1 length] < [obj2 length]){
-            return NSOrderedDescending;
-        }
-        if([obj1 length] == [obj2 length]){
-            return NSOrderedSame;
-        }
-        return NSOrderedAscending;
-    };
-    
-    
     //first pass: trying to match substring exactly
     RecognizableEntity *bestExactMatchEntity;
     NSUInteger bestMatchLen = 0;
     NSString *bestExactMatch;
     for (RecognizableEntity *entity in patterns) {
         NSString *exactMatch;
-        NSUInteger matchLen = [[OcrParser instance] exactMatchInString:oneLine inArray: [entity.recognizedNames sortedArrayUsingComparator: stringsLenComparator] match:&exactMatch];
-        
+        NSUInteger matchLen = [[OcrParser instance] exactMatchInString:oneLine inArray: entity.recognizedNames match:&exactMatch];
         if(matchLen > bestMatchLen){
             bestExactMatch = exactMatch;
             bestExactMatchEntity = entity;
@@ -136,7 +122,7 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
     NSUInteger bestDistance = UINT32_MAX;
     for (RecognizableEntity *entity in patterns) {
         NSString *match;
-        NSUInteger distance = [[OcrParser instance] bestMatchFromArray: [entity.recognizedNames sortedArrayUsingComparator:stringsLenComparator ] inArray:src match:&match];
+        NSUInteger distance = [[OcrParser instance] bestMatchFromArray:entity.recognizedNames inArray:src match:&match];
         if(distance < bestDistance){
             bestDistance = distance;
             bestMatchEntity = entity;
@@ -174,7 +160,9 @@ static NSUInteger const MAX_VARIETY_DISTANCE = 1;
     NSUInteger matchedLen=0;
     for (NSString* c in candidates) {
         if ([text rangeOfString:c options:NSCaseInsensitiveSearch].location != NSNotFound) {
-            *match = c;
+            if((*match).length < c.length){
+                *match = c;
+            }
             matchedLen += c.length;
         }
     }

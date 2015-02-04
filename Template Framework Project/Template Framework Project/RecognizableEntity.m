@@ -31,9 +31,20 @@ static NSUInteger const WORD_SPLIT_LEN = 5;
 }
 
 -(NSArray*)shortNames:(NSString*)longName{
+    NSComparisonResult (^stringsLenLongFirstComparator)(id obj1, id obj2) =
+    ^NSComparisonResult(id obj1, id obj2) {
+        if([obj1 length] < [obj2 length]){
+            return NSOrderedDescending;
+        }
+        if([obj1 length] == [obj2 length]){
+            return NSOrderedSame;
+        }
+        return NSOrderedAscending;
+    };
+
     NSArray *dst = [self cleanUpAndParseWords:@[longName]];
     dst = [self splitLongWords:dst length:WORD_SPLIT_LEN];
-    return dst;
+    return [dst sortedArrayUsingComparator:stringsLenLongFirstComparator];
 }
 
 -(NSArray*)cleanUpAndParseWords:(NSArray*)srcWords{
