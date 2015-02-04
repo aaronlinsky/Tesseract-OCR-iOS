@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RecognizableEntity : NSObject
+@interface RecognizableEntity : NSObject <NSCoding>
 
 @property(nonatomic,readonly) NSString  *displayName;
 @property(nonatomic,readonly) NSArray   *recognizedNames;

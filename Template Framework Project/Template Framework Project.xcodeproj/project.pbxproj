@@ -10,6 +10,16 @@
 		428615B71845F340005D5A2E /* image_sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 428615B61845F340005D5A2E /* image_sample.jpg */; };
 		581E004D1A80BDFD0041F545 /* Subregion.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E004C1A80BDFD0041F545 /* Subregion.m */; };
 		581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00561A80E9410041F545 /* WineryPickerCell.m */; };
+		581E009D1A8250F30041F545 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 581E009B1A8250F30041F545 /* Model.xcdatamodeld */; };
+		581E00A31A8252DF0041F545 /* SubregionEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00A21A8252DF0041F545 /* SubregionEntity.m */; };
+		581E00A61A8252E00041F545 /* BaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00A51A8252E00041F545 /* BaseEntity.m */; };
+		581E00A91A8252E00041F545 /* RecognizedName.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00A81A8252E00041F545 /* RecognizedName.m */; };
+		581E00AC1A8252E00041F545 /* VineyardEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00AB1A8252E00041F545 /* VineyardEntity.m */; };
+		581E00AF1A8252E00041F545 /* WineEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00AE1A8252E00041F545 /* WineEntity.m */; };
+		581E00B11A8253A10041F545 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581E00B01A8253A10041F545 /* CoreData.framework */; };
+		581E00B41A8272A40041F545 /* BaseEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00B31A8272A40041F545 /* BaseEntity+Extensions.m */; };
+		581E00B71A8281070041F545 /* DictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00B61A8281070041F545 /* DictionaryTransformer.m */; };
+		581E00C11A82823C0041F545 /* DictionariesEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00C01A82823C0041F545 /* DictionariesEntity.m */; };
 		58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */; };
 		5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */; };
 		585610341A725C2D00FBC7E7 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 585610331A725C2D00FBC7E7 /* Wine.m */; };
@@ -78,6 +88,24 @@
 		581E004C1A80BDFD0041F545 /* Subregion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subregion.m; sourceTree = "<group>"; };
 		581E00551A80E9410041F545 /* WineryPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineryPickerCell.h; sourceTree = "<group>"; };
 		581E00561A80E9410041F545 /* WineryPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineryPickerCell.m; sourceTree = "<group>"; };
+		581E009C1A8250F30041F545 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		581E00A11A8252DF0041F545 /* SubregionEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubregionEntity.h; sourceTree = "<group>"; };
+		581E00A21A8252DF0041F545 /* SubregionEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubregionEntity.m; sourceTree = "<group>"; };
+		581E00A41A8252E00041F545 /* BaseEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEntity.h; sourceTree = "<group>"; };
+		581E00A51A8252E00041F545 /* BaseEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEntity.m; sourceTree = "<group>"; };
+		581E00A71A8252E00041F545 /* RecognizedName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecognizedName.h; sourceTree = "<group>"; };
+		581E00A81A8252E00041F545 /* RecognizedName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecognizedName.m; sourceTree = "<group>"; };
+		581E00AA1A8252E00041F545 /* VineyardEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VineyardEntity.h; sourceTree = "<group>"; };
+		581E00AB1A8252E00041F545 /* VineyardEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VineyardEntity.m; sourceTree = "<group>"; };
+		581E00AD1A8252E00041F545 /* WineEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineEntity.h; sourceTree = "<group>"; };
+		581E00AE1A8252E00041F545 /* WineEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineEntity.m; sourceTree = "<group>"; };
+		581E00B01A8253A10041F545 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		581E00B21A8272A40041F545 /* BaseEntity+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BaseEntity+Extensions.h"; sourceTree = "<group>"; };
+		581E00B31A8272A40041F545 /* BaseEntity+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BaseEntity+Extensions.m"; sourceTree = "<group>"; };
+		581E00B51A8281070041F545 /* DictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryTransformer.h; sourceTree = "<group>"; };
+		581E00B61A8281070041F545 /* DictionaryTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTransformer.m; sourceTree = "<group>"; };
+		581E00BF1A82823C0041F545 /* DictionariesEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionariesEntity.h; sourceTree = SOURCE_ROOT; };
+		581E00C01A82823C0041F545 /* DictionariesEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionariesEntity.m; sourceTree = SOURCE_ROOT; };
 		58303E2D1A7F8F41005C3017 /* Median5x5Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Median5x5Filter.h; sourceTree = "<group>"; };
 		58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Median5x5Filter.m; sourceTree = "<group>"; };
 		5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InverseAdaptiveThresholdFilter.h; sourceTree = "<group>"; };
@@ -137,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				581E00B11A8253A10041F545 /* CoreData.framework in Frameworks */,
 				DC52B06B1A5A3CDA0004E31B /* Accelerate.framework in Frameworks */,
 				DC52B0691A59F0DE0004E31B /* CoreMedia.framework in Frameworks */,
 				DC52B0671A59F0CE0004E31B /* QuartzCore.framework in Frameworks */,
@@ -183,6 +212,7 @@
 		581E00521A80BE820041F545 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				581E00A01A8252AE0041F545 /* CoreDataEntities */,
 				581E00541A80BEF80041F545 /* Entities */,
 				58E19A221A793EA30033AFEC /* WinesDatabase.h */,
 				58E19A231A793EA30033AFEC /* WinesDatabase.m */,
@@ -216,6 +246,37 @@
 				581E004C1A80BDFD0041F545 /* Subregion.m */,
 			);
 			name = Entities;
+			sourceTree = "<group>";
+		};
+		581E00A01A8252AE0041F545 /* CoreDataEntities */ = {
+			isa = PBXGroup;
+			children = (
+				581E00C21A8289B00041F545 /* TODO */,
+				581E00B51A8281070041F545 /* DictionaryTransformer.h */,
+				581E00B61A8281070041F545 /* DictionaryTransformer.m */,
+				581E00BF1A82823C0041F545 /* DictionariesEntity.h */,
+				581E00C01A82823C0041F545 /* DictionariesEntity.m */,
+			);
+			name = CoreDataEntities;
+			sourceTree = "<group>";
+		};
+		581E00C21A8289B00041F545 /* TODO */ = {
+			isa = PBXGroup;
+			children = (
+				581E00A41A8252E00041F545 /* BaseEntity.h */,
+				581E00A51A8252E00041F545 /* BaseEntity.m */,
+				581E00A71A8252E00041F545 /* RecognizedName.h */,
+				581E00A81A8252E00041F545 /* RecognizedName.m */,
+				581E00AD1A8252E00041F545 /* WineEntity.h */,
+				581E00AE1A8252E00041F545 /* WineEntity.m */,
+				581E00AA1A8252E00041F545 /* VineyardEntity.h */,
+				581E00AB1A8252E00041F545 /* VineyardEntity.m */,
+				581E00A11A8252DF0041F545 /* SubregionEntity.h */,
+				581E00A21A8252DF0041F545 /* SubregionEntity.m */,
+				581E00B21A8272A40041F545 /* BaseEntity+Extensions.h */,
+				581E00B31A8272A40041F545 /* BaseEntity+Extensions.m */,
+			);
+			name = TODO;
 			sourceTree = "<group>";
 		};
 		588638C21A73AD4300CABC24 /* Products */ = {
@@ -257,6 +318,7 @@
 		6400DDD7180C5DE000443362 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				581E00B01A8253A10041F545 /* CoreData.framework */,
 				DC52B06A1A5A3CDA0004E31B /* Accelerate.framework */,
 				DC52B0681A59F0DE0004E31B /* CoreMedia.framework */,
 				DC52B0661A59F0CE0004E31B /* QuartzCore.framework */,
@@ -303,6 +365,7 @@
 				6400DDE1180C5DE000443362 /* InfoPlist.strings */,
 				6400DDE4180C5DE000443362 /* main.m */,
 				6400DDE6180C5DE000443362 /* Template Framework Project-Prefix.pch */,
+				581E009B1A8250F30041F545 /* Model.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -411,17 +474,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */,
+				581E00A31A8252DF0041F545 /* SubregionEntity.m in Sources */,
 				58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */,
 				58E19A241A793EA30033AFEC /* WinesDatabase.m in Sources */,
 				58B534CC1A7BC85900176EBA /* Vineyard.m in Sources */,
 				58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */,
 				585610341A725C2D00FBC7E7 /* Wine.m in Sources */,
+				581E00A61A8252E00041F545 /* BaseEntity.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
+				581E00B41A8272A40041F545 /* BaseEntity+Extensions.m in Sources */,
+				581E00AC1A8252E00041F545 /* VineyardEntity.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
+				581E00C11A82823C0041F545 /* DictionariesEntity.m in Sources */,
+				581E00A91A8252E00041F545 /* RecognizedName.m in Sources */,
+				581E009D1A8250F30041F545 /* Model.xcdatamodeld in Sources */,
 				581E004D1A80BDFD0041F545 /* Subregion.m in Sources */,
 				581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */,
 				6400DDEF180C5DE000443362 /* G8ViewController.m in Sources */,
 				586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */,
+				581E00AF1A8252E00041F545 /* WineEntity.m in Sources */,
+				581E00B71A8281070041F545 /* DictionaryTransformer.m in Sources */,
 				58B534D21A7BDC7C00176EBA /* RecognizableEntity.m in Sources */,
 				5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */,
 				58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */,
@@ -611,6 +683,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		581E009B1A8250F30041F545 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				581E009C1A8250F30041F545 /* Model.xcdatamodel */,
+			);
+			currentVersion = 581E009C1A8250F30041F545 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6400DDCD180C5DE000443362 /* Project object */;
 }
