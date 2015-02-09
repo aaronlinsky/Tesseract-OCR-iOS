@@ -14,6 +14,16 @@
 #import <CoreMedia/CoreMedia.h>
 #import <Accelerate/Accelerate.h>
 
+@class ImageInfo;
+
+typedef NS_ENUM(NSUInteger, PreprocessMode) {
+    adaptiveBinarization,
+    inverseAdaptiveBinarization,
+    noPreprocessing
+};
+#define PreprocessModeString(enum) [@[@"adaptiveBinarization",@"inverseAdaptiveBinarization",@"noPreprocessing"] objectAtIndex:enum]
+
+
 @interface G8ViewController : UIViewController <G8TesseractDelegate,
                                                 UIImagePickerControllerDelegate,
                                                 UINavigationControllerDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
@@ -27,5 +37,7 @@
 
 - (IBAction)openVideo:(id)sender;
 - (void)setupCameraSession;
+
+-(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion;
 
 @end

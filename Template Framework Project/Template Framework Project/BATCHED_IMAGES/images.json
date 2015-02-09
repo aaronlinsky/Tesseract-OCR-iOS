@@ -1,0 +1,113 @@
+[
+ {
+ "file":"2010.png",
+ "winery":"Mira",
+ "vineyards":["HYDE VINEYARD"],
+ "varietals":["SYRAH"],
+ "vintages":["2010"],
+ "subregions":["NAPA VALLEY"]
+ },
+	
+ {
+ "file":"image002-3.jpg",
+ "winery":"Mira",
+ "vineyards":["HYDE VINEYARD"],
+ "varietals":["SYRAH"],
+ "vintages":["2009"],
+ "subregions":["NAPA VALLEY"]
+ },
+	
+ {
+ "file":"image009-2.jpg",
+ "winery":"Mira",
+ "varietals":["CHARDONNAY"],
+ "vintages":["2010"],
+ "subregions":["NAPA VALLEY"]
+ },
+	
+ {
+ "file":"image011-2.jpg",
+ "winery":"Mira",
+ "varietals":["CHARDONNAY"],
+ "vintages":["2011"],
+ "subregions":["NAPA VALLEY"]
+ },
+	
+ {
+ "file":"image013-1.jpg",
+ "winery":"Mira",
+ "varietals":["CHARDONNAY"],
+ "vintages":["2012"],
+ "subregions":["NAPA VALLEY"]
+ },
+	
+ {
+ "file":"image015-1.jpg",
+ "winery":"Mira",
+ "varietals":["CABERNET SAUVIGNON"],
+ "vintages":["2009"],
+ "subregions":["NAPA VALLEY"]
+ },
+ 
+ {
+ "file":"image017-2.jpg",
+ "winery":"Mira",
+ "varietals":["CABERNET SAUVIGNON"],
+ "vintages":["2010"],
+ "subregions":["NAPA VALLEY"]
+ },
+	
+ {
+ "file":"image018-1.png",
+ "winery":"Mira",
+ "varietals":["CABERNET SAUVIGNON"],
+ "vintages":["2011"],
+ "subregions":["NAPA VALLEY"]
+ },
+ 
+ {
+ "file":"image020-1.jpg",
+ "winery":"Mira",
+ "varietals":["PINOT NOIR"],
+ "vineyards":["STANLY RANCH-CABERNOS"],
+ "vintages":["2010"],
+ "subregions":["NAPA VALLEY"]
+ },
+ 
+ {
+ "file":"unnamed-1.jpg",
+ "winery":"Starborough",
+ "varietals":["SAUVIGNON BLANC"],
+ "vineyards":["MARLBOROUGH"],
+ "vintages":["2013"],
+ },
+ 
+ {
+ "file":"unnamed-2.jpg",
+ "winery":"Magna Terra",
+ "varietals":["PINOT NOIR"],
+ "vintages":["2013"],
+ },
+ 
+ {
+ "file":"unnamed.jpg",
+ "winery":"Josh",
+ "varietals":["Cabernet Sauvignon"],
+ },
+ 
+ {
+ "file":"5de82c2a-ee94-421f-be8c-101a1287cc9d.JPG",
+ "winery":"Louis Jadot",
+ "subregions":["Bouzeron"]
+ },
+ 
+ {
+ "file":"49c1e9ba-5c11-430a-a6f5-c9b593cfcb1b.JPG",
+ "winery":"Argiolas",
+ "subregions":["Vermentino di Sardegna"],
+ "vintages":["2002"],
+ "varietals":["Vermentino"],
+ },
+ 
+ 
+ ]

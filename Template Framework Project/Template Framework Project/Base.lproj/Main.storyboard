@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -100,7 +101,83 @@
             </objects>
             <point key="canvasLocation" x="765" y="230"/>
         </scene>
+        <!--Batch Processor Controller-->
+        <scene sceneID="uN1-4g-jFC">
+            <objects>
+                <tableViewController storyboardIdentifier="BatchProcessorController" id="j56-05-Lb9" customClass="BatchProcessorController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="108" sectionHeaderHeight="22" sectionFooterHeight="22" id="Fes-N6-0vQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Sl0-Fv-XWc">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem title="Cancel" id="aei-pU-2rN">
+                                    <connections>
+                                        <action selector="cancel:" destination="j56-05-Lb9" id="Qzi-T3-cu2"/>
+                                    </connections>
+                                </barButtonItem>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="28A-Pi-IEb"/>
+                                <barButtonItem title="Start" id="lID-om-bX0">
+                                    <connections>
+                                        <action selector="start:" destination="j56-05-Lb9" id="DUY-pt-Rqh"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BatchProcessorCell" rowHeight="100" id="fF2-hT-UZI" customClass="BatchProcessorCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fF2-hT-UZI" id="n5I-JL-M99">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="100" image="image002-3.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="9ic-wx-Fcl">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="VYB-Ix-KDR"/>
+                                                <constraint firstAttribute="height" constant="100" id="fcP-BM-Wnz"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ocred" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQk-6s-bXU">
+                                            <rect key="frame" x="143" y="51" width="169" height="45"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="info" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yb8-5W-GX5">
+                                            <rect key="frame" x="143" y="6" width="169" height="45"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="9ic-wx-Fcl" firstAttribute="leading" secondItem="n5I-JL-M99" secondAttribute="leadingMargin" constant="-8" id="3od-IP-6Np"/>
+                                        <constraint firstItem="9ic-wx-Fcl" firstAttribute="top" secondItem="n5I-JL-M99" secondAttribute="topMargin" constant="-8" id="uwF-xr-cqZ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="imageInfo" destination="Yb8-5W-GX5" id="h6K-Ct-xs5"/>
+                                    <outlet property="imageView" destination="9ic-wx-Fcl" id="Qwu-dO-mWS"/>
+                                    <outlet property="ocrInfo" destination="LQk-6s-bXU" id="9fK-9L-P1x"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="j56-05-Lb9" id="kLb-wB-WTa"/>
+                            <outlet property="delegate" destination="j56-05-Lb9" id="fDy-rh-s9F"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hcu-nd-HCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1227" y="220"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="image002-3.jpg" width="418" height="358"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

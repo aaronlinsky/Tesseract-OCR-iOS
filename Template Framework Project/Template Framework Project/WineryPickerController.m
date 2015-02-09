@@ -72,11 +72,15 @@ static NSUInteger lastSelection = -1;
 
     lastSelection = indexPath.row;
     
+    NSString *winery;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        [(G8ViewController*)self.presentingViewController.presentingViewController setWinery:self.filteredWineries[lastSelection]];
+        winery = self.filteredWineries[lastSelection];
     } else {
-        [(G8ViewController*)self.presentingViewController.presentingViewController setWinery:self.wineries[lastSelection]];
+        winery = self.wineries[lastSelection];
     }
+
+    G8ViewController* mainVC = (G8ViewController*)self.presentingViewController.presentingViewController;
+    [mainVC setWinery:winery];
 
     [self dismissViewControllerAnimated:YES completion:nil];
 }

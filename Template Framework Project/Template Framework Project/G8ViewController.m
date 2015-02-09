@@ -10,17 +10,14 @@
 #import "G8ViewController.h"
 #import "OcrParser.h"
 #import "ImagePreprocessor.h"
+#import "BatchProcessorController.h"
+#import "BatchProcessor.h"
 
 #define TICK        NSDate *startTime = [NSDate date]
 #define ELAPSED     -[startTime timeIntervalSinceNow]
 #define TOCK        NSLog(@"Time: %f", ELAPSED)
 
-typedef NS_ENUM(NSUInteger, PreprocessMode) {
-    adaptiveBinarization,
-    inverseAdaptiveBinarization,
-    noPreprocessing
-};
-#define PreprocessModeString(enum) [@[@"adaptiveBinarization",@"inverseAdaptiveBinarization",@"noPreprocessing"] objectAtIndex:enum]
+static NSString * const BATCH_IMAGE_DIR = @"./BATCHED_IMAGES";
 
 typedef NS_ENUM(NSUInteger, SessionPreset) {
     preset128x720,
@@ -80,9 +77,10 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
 {
     _winery = winery;
     wineryLabel.text = winery;
+    [_captureSession startRunning];
 }
 
--(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode
+-(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion
 {
     UIImage *bwImage;
     TICK;
@@ -128,38 +126,45 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
             [G8RecognitionOperation reinitTess];
         }
 
+        NSString *year;
+        NSString *variety;
+        NSString *vineyard;
+        NSString *subregion;
         if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
-            NSString *year;
-            NSString *variety;
-            NSString *vineyard;
-            NSString *subregion;
             
             BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year variety:&variety vineyard:&vineyard subregion:&subregion];
 //            BOOL parsingSuccessful = [OcrParser parseUnknownWine:recognizedText toYear:&year andVariety:&variety];
-            
+
             if(parsingSuccessful){
                 parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@ \n%@\n%@",year,variety,vineyard,subregion];
                 
-                self.readyToOCR = YES;
             }
             else{
                 if (mode == adaptiveBinarization) {
                     //possibly white-on-black. perform additional pass
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [self preprocessAndRecognizeImage: image withMode:inverseAdaptiveBinarization];
+                        [self preprocessAndRecognizeImage: image withMode:inverseAdaptiveBinarization withBlock:completion];
                     });
-                }
-                else{
-                    self.readyToOCR = YES;
+                    return;
                 }
             }
         }
-        else{
-            self.readyToOCR = YES;
-        }
         
+        if(completion != nil){
+            ImageInfo *imgInfo = [[ImageInfo alloc]init];
+            imgInfo.winery = self.winery;
+            imgInfo.acceptedSubregions = @[subregion];
+            imgInfo.acceptedVarieties = @[variety];
+            imgInfo.acceptedVineyards = @[vineyard];
+            imgInfo.acceptedYears = @[year];
+            completion(imgInfo);
+        }
+
+        self.readyToOCR = YES;
+
     };
 
+    
     [self.operationQueue addOperation:operation];
 }
 
@@ -274,10 +279,10 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     wineryButton.layer.cornerRadius = 10;
 
     
-    UIButton *presetButton  = [[UIButton alloc]initWithFrame:CGRectMake(0,
-                                                                        CGRectGetHeight([UIScreen mainScreen].bounds)-40,
-                                                                        50,
-                                                                        40)];
+    UIButton *presetButton = [[UIButton alloc]initWithFrame:CGRectMake(0,
+                                                                       CGRectGetHeight([UIScreen mainScreen].bounds)-40,
+                                                                       50,
+                                                                       40)];
     [presetButton setTitle:@"Preset" forState:UIControlStateNormal];
     [presetButton addTarget:self action:@selector(toggleSessionPreset:) forControlEvents:UIControlEventTouchUpInside];
     [vc.view addSubview:presetButton];
@@ -286,6 +291,19 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     presetButton.layer.borderColor = [UIColor whiteColor].CGColor;
     presetButton.layer.borderWidth = 2;
     presetButton.layer.cornerRadius = 10;
+
+    UIButton *batchButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds)-40,
+                                                                      CGRectGetHeight([UIScreen mainScreen].bounds)-120,
+                                                                      40,40)];
+
+    [batchButton setTitle:@"Batch" forState:UIControlStateNormal];
+    [batchButton addTarget:self action:@selector(presentBatchProcessor:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.view addSubview:batchButton];
+    [batchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    batchButton.titleLabel.font = [UIFont systemFontOfSize:11];
+    batchButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    batchButton.layer.borderWidth = 2;
+    batchButton.layer.cornerRadius = 10;
     
     [self presentViewController:vc animated:NO completion:nil];
     
@@ -330,7 +348,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         UIImage *image = [UIImage imageWithCGImage:dstImageFilter];
         self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self preprocessAndRecognizeImage: image withMode:preprocessMode];
+            [self preprocessAndRecognizeImage: image withMode:preprocessMode withBlock:nil];
 //            [self recognizeImageWithTesseract:[UIImage imageNamed:@"2009.jpg"] ];
         });
     }
@@ -358,8 +376,72 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self quitPreview:nil];//reinitializing capture
 }
 
+-(void)presentBatchProcessor:(id)sender
+{
+    [_captureSession stopRunning];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
+    BatchProcessorController *batchProc = [mainStoryboard instantiateViewControllerWithIdentifier:@"BatchProcessorController"];
+
+    NSMutableArray *imagesNames = [[NSMutableArray alloc]init];
+    batchProc.images = [self loadImages:imagesNames];
+    batchProc.imageInfos = [self imagesInfos:imagesNames];
+    
+    [vc presentViewController:batchProc animated:YES completion:nil];
+}
+
+-(NSArray*)loadImages:(NSMutableArray*)outImagesNames{
+
+    NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:@"jpg" inDirectory:BATCH_IMAGE_DIR];
+    paths = [paths arrayByAddingObjectsFromArray:
+             [[NSBundle mainBundle]pathsForResourcesOfType:@"JPG" inDirectory:BATCH_IMAGE_DIR]];
+    paths = [paths arrayByAddingObjectsFromArray:
+     [[NSBundle mainBundle]pathsForResourcesOfType:@"png" inDirectory:BATCH_IMAGE_DIR]];
+
+    NSMutableArray *images = [[NSMutableArray alloc]initWithCapacity:paths.count];
+    for (NSString* p in paths) {
+        [images addObject:[UIImage imageWithContentsOfFile:p]];
+        [outImagesNames addObject:p.lastPathComponent];
+    }
+    
+    return images;
+}
+
+-(NSArray*)imagesInfos:(NSArray*)imagesNames{
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"images" ofType:@"json"inDirectory:BATCH_IMAGE_DIR];
+
+    NSData *jsonData = [NSData dataWithContentsOfFile:path];
+    NSArray *jsonResults = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+
+    NSMutableArray *infos = [[NSMutableArray alloc]initWithCapacity:imagesNames.count];
+    for (NSString *path in imagesNames) {
+        ImageInfo *i = nil;
+
+        for (NSDictionary *wine in jsonResults) {
+            if ([path isEqualToString:wine[@"file"]]) {
+                i = [[ImageInfo alloc]init];
+                i.winery = wine[@"winery"];
+                i.acceptedVarieties = wine[@"varietals"];
+                i.acceptedVineyards = wine[@"vineyards"];
+                i.acceptedSubregions = wine[@"subregions"];
+                i.acceptedYears = wine[@"vintages"];
+                [infos addObject:i];
+
+                break;
+            }
+        }
+        
+        if(i == nil){
+            @throw [[NSException alloc]initWithName:@"Internal Inconsistency" reason:@"Images and their descriptions are out of sync" userInfo:nil];
+        }
+    }
+    
+    return infos;
+}
+
 -(void)pickWinery:(id)sender
 {
+    [_captureSession stopRunning];
+
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
     UIViewController *wineryPciker = [mainStoryboard instantiateViewControllerWithIdentifier:@"WineryPickerController"];
     

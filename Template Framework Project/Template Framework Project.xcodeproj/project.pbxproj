@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		428615B71845F340005D5A2E /* image_sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 428615B61845F340005D5A2E /* image_sample.jpg */; };
+		580A56D21A8668D50097909F /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 580A56D11A8668D40097909F /* placeholder.png */; };
 		581E004D1A80BDFD0041F545 /* Subregion.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E004C1A80BDFD0041F545 /* Subregion.m */; };
 		581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00561A80E9410041F545 /* WineryPickerCell.m */; };
 		581E009D1A8250F30041F545 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 581E009B1A8250F30041F545 /* Model.xcdatamodeld */; };
@@ -20,6 +21,9 @@
 		581E00B41A8272A40041F545 /* BaseEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00B31A8272A40041F545 /* BaseEntity+Extensions.m */; };
 		581E00B71A8281070041F545 /* DictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00B61A8281070041F545 /* DictionaryTransformer.m */; };
 		581E00C11A82823C0041F545 /* DictionariesEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00C01A82823C0041F545 /* DictionariesEntity.m */; };
+		582631D11A852AFC002F3B12 /* BatchProcessorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 582631D01A852AFC002F3B12 /* BatchProcessorController.m */; };
+		582631D41A852B54002F3B12 /* BatchProcessorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 582631D31A852B54002F3B12 /* BatchProcessorCell.m */; };
+		582631D61A85390D002F3B12 /* BATCHED_IMAGES in Resources */ = {isa = PBXBuildFile; fileRef = 582631D51A85390D002F3B12 /* BATCHED_IMAGES */; };
 		58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */; };
 		5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */; };
 		585610341A725C2D00FBC7E7 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 585610331A725C2D00FBC7E7 /* Wine.m */; };
@@ -29,6 +33,7 @@
 		588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */; };
 		588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588638C81A73AD4300CABC24 /* libGPUImage.a */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
+		589585B91A84EB4100739E8D /* BatchProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 589585B81A84EB4100739E8D /* BatchProcessor.m */; };
 		58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B534C61A7B890200176EBA /* WineryPickerController.m */; };
 		58B534CC1A7BC85900176EBA /* Vineyard.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B534CB1A7BC85900176EBA /* Vineyard.m */; };
 		58B534CE1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */; };
@@ -80,10 +85,25 @@
 			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
 			remoteInfo = GPUImage;
 		};
+		5895859E1A83E25200739E8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 589585971A83E25200739E8D /* Tesseract OCR iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64A0292C17307C1D002B12E7;
+			remoteInfo = TesseractOCR;
+		};
+		589585A01A83E25900739E8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 589585971A83E25200739E8D /* Tesseract OCR iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 64A0292B17307C1C002B12E7;
+			remoteInfo = TesseractOCR;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		428615B61845F340005D5A2E /* image_sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_sample.jpg; sourceTree = "<group>"; };
+		580A56D11A8668D40097909F /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		581E004B1A80BDFD0041F545 /* Subregion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subregion.h; sourceTree = "<group>"; };
 		581E004C1A80BDFD0041F545 /* Subregion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subregion.m; sourceTree = "<group>"; };
 		581E00551A80E9410041F545 /* WineryPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineryPickerCell.h; sourceTree = "<group>"; };
@@ -106,6 +126,11 @@
 		581E00B61A8281070041F545 /* DictionaryTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTransformer.m; sourceTree = "<group>"; };
 		581E00BF1A82823C0041F545 /* DictionariesEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionariesEntity.h; sourceTree = SOURCE_ROOT; };
 		581E00C01A82823C0041F545 /* DictionariesEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionariesEntity.m; sourceTree = SOURCE_ROOT; };
+		582631CF1A852AFC002F3B12 /* BatchProcessorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchProcessorController.h; sourceTree = "<group>"; };
+		582631D01A852AFC002F3B12 /* BatchProcessorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchProcessorController.m; sourceTree = "<group>"; };
+		582631D21A852B54002F3B12 /* BatchProcessorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchProcessorCell.h; sourceTree = "<group>"; };
+		582631D31A852B54002F3B12 /* BatchProcessorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchProcessorCell.m; sourceTree = "<group>"; };
+		582631D51A85390D002F3B12 /* BATCHED_IMAGES */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BATCHED_IMAGES; sourceTree = "<group>"; };
 		58303E2D1A7F8F41005C3017 /* Median5x5Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Median5x5Filter.h; sourceTree = "<group>"; };
 		58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Median5x5Filter.m; sourceTree = "<group>"; };
 		5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InverseAdaptiveThresholdFilter.h; sourceTree = "<group>"; };
@@ -121,6 +146,9 @@
 		588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreprocessor.h; sourceTree = "<group>"; };
 		588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreprocessor.m; sourceTree = "<group>"; };
 		5889EE731A7032720060CE6E /* 2009bin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009bin.jpg; sourceTree = "<group>"; };
+		589585971A83E25200739E8D /* Tesseract OCR iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Tesseract OCR iOS.xcodeproj"; path = "../Tesseract OCR iOS.xcodeproj"; sourceTree = "<group>"; };
+		589585B71A84EB4100739E8D /* BatchProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchProcessor.h; sourceTree = "<group>"; };
+		589585B81A84EB4100739E8D /* BatchProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchProcessor.m; sourceTree = "<group>"; };
 		58B534C51A7B890200176EBA /* WineryPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineryPickerController.h; sourceTree = "<group>"; };
 		58B534C61A7B890200176EBA /* WineryPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineryPickerController.m; sourceTree = "<group>"; };
 		58B534CA1A7BC85900176EBA /* Vineyard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vineyard.h; sourceTree = "<group>"; };
@@ -194,6 +222,10 @@
 				58B534C61A7B890200176EBA /* WineryPickerController.m */,
 				581E00551A80E9410041F545 /* WineryPickerCell.h */,
 				581E00561A80E9410041F545 /* WineryPickerCell.m */,
+				582631CF1A852AFC002F3B12 /* BatchProcessorController.h */,
+				582631D01A852AFC002F3B12 /* BatchProcessorController.m */,
+				582631D21A852B54002F3B12 /* BatchProcessorCell.h */,
+				582631D31A852B54002F3B12 /* BatchProcessorCell.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -279,11 +311,29 @@
 			name = TODO;
 			sourceTree = "<group>";
 		};
+		582631C81A8520E0002F3B12 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				58E19A291A7941780033AFEC /* CHCSVParser */,
+				589585B71A84EB4100739E8D /* BatchProcessor.h */,
+				589585B81A84EB4100739E8D /* BatchProcessor.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
 		588638C21A73AD4300CABC24 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				588638C81A73AD4300CABC24 /* libGPUImage.a */,
 				588638CA1A73AD4300CABC24 /* GPUImage.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		589585981A83E25200739E8D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5895859F1A83E25200739E8D /* TesseractOCR.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,6 +353,7 @@
 				6400DDDE180C5DE000443362 /* Template Framework Project */,
 				6400DDD7180C5DE000443362 /* Frameworks */,
 				6400DDD6180C5DE000443362 /* Products */,
+				589585971A83E25200739E8D /* Tesseract OCR iOS.xcodeproj */,
 				588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -337,8 +388,9 @@
 		6400DDDE180C5DE000443362 /* Template Framework Project */ = {
 			isa = PBXGroup;
 			children = (
+				582631C81A8520E0002F3B12 /* Util */,
+				582631D51A85390D002F3B12 /* BATCHED_IMAGES */,
 				64DDA75A188FD9140025590D /* tessdata */,
-				58E19A291A7941780033AFEC /* CHCSVParser */,
 				581E00501A80BE150041F545 /* UI */,
 				581E00511A80BE400041F545 /* Parser */,
 				581E00521A80BE820041F545 /* Model */,
@@ -354,6 +406,7 @@
 		6400DDDF180C5DE000443362 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				580A56D11A8668D40097909F /* placeholder.png */,
 				58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */,
 				585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */,
 				58E19A271A793F720033AFEC /* TermListByWinery.csv */,
@@ -384,6 +437,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				589585A11A83E25900739E8D /* PBXTargetDependency */,
 				588638CC1A73AD5600CABC24 /* PBXTargetDependency */,
 			);
 			name = "Template Framework Project";
@@ -422,6 +476,10 @@
 					ProductGroup = 588638C21A73AD4300CABC24 /* Products */;
 					ProjectRef = 588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */;
 				},
+				{
+					ProductGroup = 589585981A83E25200739E8D /* Products */;
+					ProjectRef = 589585971A83E25200739E8D /* Tesseract OCR iOS.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -445,6 +503,13 @@
 			remoteRef = 588638C91A73AD4300CABC24 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5895859F1A83E25200739E8D /* TesseractOCR.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TesseractOCR.framework;
+			remoteRef = 5895859E1A83E25200739E8D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -458,6 +523,8 @@
 				5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */,
 				DC52B05F1A59E7E70004E31B /* 2009.jpg in Resources */,
 				DC52B0611A59E7FE0004E31B /* 2010.png in Resources */,
+				580A56D21A8668D50097909F /* placeholder.png in Resources */,
+				582631D61A85390D002F3B12 /* BATCHED_IMAGES in Resources */,
 				58E19A281A793F720033AFEC /* TermListByWinery.csv in Resources */,
 				64DDA75B188FD9140025590D /* tessdata in Resources */,
 				6400DDE3180C5DE000443362 /* InfoPlist.strings in Resources */,
@@ -486,8 +553,10 @@
 				581E00AC1A8252E00041F545 /* VineyardEntity.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
 				581E00C11A82823C0041F545 /* DictionariesEntity.m in Sources */,
+				582631D11A852AFC002F3B12 /* BatchProcessorController.m in Sources */,
 				581E00A91A8252E00041F545 /* RecognizedName.m in Sources */,
 				581E009D1A8250F30041F545 /* Model.xcdatamodeld in Sources */,
+				589585B91A84EB4100739E8D /* BatchProcessor.m in Sources */,
 				581E004D1A80BDFD0041F545 /* Subregion.m in Sources */,
 				581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */,
 				6400DDEF180C5DE000443362 /* G8ViewController.m in Sources */,
@@ -496,6 +565,7 @@
 				581E00B71A8281070041F545 /* DictionaryTransformer.m in Sources */,
 				58B534D21A7BDC7C00176EBA /* RecognizableEntity.m in Sources */,
 				5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */,
+				582631D41A852B54002F3B12 /* BatchProcessorCell.m in Sources */,
 				58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */,
 				586D15151A713A0C0052BC0B /* OcrParser.m in Sources */,
 			);
@@ -508,6 +578,11 @@
 			isa = PBXTargetDependency;
 			name = GPUImage;
 			targetProxy = 588638CB1A73AD5600CABC24 /* PBXContainerItemProxy */;
+		};
+		589585A11A83E25900739E8D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TesseractOCR;
+			targetProxy = 589585A01A83E25900739E8D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -563,6 +638,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -598,6 +677,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstdc++";
