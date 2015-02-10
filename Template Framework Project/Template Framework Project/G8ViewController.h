@@ -40,4 +40,7 @@ typedef NS_ENUM(NSUInteger, PreprocessMode) {
 
 -(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion;
 
+-(void)pauseCapture;
+-(void)unpauseCapture;
+
 @end

@@ -73,11 +73,9 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     [self openVideo:nil];
 }
 
--(void)setWinery:(NSString *)winery
-{
+-(void)setWinery:(NSString *)winery{
     _winery = winery;
     wineryLabel.text = winery;
-    [_captureSession startRunning];
 }
 
 -(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion
@@ -365,6 +363,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)pauseCapture{
+    [_captureSession stopRunning];
+}
+
+-(void)unpauseCapture{
+    [_captureSession startRunning];
+}
+
 -(void)togglePreprocessMode:(id)sender
 {
     preprocessMode = (preprocessMode + 1) % (noPreprocessing);
@@ -378,7 +384,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(void)presentBatchProcessor:(id)sender
 {
-    [_captureSession stopRunning];
+    [self pauseCapture];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
     BatchProcessorController *batchProc = [mainStoryboard instantiateViewControllerWithIdentifier:@"BatchProcessorController"];
 
@@ -440,8 +446,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(void)pickWinery:(id)sender
 {
-    [_captureSession stopRunning];
-
+    [self pauseCapture];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: [NSBundle mainBundle]];
     UIViewController *wineryPciker = [mainStoryboard instantiateViewControllerWithIdentifier:@"WineryPickerController"];
     

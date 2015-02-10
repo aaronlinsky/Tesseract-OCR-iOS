@@ -11,6 +11,12 @@
 #import "BatchProcessor.h"
 #import "G8ViewController.h"
 
+typedef enum : NSUInteger {
+    infosMatchFound,
+    infosPartialMatch,
+    infosMismatch
+} ImageInfoComparisonResult;
+
 @interface BatchProcessorController ()
 @end
 
@@ -77,8 +83,8 @@
     static NSUInteger index = 0;
     
     UIImage *curImage = self.images[index];
-//    ImageInfo *curImageInfo = self.imageInfos[index];
-//    mainVC.winery = curImageInfo.winery;
+    ImageInfo *curImageInfo = self.imageInfos[index];
+   mainVC.winery = curImageInfo.winery;
     
     if(index == 0){
         [self.ocredImageInfos removeAllObjects];
@@ -134,11 +140,45 @@
 
 -(void)batchProcessFinished{
     [progessAlert dismissWithClickedButtonIndex:0 animated:YES];
-    //TODO: show results popup
+    
+    NSString *results = [self processingResultsFormatted];
+    progessAlert = [[UIAlertView alloc]     initWithTitle:@"Results"
+                                                  message:results
+                                                 delegate:self
+                                        cancelButtonTitle:@"Ok" otherButtonTitles: nil] ;
+    [progessAlert show];
+}
+
+-(NSString *)processingResultsFormatted{
+    NSUInteger success,partial,fail;
+    [self compareSource:self.imageInfos withOcred:self.ocredImageInfos outSuccess:&success outPartial:&partial outFails:&fail];
+    return [NSString stringWithFormat: @"Successful:%ld\nPartial:%ld\nFailed:%ld\nFail rate:%.1f%",success,partial,fail,  (float)fail / (success+partial+fail) * 100 ];
+}
+
+-(void)compareSource:(NSArray*)src withOcred:(NSArray*)dst outSuccess:(NSUInteger*)success outPartial:(NSUInteger*)partial outFails:(NSUInteger*)fails{
+    *success = *partial = *fails = 0;
+    
+    for (NSUInteger i=0; i<src.count; i++) {
+        ImageInfoComparisonResult result = [self compareInfo:src[i] withInfo:dst[i]];
+        if(result == infosMatchFound){
+            (*success)++;
+        }
+        if(result == infosPartialMatch){
+            (*partial)++;
+        }
+        if(result == infosMismatch){
+            (*fails)++;
+        }
+    }
+}
+
+-(ImageInfoComparisonResult)compareInfo:(ImageInfo*)one withInfo:(ImageInfo*)two{
+    return infosMatchFound;
 }
 
 - (IBAction)cancel:(id)sender {
     [mainVC setWinery:initialWinery];
+    [mainVC unpauseCapture];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

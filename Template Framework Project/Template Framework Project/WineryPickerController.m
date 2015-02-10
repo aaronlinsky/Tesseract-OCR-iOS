@@ -81,7 +81,8 @@ static NSUInteger lastSelection = -1;
 
     G8ViewController* mainVC = (G8ViewController*)self.presentingViewController.presentingViewController;
     [mainVC setWinery:winery];
-
+    [mainVC unpauseCapture];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
