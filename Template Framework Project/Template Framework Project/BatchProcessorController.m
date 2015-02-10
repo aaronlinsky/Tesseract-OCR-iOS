@@ -152,7 +152,7 @@ typedef enum : NSUInteger {
 -(NSString *)processingResultsFormatted{
     NSUInteger success,partial,fail;
     [self compareSource:self.imageInfos withOcred:self.ocredImageInfos outSuccess:&success outPartial:&partial outFails:&fail];
-    return [NSString stringWithFormat: @"Successful:%ld\nPartial:%ld\nFailed:%ld\nFail rate:%.1f%",success,partial,fail,  (float)fail / (success+partial+fail) * 100 ];
+    return [NSString stringWithFormat: @"Successful:%ld\nPartial:%ld\nFailed:%ld\nFail rate:%.1f%%",success,partial,fail,  (float)fail / (success+partial+fail) * 100 ];
 }
 
 -(void)compareSource:(NSArray*)src withOcred:(NSArray*)dst outSuccess:(NSUInteger*)success outPartial:(NSUInteger*)partial outFails:(NSUInteger*)fails{
@@ -173,7 +173,26 @@ typedef enum : NSUInteger {
 }
 
 -(ImageInfoComparisonResult)compareInfo:(ImageInfo*)one withInfo:(ImageInfo*)two{
-    return infosMatchFound;
+ 
+    if([self caseInsensitiveContainment:one.acceptedSubregions string:two.acceptedSubregions[0]] ||
+       [self caseInsensitiveContainment:one.acceptedVarieties string:two.acceptedVarieties[0]] ||
+       [self caseInsensitiveContainment:one.acceptedVineyards string:two.acceptedVineyards[0]] ||
+       [self caseInsensitiveContainment:one.acceptedYears string:two.acceptedYears[0]]){
+        return infosMatchFound;
+    }
+    
+    NSLog(@"Fail:%@",two);
+    return infosMismatch;
+}
+
+-(BOOL)caseInsensitiveContainment:(NSArray*)array string:(NSString*)string{
+    for (NSString* s in array) {
+        if([s caseInsensitiveCompare:string] == NSOrderedSame){
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 - (IBAction)cancel:(id)sender {
