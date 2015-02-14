@@ -78,93 +78,85 @@ typedef NS_ENUM(NSUInteger, SessionPreset) {
     wineryLabel.text = winery;
 }
 
--(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion
-{
-    UIImage *bwImage;
-    TICK;
-//    image = [ImagePreprocessor denoiseImage:image];
-//    TOCK;
-
-    switch (mode) {
-        case inverseAdaptiveBinarization:
-            bwImage = [ImagePreprocessor inverseAdaptiveBinarize:image];
-            break;
-        case adaptiveBinarization:
-            bwImage = [ImagePreprocessor adaptiveBinarize:image];
-            break;
-        default://no preprocessing at all
-            bwImage = image;
-            break;
-    }
+//-(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion
+//{
+//    UIImage *bwImage;
 //    TICK;
-//    bwImage = [ImagePreprocessor denoiseImage:bwImage];
-
-//    TOCK;
-
-    G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
-    
-    operation.delegate = self;
-    operation.tesseract.image = bwImage;
-    operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
-//        TOCK;
-        NSString *recognizedText = tesseract.recognizedText;
-        preprocessPreview.image = bwImage;
-        preprocessModeLabel.text = PreprocessModeString(preprocessMode);
-        sessionPresetLabel.text = SessionPresetString(sessionPreset);
-
-//        NSLog(@"%@",recognizedText);
-
-        NSString* recognizedTextNoWhitespaces = [[recognizedText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@"" ];
-        ocrResultsLabel.text = [recognizedTextNoWhitespaces stringByAppendingFormat:@"\n%f",ELAPSED];
-
-        if(ELAPSED > 0.8)//should not use constant value here but derive from average ELAPSED time
-        {//degradation detected. Force tesserect reinit
-            NSLog(@"Reinitializing...");
-            ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];
-            [G8RecognitionOperation reinitTess];
-        }
-
-        NSString *year;
-        NSString *variety;
-        NSString *vineyard;
-        NSString *subregion;
-        if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
-            
-            BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year variety:&variety vineyard:&vineyard subregion:&subregion];
-//            BOOL parsingSuccessful = [OcrParser parseUnknownWine:recognizedText toYear:&year andVariety:&variety];
-
-            if(parsingSuccessful){
-                parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@ \n%@\n%@",year,variety,vineyard,subregion];
-                
-            }
-            else{
-                if (mode == adaptiveBinarization) {
-                    //possibly white-on-black. perform additional pass
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [self preprocessAndRecognizeImage: image withMode:inverseAdaptiveBinarization withBlock:completion];
-                    });
-                    return;
-                }
-            }
-        }
-        
-        if(completion != nil){
-            ImageInfo *imgInfo = [[ImageInfo alloc]init];
-            imgInfo.winery = self.winery;
-            imgInfo.acceptedSubregions = @[subregion];
-            imgInfo.acceptedVarieties = @[variety];
-            imgInfo.acceptedVineyards = @[vineyard];
-            imgInfo.acceptedYears = @[year];
-            completion(imgInfo);
-        }
-
-        self.readyToOCR = YES;
-
-    };
-
-    
-    [self.operationQueue addOperation:operation];
-}
+//
+//    switch (mode) {
+//        case inverseAdaptiveBinarization:
+//            bwImage = [ImagePreprocessor inverseAdaptiveBinarize:image];
+//            break;
+//        case adaptiveBinarization:
+//            bwImage = [ImagePreprocessor adaptiveBinarize:image];
+//            break;
+//        default://no preprocessing at all
+//            bwImage = image;
+//            break;
+//    }
+//
+//    G8RecognitionOperation *operation = [[G8RecognitionOperation alloc] init];
+//    
+//    operation.delegate = self;
+//    operation.tesseract.image = bwImage;
+//    operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
+//
+//        NSString *recognizedText = tesseract.recognizedText;
+//        preprocessPreview.image = bwImage;
+//        preprocessModeLabel.text = PreprocessModeString(preprocessMode);
+//        sessionPresetLabel.text = SessionPresetString(sessionPreset);
+//
+//
+//        NSString* recognizedTextNoWhitespaces = [[recognizedText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@"" ];
+//        ocrResultsLabel.text = [recognizedTextNoWhitespaces stringByAppendingFormat:@"\n%f",ELAPSED];
+//
+//        if(ELAPSED > 0.8)//should not use constant value here but derive from average ELAPSED time
+//        {//degradation detected. Force tesserect reinit
+//            NSLog(@"Reinitializing...");
+//            ocrResultsLabel.text = [ocrResultsLabel.text stringByAppendingString:@"*"];
+//            [G8RecognitionOperation reinitTess];
+//        }
+//
+//        NSString *year;
+//        NSString *variety;
+//        NSString *vineyard;
+//        NSString *subregion;
+//        if(recognizedText != nil && ![recognizedText isEqualToString: @""]){
+//            
+//            BOOL parsingSuccessful = [OcrParser parseWine:self.winery ocrString:recognizedText toYear:&year variety:&variety vineyard:&vineyard subregion:&subregion];
+//
+//            if(parsingSuccessful){
+//                parsingResultsLabel.text = [NSString stringWithFormat:@"%@ / %@ \n%@\n%@",year,variety,vineyard,subregion];
+//                
+//            }
+//            else{
+//                if (mode == adaptiveBinarization) {
+//                    //possibly white-on-black. perform additional pass
+//                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                        [self preprocessAndRecognizeImage: image withMode:inverseAdaptiveBinarization withBlock:completion];
+//                    });
+//                    return;
+//                }
+//            }
+//        }
+//        
+//        if(completion != nil){
+//            ImageInfo *imgInfo = [[ImageInfo alloc]init];
+//            imgInfo.winery = self.winery;
+//            imgInfo.acceptedSubregions = @[subregion];
+//            imgInfo.acceptedVarieties = @[variety];
+//            imgInfo.acceptedVineyards = @[vineyard];
+//            imgInfo.acceptedYears = @[year];
+//            completion(imgInfo);
+//        }
+//
+//        self.readyToOCR = YES;
+//
+//    };
+//
+//    
+//    [self.operationQueue addOperation:operation];
+//}
 
 - (BOOL)shouldCancelImageRecognitionForTesseract:(G8Tesseract *)tesseract {
     return NO;
@@ -346,8 +338,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         UIImage *image = [UIImage imageWithCGImage:dstImageFilter];
         self.readyToOCR = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self preprocessAndRecognizeImage: image withMode:preprocessMode withBlock:nil];
-//            [self recognizeImageWithTesseract:[UIImage imageNamed:@"2009.jpg"] ];
+            //[self preprocessAndRecognizeImage: image withMode:preprocessMode withBlock:nil];
+            [TesseractRecognizer preprocessAndRecognizeImage:image withMode:preprocessMode forWinery:self.winery withCompletion:
+            ^(OcrResult *result){
+                ocrResultsLabel.text = [result.raw stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                parsingResultsLabel.text = [result description];
+            }
+            ready:&_readyToOCR];
         });
     }
     

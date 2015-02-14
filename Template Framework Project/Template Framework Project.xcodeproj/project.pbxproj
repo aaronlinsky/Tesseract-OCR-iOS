@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		428615B71845F340005D5A2E /* image_sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 428615B61845F340005D5A2E /* image_sample.jpg */; };
 		580A56D21A8668D50097909F /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 580A56D11A8668D40097909F /* placeholder.png */; };
-		581E004D1A80BDFD0041F545 /* Subregion.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E004C1A80BDFD0041F545 /* Subregion.m */; };
 		581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00561A80E9410041F545 /* WineryPickerCell.m */; };
-		581E009D1A8250F30041F545 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 581E009B1A8250F30041F545 /* Model.xcdatamodeld */; };
 		581E00A31A8252DF0041F545 /* SubregionEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00A21A8252DF0041F545 /* SubregionEntity.m */; };
 		581E00A61A8252E00041F545 /* BaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00A51A8252E00041F545 /* BaseEntity.m */; };
 		581E00A91A8252E00041F545 /* RecognizedName.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00A81A8252E00041F545 /* RecognizedName.m */; };
@@ -19,26 +17,30 @@
 		581E00AF1A8252E00041F545 /* WineEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00AE1A8252E00041F545 /* WineEntity.m */; };
 		581E00B11A8253A10041F545 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 581E00B01A8253A10041F545 /* CoreData.framework */; };
 		581E00B41A8272A40041F545 /* BaseEntity+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00B31A8272A40041F545 /* BaseEntity+Extensions.m */; };
-		581E00B71A8281070041F545 /* DictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00B61A8281070041F545 /* DictionaryTransformer.m */; };
-		581E00C11A82823C0041F545 /* DictionariesEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 581E00C01A82823C0041F545 /* DictionariesEntity.m */; };
 		582631D11A852AFC002F3B12 /* BatchProcessorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 582631D01A852AFC002F3B12 /* BatchProcessorController.m */; };
 		582631D41A852B54002F3B12 /* BatchProcessorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 582631D31A852B54002F3B12 /* BatchProcessorCell.m */; };
 		582631D61A85390D002F3B12 /* BATCHED_IMAGES in Resources */ = {isa = PBXBuildFile; fileRef = 582631D51A85390D002F3B12 /* BATCHED_IMAGES */; };
 		58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */; };
-		5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */; };
-		585610341A725C2D00FBC7E7 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 585610331A725C2D00FBC7E7 /* Wine.m */; };
+		58465BC81A8F586E00FC7A84 /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BC51A8F586E00FC7A84 /* NSString+Levenshtein.m */; };
+		58465BC91A8F586E00FC7A84 /* OcrParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BC71A8F586E00FC7A84 /* OcrParser.m */; };
+		58465BCE1A8F80FF00FC7A84 /* ImagePreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BCB1A8F80FF00FC7A84 /* ImagePreprocessor.m */; };
+		58465BCF1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BCD1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.m */; };
+		58465BD21A8F816700FC7A84 /* TesseractRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BD11A8F816700FC7A84 /* TesseractRecognizer.m */; };
+		58465BDB1A8F993E00FC7A84 /* RecognizableEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BD41A8F993E00FC7A84 /* RecognizableEntity.m */; };
+		58465BDC1A8F993E00FC7A84 /* Subregion.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BD61A8F993E00FC7A84 /* Subregion.m */; };
+		58465BDD1A8F993E00FC7A84 /* Vineyard.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BD81A8F993E00FC7A84 /* Vineyard.m */; };
+		58465BDE1A8F993E00FC7A84 /* Wine.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BDA1A8F993E00FC7A84 /* Wine.m */; };
+		58465BE11A8F998100FC7A84 /* WinesDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE01A8F998100FC7A84 /* WinesDatabase.m */; };
+		58465BE61A8F999D00FC7A84 /* DictionariesEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE31A8F999D00FC7A84 /* DictionariesEntity.m */; };
+		58465BE71A8F999D00FC7A84 /* DictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */; };
+		58465BE91A8F9B1400FC7A84 /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE81A8F9B1400FC7A84 /* Model.xcdatamodel */; };
+		58465BEC1A8F9B9500FC7A84 /* Model.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 58465BEB1A8F9B8200FC7A84 /* Model.sqlite */; };
 		585A2C571A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv in Resources */ = {isa = PBXBuildFile; fileRef = 585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */; };
-		586D15151A713A0C0052BC0B /* OcrParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D15141A713A0C0052BC0B /* OcrParser.m */; };
-		586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 586D15181A71534A0052BC0B /* NSString+Levenshtein.m */; };
-		588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */; };
 		588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588638C81A73AD4300CABC24 /* libGPUImage.a */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
 		589585B91A84EB4100739E8D /* BatchProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 589585B81A84EB4100739E8D /* BatchProcessor.m */; };
 		58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B534C61A7B890200176EBA /* WineryPickerController.m */; };
-		58B534CC1A7BC85900176EBA /* Vineyard.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B534CB1A7BC85900176EBA /* Vineyard.m */; };
 		58B534CE1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */; };
-		58B534D21A7BDC7C00176EBA /* RecognizableEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B534D11A7BDC7C00176EBA /* RecognizableEntity.m */; };
-		58E19A241A793EA30033AFEC /* WinesDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A231A793EA30033AFEC /* WinesDatabase.m */; };
 		58E19A281A793F720033AFEC /* TermListByWinery.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58E19A271A793F720033AFEC /* TermListByWinery.csv */; };
 		58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A2B1A7941780033AFEC /* CHCSVParser.m */; };
 		6400DDD9180C5DE000443362 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDD8180C5DE000443362 /* Foundation.framework */; };
@@ -104,11 +106,8 @@
 /* Begin PBXFileReference section */
 		428615B61845F340005D5A2E /* image_sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_sample.jpg; sourceTree = "<group>"; };
 		580A56D11A8668D40097909F /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
-		581E004B1A80BDFD0041F545 /* Subregion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subregion.h; sourceTree = "<group>"; };
-		581E004C1A80BDFD0041F545 /* Subregion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subregion.m; sourceTree = "<group>"; };
 		581E00551A80E9410041F545 /* WineryPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineryPickerCell.h; sourceTree = "<group>"; };
 		581E00561A80E9410041F545 /* WineryPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineryPickerCell.m; sourceTree = "<group>"; };
-		581E009C1A8250F30041F545 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		581E00A11A8252DF0041F545 /* SubregionEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubregionEntity.h; sourceTree = "<group>"; };
 		581E00A21A8252DF0041F545 /* SubregionEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubregionEntity.m; sourceTree = "<group>"; };
 		581E00A41A8252E00041F545 /* BaseEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEntity.h; sourceTree = "<group>"; };
@@ -122,10 +121,6 @@
 		581E00B01A8253A10041F545 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		581E00B21A8272A40041F545 /* BaseEntity+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BaseEntity+Extensions.h"; sourceTree = "<group>"; };
 		581E00B31A8272A40041F545 /* BaseEntity+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BaseEntity+Extensions.m"; sourceTree = "<group>"; };
-		581E00B51A8281070041F545 /* DictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryTransformer.h; sourceTree = "<group>"; };
-		581E00B61A8281070041F545 /* DictionaryTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTransformer.m; sourceTree = "<group>"; };
-		581E00BF1A82823C0041F545 /* DictionariesEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionariesEntity.h; sourceTree = SOURCE_ROOT; };
-		581E00C01A82823C0041F545 /* DictionariesEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionariesEntity.m; sourceTree = SOURCE_ROOT; };
 		582631CF1A852AFC002F3B12 /* BatchProcessorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchProcessorController.h; sourceTree = "<group>"; };
 		582631D01A852AFC002F3B12 /* BatchProcessorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchProcessorController.m; sourceTree = "<group>"; };
 		582631D21A852B54002F3B12 /* BatchProcessorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchProcessorCell.h; sourceTree = "<group>"; };
@@ -133,31 +128,41 @@
 		582631D51A85390D002F3B12 /* BATCHED_IMAGES */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BATCHED_IMAGES; sourceTree = "<group>"; };
 		58303E2D1A7F8F41005C3017 /* Median5x5Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Median5x5Filter.h; sourceTree = "<group>"; };
 		58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Median5x5Filter.m; sourceTree = "<group>"; };
-		5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InverseAdaptiveThresholdFilter.h; sourceTree = "<group>"; };
-		5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InverseAdaptiveThresholdFilter.m; sourceTree = "<group>"; };
-		585610321A725C2D00FBC7E7 /* Wine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wine.h; sourceTree = "<group>"; };
-		585610331A725C2D00FBC7E7 /* Wine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wine.m; sourceTree = "<group>"; };
+		58465BC41A8F586E00FC7A84 /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Levenshtein.h"; path = "../../../TipsiiOSApp/tipsi/Tesseract/NSString+Levenshtein.h"; sourceTree = "<group>"; };
+		58465BC51A8F586E00FC7A84 /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Levenshtein.m"; path = "../../../TipsiiOSApp/tipsi/Tesseract/NSString+Levenshtein.m"; sourceTree = "<group>"; };
+		58465BC61A8F586E00FC7A84 /* OcrParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OcrParser.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/OcrParser.h; sourceTree = "<group>"; };
+		58465BC71A8F586E00FC7A84 /* OcrParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OcrParser.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/OcrParser.m; sourceTree = "<group>"; };
+		58465BCA1A8F80FF00FC7A84 /* ImagePreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePreprocessor.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/ImagePreprocessor.h; sourceTree = "<group>"; };
+		58465BCB1A8F80FF00FC7A84 /* ImagePreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePreprocessor.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/ImagePreprocessor.m; sourceTree = "<group>"; };
+		58465BCC1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InverseAdaptiveThresholdFilter.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/InverseAdaptiveThresholdFilter.h; sourceTree = "<group>"; };
+		58465BCD1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InverseAdaptiveThresholdFilter.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/InverseAdaptiveThresholdFilter.m; sourceTree = "<group>"; };
+		58465BD01A8F816700FC7A84 /* TesseractRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TesseractRecognizer.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/TesseractRecognizer.h; sourceTree = "<group>"; };
+		58465BD11A8F816700FC7A84 /* TesseractRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TesseractRecognizer.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/TesseractRecognizer.m; sourceTree = "<group>"; };
+		58465BD31A8F993E00FC7A84 /* RecognizableEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecognizableEntity.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/RecognizableEntity.h; sourceTree = "<group>"; };
+		58465BD41A8F993E00FC7A84 /* RecognizableEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecognizableEntity.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/RecognizableEntity.m; sourceTree = "<group>"; };
+		58465BD51A8F993E00FC7A84 /* Subregion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Subregion.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Subregion.h; sourceTree = "<group>"; };
+		58465BD61A8F993E00FC7A84 /* Subregion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Subregion.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Subregion.m; sourceTree = "<group>"; };
+		58465BD71A8F993E00FC7A84 /* Vineyard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vineyard.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Vineyard.h; sourceTree = "<group>"; };
+		58465BD81A8F993E00FC7A84 /* Vineyard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vineyard.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Vineyard.m; sourceTree = "<group>"; };
+		58465BD91A8F993E00FC7A84 /* Wine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wine.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Wine.h; sourceTree = "<group>"; };
+		58465BDA1A8F993E00FC7A84 /* Wine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Wine.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Wine.m; sourceTree = "<group>"; };
+		58465BDF1A8F998100FC7A84 /* WinesDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WinesDatabase.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/WinesDatabase.h; sourceTree = "<group>"; };
+		58465BE01A8F998100FC7A84 /* WinesDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WinesDatabase.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/WinesDatabase.m; sourceTree = "<group>"; };
+		58465BE21A8F999D00FC7A84 /* DictionariesEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionariesEntity.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionariesEntity.h; sourceTree = "<group>"; };
+		58465BE31A8F999D00FC7A84 /* DictionariesEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionariesEntity.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionariesEntity.m; sourceTree = "<group>"; };
+		58465BE41A8F999D00FC7A84 /* DictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionaryTransformer.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionaryTransformer.h; sourceTree = "<group>"; };
+		58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionaryTransformer.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionaryTransformer.m; sourceTree = "<group>"; };
+		58465BE81A8F9B1400FC7A84 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		58465BEB1A8F9B8200FC7A84 /* Model.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Model.sqlite; sourceTree = "<group>"; };
 		585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _TermListByWineryNewWorldOnly.csv; sourceTree = "<group>"; };
-		586D15131A713A0C0052BC0B /* OcrParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OcrParser.h; sourceTree = "<group>"; };
-		586D15141A713A0C0052BC0B /* OcrParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OcrParser.m; sourceTree = "<group>"; };
-		586D15171A71534A0052BC0B /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
-		586D15181A71534A0052BC0B /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 		588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
-		588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreprocessor.h; sourceTree = "<group>"; };
-		588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePreprocessor.m; sourceTree = "<group>"; };
 		5889EE731A7032720060CE6E /* 2009bin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009bin.jpg; sourceTree = "<group>"; };
 		589585971A83E25200739E8D /* Tesseract OCR iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Tesseract OCR iOS.xcodeproj"; path = "../Tesseract OCR iOS.xcodeproj"; sourceTree = "<group>"; };
 		589585B71A84EB4100739E8D /* BatchProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchProcessor.h; sourceTree = "<group>"; };
 		589585B81A84EB4100739E8D /* BatchProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchProcessor.m; sourceTree = "<group>"; };
 		58B534C51A7B890200176EBA /* WineryPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WineryPickerController.h; sourceTree = "<group>"; };
 		58B534C61A7B890200176EBA /* WineryPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WineryPickerController.m; sourceTree = "<group>"; };
-		58B534CA1A7BC85900176EBA /* Vineyard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vineyard.h; sourceTree = "<group>"; };
-		58B534CB1A7BC85900176EBA /* Vineyard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vineyard.m; sourceTree = "<group>"; };
 		58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermListByWineryNewWorldOnly.csv; sourceTree = "<group>"; };
-		58B534D01A7BDC7C00176EBA /* RecognizableEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecognizableEntity.h; sourceTree = "<group>"; };
-		58B534D11A7BDC7C00176EBA /* RecognizableEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecognizableEntity.m; sourceTree = "<group>"; };
-		58E19A221A793EA30033AFEC /* WinesDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinesDatabase.h; sourceTree = "<group>"; };
-		58E19A231A793EA30033AFEC /* WinesDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinesDatabase.m; sourceTree = "<group>"; };
 		58E19A271A793F720033AFEC /* TermListByWinery.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermListByWinery.csv; sourceTree = "<group>"; };
 		58E19A2A1A7941780033AFEC /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
 		58E19A2B1A7941780033AFEC /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
@@ -233,10 +238,10 @@
 		581E00511A80BE400041F545 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				586D15131A713A0C0052BC0B /* OcrParser.h */,
-				586D15141A713A0C0052BC0B /* OcrParser.m */,
-				586D15171A71534A0052BC0B /* NSString+Levenshtein.h */,
-				586D15181A71534A0052BC0B /* NSString+Levenshtein.m */,
+				58465BC41A8F586E00FC7A84 /* NSString+Levenshtein.h */,
+				58465BC51A8F586E00FC7A84 /* NSString+Levenshtein.m */,
+				58465BC61A8F586E00FC7A84 /* OcrParser.h */,
+				58465BC71A8F586E00FC7A84 /* OcrParser.m */,
 			);
 			name = Parser;
 			sourceTree = "<group>";
@@ -246,8 +251,8 @@
 			children = (
 				581E00A01A8252AE0041F545 /* CoreDataEntities */,
 				581E00541A80BEF80041F545 /* Entities */,
-				58E19A221A793EA30033AFEC /* WinesDatabase.h */,
-				58E19A231A793EA30033AFEC /* WinesDatabase.m */,
+				58465BDF1A8F998100FC7A84 /* WinesDatabase.h */,
+				58465BE01A8F998100FC7A84 /* WinesDatabase.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -255,10 +260,10 @@
 		581E00531A80BE9B0041F545 /* Image processing */ = {
 			isa = PBXGroup;
 			children = (
-				588638CD1A73AE5C00CABC24 /* ImagePreprocessor.h */,
-				588638CE1A73AE5C00CABC24 /* ImagePreprocessor.m */,
-				5838EF971A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.h */,
-				5838EF981A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m */,
+				58465BCA1A8F80FF00FC7A84 /* ImagePreprocessor.h */,
+				58465BCB1A8F80FF00FC7A84 /* ImagePreprocessor.m */,
+				58465BCC1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.h */,
+				58465BCD1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.m */,
 				58303E2D1A7F8F41005C3017 /* Median5x5Filter.h */,
 				58303E2E1A7F8F41005C3017 /* Median5x5Filter.m */,
 			);
@@ -268,14 +273,14 @@
 		581E00541A80BEF80041F545 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				58B534D01A7BDC7C00176EBA /* RecognizableEntity.h */,
-				58B534D11A7BDC7C00176EBA /* RecognizableEntity.m */,
-				585610321A725C2D00FBC7E7 /* Wine.h */,
-				585610331A725C2D00FBC7E7 /* Wine.m */,
-				58B534CA1A7BC85900176EBA /* Vineyard.h */,
-				58B534CB1A7BC85900176EBA /* Vineyard.m */,
-				581E004B1A80BDFD0041F545 /* Subregion.h */,
-				581E004C1A80BDFD0041F545 /* Subregion.m */,
+				58465BD31A8F993E00FC7A84 /* RecognizableEntity.h */,
+				58465BD41A8F993E00FC7A84 /* RecognizableEntity.m */,
+				58465BD51A8F993E00FC7A84 /* Subregion.h */,
+				58465BD61A8F993E00FC7A84 /* Subregion.m */,
+				58465BD71A8F993E00FC7A84 /* Vineyard.h */,
+				58465BD81A8F993E00FC7A84 /* Vineyard.m */,
+				58465BD91A8F993E00FC7A84 /* Wine.h */,
+				58465BDA1A8F993E00FC7A84 /* Wine.m */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -283,11 +288,11 @@
 		581E00A01A8252AE0041F545 /* CoreDataEntities */ = {
 			isa = PBXGroup;
 			children = (
+				58465BE21A8F999D00FC7A84 /* DictionariesEntity.h */,
+				58465BE31A8F999D00FC7A84 /* DictionariesEntity.m */,
+				58465BE41A8F999D00FC7A84 /* DictionaryTransformer.h */,
+				58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */,
 				581E00C21A8289B00041F545 /* TODO */,
-				581E00B51A8281070041F545 /* DictionaryTransformer.h */,
-				581E00B61A8281070041F545 /* DictionaryTransformer.m */,
-				581E00BF1A82823C0041F545 /* DictionariesEntity.h */,
-				581E00C01A82823C0041F545 /* DictionariesEntity.m */,
 			);
 			name = CoreDataEntities;
 			sourceTree = "<group>";
@@ -397,6 +402,8 @@
 				581E00531A80BE9B0041F545 /* Image processing */,
 				6400DDE7180C5DE000443362 /* G8AppDelegate.h */,
 				6400DDE8180C5DE000443362 /* G8AppDelegate.m */,
+				58465BD01A8F816700FC7A84 /* TesseractRecognizer.h */,
+				58465BD11A8F816700FC7A84 /* TesseractRecognizer.m */,
 				6400DDF0180C5DE000443362 /* Images.xcassets */,
 				6400DDDF180C5DE000443362 /* Supporting Files */,
 			);
@@ -406,6 +413,8 @@
 		6400DDDF180C5DE000443362 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				58465BEB1A8F9B8200FC7A84 /* Model.sqlite */,
+				58465BE81A8F9B1400FC7A84 /* Model.xcdatamodel */,
 				580A56D11A8668D40097909F /* placeholder.png */,
 				58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */,
 				585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */,
@@ -418,7 +427,6 @@
 				6400DDE1180C5DE000443362 /* InfoPlist.strings */,
 				6400DDE4180C5DE000443362 /* main.m */,
 				6400DDE6180C5DE000443362 /* Template Framework Project-Prefix.pch */,
-				581E009B1A8250F30041F545 /* Model.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -517,6 +525,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58465BEC1A8F9B9500FC7A84 /* Model.sqlite in Resources */,
 				6400DDF1180C5DE000443362 /* Images.xcassets in Resources */,
 				428615B71845F340005D5A2E /* image_sample.jpg in Resources */,
 				58B534CE1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv in Resources */,
@@ -540,34 +549,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				588638CF1A73AE5C00CABC24 /* ImagePreprocessor.m in Sources */,
 				581E00A31A8252DF0041F545 /* SubregionEntity.m in Sources */,
 				58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */,
-				58E19A241A793EA30033AFEC /* WinesDatabase.m in Sources */,
-				58B534CC1A7BC85900176EBA /* Vineyard.m in Sources */,
+				58465BE11A8F998100FC7A84 /* WinesDatabase.m in Sources */,
+				58465BDD1A8F993E00FC7A84 /* Vineyard.m in Sources */,
 				58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */,
-				585610341A725C2D00FBC7E7 /* Wine.m in Sources */,
+				58465BD21A8F816700FC7A84 /* TesseractRecognizer.m in Sources */,
+				58465BE91A8F9B1400FC7A84 /* Model.xcdatamodel in Sources */,
+				58465BE71A8F999D00FC7A84 /* DictionaryTransformer.m in Sources */,
+				58465BDC1A8F993E00FC7A84 /* Subregion.m in Sources */,
+				58465BC91A8F586E00FC7A84 /* OcrParser.m in Sources */,
+				58465BCE1A8F80FF00FC7A84 /* ImagePreprocessor.m in Sources */,
+				58465BDE1A8F993E00FC7A84 /* Wine.m in Sources */,
 				581E00A61A8252E00041F545 /* BaseEntity.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
 				581E00B41A8272A40041F545 /* BaseEntity+Extensions.m in Sources */,
 				581E00AC1A8252E00041F545 /* VineyardEntity.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
-				581E00C11A82823C0041F545 /* DictionariesEntity.m in Sources */,
 				582631D11A852AFC002F3B12 /* BatchProcessorController.m in Sources */,
 				581E00A91A8252E00041F545 /* RecognizedName.m in Sources */,
-				581E009D1A8250F30041F545 /* Model.xcdatamodeld in Sources */,
+				58465BCF1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.m in Sources */,
 				589585B91A84EB4100739E8D /* BatchProcessor.m in Sources */,
-				581E004D1A80BDFD0041F545 /* Subregion.m in Sources */,
 				581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */,
 				6400DDEF180C5DE000443362 /* G8ViewController.m in Sources */,
-				586D15191A71534A0052BC0B /* NSString+Levenshtein.m in Sources */,
 				581E00AF1A8252E00041F545 /* WineEntity.m in Sources */,
-				581E00B71A8281070041F545 /* DictionaryTransformer.m in Sources */,
-				58B534D21A7BDC7C00176EBA /* RecognizableEntity.m in Sources */,
-				5838EF991A764F20006F7DA9 /* InverseAdaptiveThresholdFilter.m in Sources */,
+				58465BC81A8F586E00FC7A84 /* NSString+Levenshtein.m in Sources */,
+				58465BDB1A8F993E00FC7A84 /* RecognizableEntity.m in Sources */,
 				582631D41A852B54002F3B12 /* BatchProcessorCell.m in Sources */,
+				58465BE61A8F999D00FC7A84 /* DictionariesEntity.m in Sources */,
 				58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */,
-				586D15151A713A0C0052BC0B /* OcrParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,19 +776,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		581E009B1A8250F30041F545 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				581E009C1A8250F30041F545 /* Model.xcdatamodel */,
-			);
-			currentVersion = 581E009C1A8250F30041F545 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 6400DDCD180C5DE000443362 /* Project object */;
 }

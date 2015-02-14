@@ -13,16 +13,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import <CoreMedia/CoreMedia.h>
 #import <Accelerate/Accelerate.h>
+#import "TesseractRecognizer.h"
 
 @class ImageInfo;
-
-typedef NS_ENUM(NSUInteger, PreprocessMode) {
-    adaptiveBinarization,
-    inverseAdaptiveBinarization,
-    noPreprocessing
-};
-#define PreprocessModeString(enum) [@[@"adaptiveBinarization",@"inverseAdaptiveBinarization",@"noPreprocessing"] objectAtIndex:enum]
-
 
 @interface G8ViewController : UIViewController <G8TesseractDelegate,
                                                 UIImagePickerControllerDelegate,
@@ -38,7 +31,7 @@ typedef NS_ENUM(NSUInteger, PreprocessMode) {
 - (IBAction)openVideo:(id)sender;
 - (void)setupCameraSession;
 
--(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion;
+//-(void)preprocessAndRecognizeImage:(UIImage *)image withMode:(PreprocessMode)mode withBlock:(void(^)(ImageInfo *i))completion;
 
 -(void)pauseCapture;
 -(void)unpauseCapture;

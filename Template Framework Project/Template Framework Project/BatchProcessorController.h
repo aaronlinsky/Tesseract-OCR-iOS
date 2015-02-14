@@ -12,7 +12,7 @@
 
 @property(nonatomic,strong) NSArray *images;
 @property(nonatomic,strong) NSArray *imageInfos;
-@property(nonatomic,strong) NSMutableArray *ocredImageInfos;
+@property(nonatomic,strong) NSMutableArray *ocrResults;
 
 
 @end

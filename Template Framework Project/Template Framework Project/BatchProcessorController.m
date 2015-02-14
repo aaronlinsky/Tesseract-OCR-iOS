@@ -30,7 +30,7 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.ocredImageInfos = [[NSMutableArray alloc]init];
+    self.ocrResults = [[NSMutableArray alloc]init];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -63,8 +63,8 @@ typedef enum : NSUInteger {
 
     cell.imageInfo.text = [self.imageInfos[indexPath.row] description];
     
-    if(indexPath.row < self.ocredImageInfos.count){
-        cell.ocrInfo.text = [self.ocredImageInfos[indexPath.row] description];
+    if(indexPath.row < self.ocrResults.count){
+        cell.ocrInfo.text = [self.ocrResults[indexPath.row] description];
     }
     
     return cell;
@@ -87,7 +87,7 @@ typedef enum : NSUInteger {
    mainVC.winery = curImageInfo.winery;
     
     if(index == 0){
-        [self.ocredImageInfos removeAllObjects];
+        [self.ocrResults removeAllObjects];
         progessAlert = [[UIAlertView alloc]     initWithTitle:@"Please Wait..."
                                                 message: [NSString stringWithFormat:@"Processing image 1/%ld",self.images.count]
                                                 delegate:self
@@ -104,7 +104,7 @@ typedef enum : NSUInteger {
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self processImage:curImage withCompletion:^(ImageInfo *i) {
+        [self processImage:curImage withCompletion:^(OcrResult *i) {
             [self reportOcrCompletion:i];
             index++;
             if(index >= self.images.count || canceled){
@@ -118,21 +118,22 @@ typedef enum : NSUInteger {
     });
 }
 
--(void)processImage:(UIImage*) img withCompletion:(void(^)(ImageInfo *i))block{
+-(void)processImage:(UIImage*) img withCompletion:(void(^)(OcrResult *i))block{
     if(img == nil || block == nil){
         return;
     }
-    [mainVC preprocessAndRecognizeImage:img withMode:adaptiveBinarization withBlock:block];
+    [TesseractRecognizer preprocessAndRecognizeImage:img withMode:adaptiveBinarization forWinery:mainVC.winery withCompletion:block ready:nil];
+//    [mainVC preprocessAndRecognizeImage:img withMode:adaptiveBinarization withBlock:block];
 }
 
--(void)reportOcrCompletion:(ImageInfo *)i{
+-(void)reportOcrCompletion:(OcrResult *)i{
     static NSUInteger idx=0;
     if(idx>=self.imageInfos.count){
         i=0;
     }
     idx++;
 
-    [self.ocredImageInfos addObject:i];
+    [self.ocrResults addObject:i];
     
     progessAlert.message = [NSString stringWithFormat:@"Processing image %lu/%ld",idx,self.images.count];
     [self.tableView reloadData];
@@ -151,7 +152,7 @@ typedef enum : NSUInteger {
 
 -(NSString *)processingResultsFormatted{
     NSUInteger success,partial,fail;
-    [self compareSource:self.imageInfos withOcred:self.ocredImageInfos outSuccess:&success outPartial:&partial outFails:&fail];
+    [self compareSource:self.imageInfos withOcred:self.ocrResults outSuccess:&success outPartial:&partial outFails:&fail];
     return [NSString stringWithFormat: @"Successful:%ld\nPartial:%ld\nFailed:%ld\nFail rate:%.1f%%",success,partial,fail,  (float)fail / (success+partial+fail) * 100 ];
 }
 
@@ -159,7 +160,7 @@ typedef enum : NSUInteger {
     *success = *partial = *fails = 0;
     
     for (NSUInteger i=0; i<src.count; i++) {
-        ImageInfoComparisonResult result = [self compareInfo:src[i] withInfo:dst[i]];
+        ImageInfoComparisonResult result = [self compareInfo:src[i] withResult:dst[i]];
         if(result == infosMatchFound){
             (*success)++;
         }
@@ -172,16 +173,16 @@ typedef enum : NSUInteger {
     }
 }
 
--(ImageInfoComparisonResult)compareInfo:(ImageInfo*)one withInfo:(ImageInfo*)two{
+-(ImageInfoComparisonResult)compareInfo:(ImageInfo*)info withResult:(OcrResult*)result{
  
-    if([self caseInsensitiveContainment:one.acceptedSubregions string:two.acceptedSubregions[0]] ||
-       [self caseInsensitiveContainment:one.acceptedVarieties string:two.acceptedVarieties[0]] ||
-       [self caseInsensitiveContainment:one.acceptedVineyards string:two.acceptedVineyards[0]] ||
-       [self caseInsensitiveContainment:one.acceptedYears string:two.acceptedYears[0]]){
+    if([self caseInsensitiveContainment:info.acceptedSubregions string:result.subregion] ||
+       [self caseInsensitiveContainment:info.acceptedVarieties string:result.variety] ||
+       [self caseInsensitiveContainment:info.acceptedVineyards string:result.vineyard] ||
+       [self caseInsensitiveContainment:info.acceptedYears string:result.year]){
         return infosMatchFound;
     }
     
-    NSLog(@"Fail:%@",two);
+    NSLog(@"Fail:%@",result);
     return infosMismatch;
 }
 
