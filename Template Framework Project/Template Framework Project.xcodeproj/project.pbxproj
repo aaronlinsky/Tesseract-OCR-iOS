@@ -33,8 +33,7 @@
 		58465BE11A8F998100FC7A84 /* WinesDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE01A8F998100FC7A84 /* WinesDatabase.m */; };
 		58465BE61A8F999D00FC7A84 /* DictionariesEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE31A8F999D00FC7A84 /* DictionariesEntity.m */; };
 		58465BE71A8F999D00FC7A84 /* DictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */; };
-		58465BE91A8F9B1400FC7A84 /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE81A8F9B1400FC7A84 /* Model.xcdatamodel */; };
-		58465BEC1A8F9B9500FC7A84 /* Model.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 58465BEB1A8F9B8200FC7A84 /* Model.sqlite */; };
+		585580621A974B3C0015E797 /* Model.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 585580611A974B190015E797 /* Model.sqlite */; };
 		585A2C571A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv in Resources */ = {isa = PBXBuildFile; fileRef = 585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */; };
 		588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588638C81A73AD4300CABC24 /* libGPUImage.a */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
@@ -43,6 +42,8 @@
 		58B534CE1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */; };
 		58E19A281A793F720033AFEC /* TermListByWinery.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58E19A271A793F720033AFEC /* TermListByWinery.csv */; };
 		58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A2B1A7941780033AFEC /* CHCSVParser.m */; };
+		58E785C31A961623001C8EEF /* ArrayTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E785C21A961623001C8EEF /* ArrayTransformer.m */; };
+		58E785C51A961F0A001C8EEF /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 58E785C41A961F0A001C8EEF /* Model.xcdatamodel */; };
 		6400DDD9180C5DE000443362 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDD8180C5DE000443362 /* Foundation.framework */; };
 		6400DDDB180C5DE000443362 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDDA180C5DE000443362 /* CoreGraphics.framework */; };
 		6400DDDD180C5DE000443362 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDDC180C5DE000443362 /* UIKit.framework */; };
@@ -152,8 +153,7 @@
 		58465BE31A8F999D00FC7A84 /* DictionariesEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionariesEntity.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionariesEntity.m; sourceTree = "<group>"; };
 		58465BE41A8F999D00FC7A84 /* DictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DictionaryTransformer.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionaryTransformer.h; sourceTree = "<group>"; };
 		58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionaryTransformer.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionaryTransformer.m; sourceTree = "<group>"; };
-		58465BE81A8F9B1400FC7A84 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		58465BEB1A8F9B8200FC7A84 /* Model.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Model.sqlite; sourceTree = "<group>"; };
+		585580611A974B190015E797 /* Model.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = Model.sqlite; path = ../../../TipsiiOSApp/tipsi/Model.sqlite; sourceTree = "<group>"; };
 		585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _TermListByWineryNewWorldOnly.csv; sourceTree = "<group>"; };
 		588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		5889EE731A7032720060CE6E /* 2009bin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009bin.jpg; sourceTree = "<group>"; };
@@ -166,6 +166,9 @@
 		58E19A271A793F720033AFEC /* TermListByWinery.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermListByWinery.csv; sourceTree = "<group>"; };
 		58E19A2A1A7941780033AFEC /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
 		58E19A2B1A7941780033AFEC /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
+		58E785C11A961623001C8EEF /* ArrayTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArrayTransformer.h; path = ../../../TipsiiOSApp/tipsi/ArrayTransformer.h; sourceTree = "<group>"; };
+		58E785C21A961623001C8EEF /* ArrayTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArrayTransformer.m; path = ../../../TipsiiOSApp/tipsi/ArrayTransformer.m; sourceTree = "<group>"; };
+		58E785C41A961F0A001C8EEF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = Model.xcdatamodel; path = ../../../TipsiiOSApp/tipsi/Model.xcdatamodel; sourceTree = "<group>"; };
 		6400DDD5180C5DE000443362 /* Template Framework Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Template Framework Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6400DDD8180C5DE000443362 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6400DDDA180C5DE000443362 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -292,6 +295,8 @@
 				58465BE31A8F999D00FC7A84 /* DictionariesEntity.m */,
 				58465BE41A8F999D00FC7A84 /* DictionaryTransformer.h */,
 				58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */,
+				58E785C11A961623001C8EEF /* ArrayTransformer.h */,
+				58E785C21A961623001C8EEF /* ArrayTransformer.m */,
 				581E00C21A8289B00041F545 /* TODO */,
 			);
 			name = CoreDataEntities;
@@ -413,8 +418,8 @@
 		6400DDDF180C5DE000443362 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				58465BEB1A8F9B8200FC7A84 /* Model.sqlite */,
-				58465BE81A8F9B1400FC7A84 /* Model.xcdatamodel */,
+				585580611A974B190015E797 /* Model.sqlite */,
+				58E785C41A961F0A001C8EEF /* Model.xcdatamodel */,
 				580A56D11A8668D40097909F /* placeholder.png */,
 				58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */,
 				585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */,
@@ -525,7 +530,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58465BEC1A8F9B9500FC7A84 /* Model.sqlite in Resources */,
+				585580621A974B3C0015E797 /* Model.sqlite in Resources */,
 				6400DDF1180C5DE000443362 /* Images.xcassets in Resources */,
 				428615B71845F340005D5A2E /* image_sample.jpg in Resources */,
 				58B534CE1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv in Resources */,
@@ -555,17 +560,18 @@
 				58465BDD1A8F993E00FC7A84 /* Vineyard.m in Sources */,
 				58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */,
 				58465BD21A8F816700FC7A84 /* TesseractRecognizer.m in Sources */,
-				58465BE91A8F9B1400FC7A84 /* Model.xcdatamodel in Sources */,
 				58465BE71A8F999D00FC7A84 /* DictionaryTransformer.m in Sources */,
 				58465BDC1A8F993E00FC7A84 /* Subregion.m in Sources */,
 				58465BC91A8F586E00FC7A84 /* OcrParser.m in Sources */,
 				58465BCE1A8F80FF00FC7A84 /* ImagePreprocessor.m in Sources */,
 				58465BDE1A8F993E00FC7A84 /* Wine.m in Sources */,
+				58E785C51A961F0A001C8EEF /* Model.xcdatamodel in Sources */,
 				581E00A61A8252E00041F545 /* BaseEntity.m in Sources */,
 				6400DDE5180C5DE000443362 /* main.m in Sources */,
 				581E00B41A8272A40041F545 /* BaseEntity+Extensions.m in Sources */,
 				581E00AC1A8252E00041F545 /* VineyardEntity.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
+				58E785C31A961623001C8EEF /* ArrayTransformer.m in Sources */,
 				582631D11A852AFC002F3B12 /* BatchProcessorController.m in Sources */,
 				581E00A91A8252E00041F545 /* RecognizedName.m in Sources */,
 				58465BCF1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.m in Sources */,
