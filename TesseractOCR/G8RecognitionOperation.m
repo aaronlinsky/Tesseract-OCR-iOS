@@ -37,7 +37,7 @@ static G8Tesseract *tess;
     tess.maximumRecognitionTime = 2;
     tess.engineMode = G8OCREngineModeTesseractOnly;
     tess.pageSegmentationMode = G8PageSegmentationModeSingleColumn;//G8PageSegmentationModeSparseText;//
-    tess.charWhitelist = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    tess.charWhitelist = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-";
 }
 
 - (id)init

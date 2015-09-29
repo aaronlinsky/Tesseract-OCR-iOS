@@ -35,6 +35,10 @@
 		58465BE71A8F999D00FC7A84 /* DictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */; };
 		585580621A974B3C0015E797 /* Model.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 585580611A974B190015E797 /* Model.sqlite */; };
 		585A2C571A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv in Resources */ = {isa = PBXBuildFile; fileRef = 585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */; };
+		587FF11C1AB0A3460093CD35 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 587FF11B1AB0A3460093CD35 /* UIImage+Extensions.m */; };
+		587FF1221AB0A3600093CD35 /* ArrayTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 587FF1211AB0A3600093CD35 /* ArrayTransformer.m */; };
+		587FF1251AB0A38A0093CD35 /* Designation.m in Sources */ = {isa = PBXBuildFile; fileRef = 587FF1241AB0A38A0093CD35 /* Designation.m */; };
+		587FF1281AB0A3A30093CD35 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 587FF1271AB0A3A30093CD35 /* Region.m */; };
 		588638D01A73B00800CABC24 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 588638C81A73AD4300CABC24 /* libGPUImage.a */; };
 		5889EE741A7032720060CE6E /* 2009bin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5889EE731A7032720060CE6E /* 2009bin.jpg */; };
 		589585B91A84EB4100739E8D /* BatchProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 589585B81A84EB4100739E8D /* BatchProcessor.m */; };
@@ -42,7 +46,6 @@
 		58B534CE1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58B534CD1A7BD76E00176EBA /* TermListByWineryNewWorldOnly.csv */; };
 		58E19A281A793F720033AFEC /* TermListByWinery.csv in Resources */ = {isa = PBXBuildFile; fileRef = 58E19A271A793F720033AFEC /* TermListByWinery.csv */; };
 		58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E19A2B1A7941780033AFEC /* CHCSVParser.m */; };
-		58E785C31A961623001C8EEF /* ArrayTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E785C21A961623001C8EEF /* ArrayTransformer.m */; };
 		58E785C51A961F0A001C8EEF /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 58E785C41A961F0A001C8EEF /* Model.xcdatamodel */; };
 		6400DDD9180C5DE000443362 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDD8180C5DE000443362 /* Foundation.framework */; };
 		6400DDDB180C5DE000443362 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6400DDDA180C5DE000443362 /* CoreGraphics.framework */; };
@@ -155,6 +158,14 @@
 		58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DictionaryTransformer.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/DictionaryTransformer.m; sourceTree = "<group>"; };
 		585580611A974B190015E797 /* Model.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = Model.sqlite; path = ../../../TipsiiOSApp/tipsi/Model.sqlite; sourceTree = "<group>"; };
 		585A2C561A7A316A00C463EF /* _TermListByWineryNewWorldOnly.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = _TermListByWineryNewWorldOnly.csv; sourceTree = "<group>"; };
+		587FF11A1AB0A3460093CD35 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
+		587FF11B1AB0A3460093CD35 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
+		587FF1201AB0A3600093CD35 /* ArrayTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayTransformer.h; sourceTree = "<group>"; };
+		587FF1211AB0A3600093CD35 /* ArrayTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayTransformer.m; sourceTree = "<group>"; };
+		587FF1231AB0A38A0093CD35 /* Designation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Designation.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Designation.h; sourceTree = "<group>"; };
+		587FF1241AB0A38A0093CD35 /* Designation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Designation.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Designation.m; sourceTree = "<group>"; };
+		587FF1261AB0A3A30093CD35 /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Region.h; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Region.h; sourceTree = "<group>"; };
+		587FF1271AB0A3A30093CD35 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Region.m; path = ../../../TipsiiOSApp/tipsi/Tesseract/Model/Region.m; sourceTree = "<group>"; };
 		588638C11A73AD4300CABC24 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		5889EE731A7032720060CE6E /* 2009bin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2009bin.jpg; sourceTree = "<group>"; };
 		589585971A83E25200739E8D /* Tesseract OCR iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Tesseract OCR iOS.xcodeproj"; path = "../Tesseract OCR iOS.xcodeproj"; sourceTree = "<group>"; };
@@ -166,8 +177,6 @@
 		58E19A271A793F720033AFEC /* TermListByWinery.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TermListByWinery.csv; sourceTree = "<group>"; };
 		58E19A2A1A7941780033AFEC /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
 		58E19A2B1A7941780033AFEC /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
-		58E785C11A961623001C8EEF /* ArrayTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArrayTransformer.h; path = ../../../TipsiiOSApp/tipsi/ArrayTransformer.h; sourceTree = "<group>"; };
-		58E785C21A961623001C8EEF /* ArrayTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArrayTransformer.m; path = ../../../TipsiiOSApp/tipsi/ArrayTransformer.m; sourceTree = "<group>"; };
 		58E785C41A961F0A001C8EEF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = Model.xcdatamodel; path = ../../../TipsiiOSApp/tipsi/Model.xcdatamodel; sourceTree = "<group>"; };
 		6400DDD5180C5DE000443362 /* Template Framework Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Template Framework Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6400DDD8180C5DE000443362 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -284,6 +293,10 @@
 				58465BD81A8F993E00FC7A84 /* Vineyard.m */,
 				58465BD91A8F993E00FC7A84 /* Wine.h */,
 				58465BDA1A8F993E00FC7A84 /* Wine.m */,
+				587FF1231AB0A38A0093CD35 /* Designation.h */,
+				587FF1241AB0A38A0093CD35 /* Designation.m */,
+				587FF1261AB0A3A30093CD35 /* Region.h */,
+				587FF1271AB0A3A30093CD35 /* Region.m */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -295,8 +308,8 @@
 				58465BE31A8F999D00FC7A84 /* DictionariesEntity.m */,
 				58465BE41A8F999D00FC7A84 /* DictionaryTransformer.h */,
 				58465BE51A8F999D00FC7A84 /* DictionaryTransformer.m */,
-				58E785C11A961623001C8EEF /* ArrayTransformer.h */,
-				58E785C21A961623001C8EEF /* ArrayTransformer.m */,
+				587FF1201AB0A3600093CD35 /* ArrayTransformer.h */,
+				587FF1211AB0A3600093CD35 /* ArrayTransformer.m */,
 				581E00C21A8289B00041F545 /* TODO */,
 			);
 			name = CoreDataEntities;
@@ -327,6 +340,8 @@
 				58E19A291A7941780033AFEC /* CHCSVParser */,
 				589585B71A84EB4100739E8D /* BatchProcessor.h */,
 				589585B81A84EB4100739E8D /* BatchProcessor.m */,
+				587FF11A1AB0A3460093CD35 /* UIImage+Extensions.h */,
+				587FF11B1AB0A3460093CD35 /* UIImage+Extensions.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -557,6 +572,7 @@
 				581E00A31A8252DF0041F545 /* SubregionEntity.m in Sources */,
 				58E19A2C1A7941780033AFEC /* CHCSVParser.m in Sources */,
 				58465BE11A8F998100FC7A84 /* WinesDatabase.m in Sources */,
+				587FF1281AB0A3A30093CD35 /* Region.m in Sources */,
 				58465BDD1A8F993E00FC7A84 /* Vineyard.m in Sources */,
 				58B534C71A7B890200176EBA /* WineryPickerController.m in Sources */,
 				58465BD21A8F816700FC7A84 /* TesseractRecognizer.m in Sources */,
@@ -571,17 +587,19 @@
 				581E00B41A8272A40041F545 /* BaseEntity+Extensions.m in Sources */,
 				581E00AC1A8252E00041F545 /* VineyardEntity.m in Sources */,
 				6400DDE9180C5DE000443362 /* G8AppDelegate.m in Sources */,
-				58E785C31A961623001C8EEF /* ArrayTransformer.m in Sources */,
 				582631D11A852AFC002F3B12 /* BatchProcessorController.m in Sources */,
 				581E00A91A8252E00041F545 /* RecognizedName.m in Sources */,
 				58465BCF1A8F80FF00FC7A84 /* InverseAdaptiveThresholdFilter.m in Sources */,
+				587FF11C1AB0A3460093CD35 /* UIImage+Extensions.m in Sources */,
 				589585B91A84EB4100739E8D /* BatchProcessor.m in Sources */,
 				581E00571A80E9410041F545 /* WineryPickerCell.m in Sources */,
 				6400DDEF180C5DE000443362 /* G8ViewController.m in Sources */,
 				581E00AF1A8252E00041F545 /* WineEntity.m in Sources */,
+				587FF1221AB0A3600093CD35 /* ArrayTransformer.m in Sources */,
 				58465BC81A8F586E00FC7A84 /* NSString+Levenshtein.m in Sources */,
 				58465BDB1A8F993E00FC7A84 /* RecognizableEntity.m in Sources */,
 				582631D41A852B54002F3B12 /* BatchProcessorCell.m in Sources */,
+				587FF1251AB0A38A0093CD35 /* Designation.m in Sources */,
 				58465BE61A8F999D00FC7A84 /* DictionariesEntity.m in Sources */,
 				58303E2F1A7F8F41005C3017 /* Median5x5Filter.m in Sources */,
 			);
@@ -713,6 +731,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../Products",
@@ -740,6 +759,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../Products",
